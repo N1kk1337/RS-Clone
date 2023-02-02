@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {
-  createStore, applyMiddleware, Store, AnyAction,
+  createStore, AnyAction,
 } from 'redux';
 import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 
 // test redux setup
 const defaultState = {
