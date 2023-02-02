@@ -2,6 +2,8 @@
     "products":[
         {
             "id":1,
+            "email": "CaptainJackSparrow@gmail.com",
+            "password":"qwerty",
             "firstName": "Jack",
             "lastName": "Sparrow",
             "nickName": "Captain",
@@ -15,6 +17,8 @@
         },
         {
             "id":2,
+            "email": "JaneDoe@gmail.com",
+            "password":"123456",
             "firstName": "Jane",
             "lastName": "Doe",
             "nickName": "",
@@ -28,6 +32,8 @@
         },
         {
             "id":3,
+            "email": "JohnDoe@gmail.com",
+            "password":"zxcvbn",
             "firstName": "John",
             "lastName": "Doe",
             "nickName": "Bearhead",
