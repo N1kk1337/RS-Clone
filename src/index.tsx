@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {
-  createStore, applyMiddleware, Store, AnyAction,
+  createStore, AnyAction,
 } from 'redux';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
