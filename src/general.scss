@@ -11,8 +11,21 @@ $blue: #3a5199; // Кобальт (синий) (для важных смысло
     box-sizing: border-box;
 }
 
+
 // Шрифт если больше - то 24px и 36px
 // если надо ещё меньше то 12px
+
+.font-sixe-12 {
+    font-size: 36px;
+}
+
+.font-sixe-24 {
+    font-size: 24px;
+}
+
+.font-sixe-36 {
+    font-size: 36px;
+}
 
 body {
     margin: 0 auto;
