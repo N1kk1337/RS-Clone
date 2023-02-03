@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
-import RegisterModal from './components/RegisterModal/RegisterModal';
+import LoginModal from './components/LoginModal/LoginModal';
+// import RegisterModal from './components/RegisterModal/RegisterModal';
 
 function App() {
   return (
     <div className="App">
-      <RegisterModal />
+      {/* <RegisterModal /> */}
+      <LoginModal />
     </div>
   );
 }

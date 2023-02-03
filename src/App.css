@@ -1,5 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import './components/RegisterModal/register.scss';
+@import './components/LoginModal/LoginModal.scss';
 .App {
   text-align: center;
 }
