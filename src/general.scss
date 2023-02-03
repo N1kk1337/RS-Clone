@@ -1,7 +1,7 @@
-$main-color: #ffffff; // Белый (цвет background)
-$border-color: #2f2e33; // Сине-черный (цвет бордера)
-$highlight-color: #d5d6d2; // Холодный серый (для каких-то небольших выделений)
-$semantic-color: #3a5199; // Кобальт (синий) (для важных смысловых выделений и значений)
+$white: #ffffff; // Белый (цвет background)
+$dark-grey: #2f2e33; // Сине-черный (цвет бордера)
+$light-gray: #d5d6d2; // Холодный серый (для каких-то небольших выделений)
+$blue: #3a5199; // Кобальт (синий) (для важных смысловых выделений и значений)
 
 * {
     padding: 0;
@@ -20,7 +20,7 @@ body {
 }
 
 .border {
-    color: $border-color;
+    color: $dark-grey;
     border-radius: 3px;
 }
 
