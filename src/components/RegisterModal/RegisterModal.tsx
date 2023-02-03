@@ -6,6 +6,7 @@ function BasicExample() {
   const [email, setEmail] = useState('');
   const [isEmail, setIsEmail] = useState(false);
   const [password, setPassword] = useState('');
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [confirmPasswordVal, setConfirmPasswordVal] = useState(false);
 
   function emailValid(e: React.ChangeEvent) {
@@ -23,7 +24,13 @@ function BasicExample() {
       /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z]).{7,}$/,
     );
 
-    if (!isPassword) setPassword(''); else setPassword(isPassword[0]);
+    if (!isPassword) {
+      setPassword('');
+      setIsPasswordValid(true);
+    } else {
+      setPassword(isPassword[0]);
+      setIsPasswordValid(false);
+    }
   }
 
   function confirmPassword(e: React.ChangeEvent) {
@@ -52,7 +59,7 @@ function BasicExample() {
             placeholder="Password"
             onChange={(e) => passwordValid(e)}
           />
-          {password ? (
+          {!isPasswordValid ? (
             ''
           ) : (
             <p className="error">
