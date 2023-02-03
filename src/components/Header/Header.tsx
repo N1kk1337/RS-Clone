@@ -4,7 +4,7 @@ import './style.css';
 function Header(): JSX.Element {
   return (
     <div className="header">
-      <img src="logo.png" alt="logo" />
+      <img src="/rs-clone/logo.png" alt="logo" />
     </div>
   );
 }
