@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function LandingPage() {
+  const router = useNavigate();
   return (
     <main>
       <section className="content-page">
@@ -32,7 +34,7 @@ function LandingPage() {
                 </div>
 
                 <div className="col-12">
-                  <button type="submit" className="btn btn-primary col-12 mb-5">Sign in</button>
+                  <button type="submit" className="btn btn-primary col-12 mb-5" onClick={() => router('/user-page')}>Sign in</button>
                   <button type="submit" className="btn btn-success col-12">Sign up</button>
                 </div>
               </form>
