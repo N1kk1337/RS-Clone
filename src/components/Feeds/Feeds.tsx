@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
@@ -18,6 +20,16 @@ function Feeds(props: { personInfo: User }): JSX.Element {
   const mouseOutHandler = function () {
     setPostSetting(false);
   };
+  const deletePost = function () {
+    console.log(person.id);
+  };
+  const editPost = function () {
+    console.log(person.id);
+  };
+
+  function handlerKeyDown(e:number) {
+    return e;
+  }
 
   function likeHandler() {
     if (postLike) setPostLike(false);
@@ -52,8 +64,8 @@ function Feeds(props: { personInfo: User }): JSX.Element {
           <span className="dot" />
           {postSetting ? (
             <ul className="settins">
-              <li className="setting-item">Delete Post</li>
-              <li className="setting-item">Edit Post</li>
+              <li className="setting-item" onClick={deletePost} onKeyUp={(e) => handlerKeyDown(e.keyCode)}>Delete Post</li>
+              <li className="setting-item" onClick={editPost} onKeyUpCapture={(e) => handlerKeyDown(e.keyCode)}>Edit Post</li>
             </ul>
           ) : (
             ''
