@@ -8,6 +8,7 @@ import './PostForm.scss';
 
 function PostForm() {
   const [deltaVal, setDeltaVal] = useState('');
+  const [defaultClass, setDefaultClass] = useState('form-control_text');
 
   const postSubmitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -21,6 +22,12 @@ function PostForm() {
     const { files } = e.target;
     const selectedFiles: FileList = files as FileList;
     console.log(selectedFiles);
+  };
+  const quillBlurHandler = () => {
+    setDefaultClass('form-control_text tool');
+  };
+  const quillBlurOutHandler = () => {
+    setDefaultClass('form-control_text');
   };
   return (
     <>
@@ -41,10 +48,13 @@ function PostForm() {
               />
             </svg>
           </span>
+          {}
           <ReactQuill
             theme="snow"
             placeholder="Что у вас нового?"
-            className="form-control_text"
+            className={defaultClass}
+            onFocus={quillBlurHandler}
+            onBlur={quillBlurOutHandler}
           />
           <Form.Group className="file-upload_group">
             <label htmlFor="file-upload">
