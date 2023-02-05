@@ -5,6 +5,8 @@ import ReactQuill from 'react-quill';
 import uploadFile from '../../assets/1102689.png';
 import Feeds from '../Feeds/Feeds';
 import './PostForm.scss';
+import data from '../../data/test-data/test-data.json';
+import User from '../../data/test-data/User';
 
 function PostForm() {
   const [deltaVal, setDeltaVal] = useState('');
@@ -48,7 +50,6 @@ function PostForm() {
               />
             </svg>
           </span>
-          {}
           <ReactQuill
             theme="snow"
             placeholder="Что у вас нового?"
@@ -67,8 +68,9 @@ function PostForm() {
           Post
         </Button>
       </Form>
-
-      <Feeds />
+      {data.products.map((x: User) => (
+        <Feeds personInfo={x} key={x.id} />
+      ))}
     </>
   );
 }

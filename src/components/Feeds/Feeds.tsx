@@ -1,11 +1,15 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React, { useState } from 'react';
 import { AiOutlineComment, AiOutlineLike } from 'react-icons/ai';
+import User from '../../data/test-data/User';
 import avatar from '../../assets/camera_50.png';
 import './Feeds.scss';
 
-function Feeds(): JSX.Element {
+function Feeds(props: { personInfo: User }): JSX.Element {
+  const person = props.personInfo;
+  console.log(person);
   const [postSetting, setPostSetting] = useState(false);
   const [postLike, setPostLike] = useState(false);
   const mouseOverHandler = function () {
@@ -24,11 +28,18 @@ function Feeds(): JSX.Element {
       <div className="post-header">
         <div className="user-info">
           <div className="avatar">
-            <img src={avatar} alt="png" />
+            <img
+              src={!person.avatarImg ? avatar : person.avatarImg}
+              alt="png"
+            />
           </div>
           <div className="post-info">
-            <h4 className="post-author">Michael Jackson</h4>
-            <p className="post-time">today at 12:20</p>
+            <h4 className="post-author">
+              {person.firstName}
+              {' '}
+              {person.lastName}
+            </h4>
+            <p className="post-time">{person.email}</p>
           </div>
         </div>
         <div
