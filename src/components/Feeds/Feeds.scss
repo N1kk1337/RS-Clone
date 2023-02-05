@@ -1,0 +1,68 @@
+@import '../../general.scss';
+
+p {
+  margin: 0;
+}
+.feed-post {
+  padding: 25px 15px;
+  background: $light-gray;
+  color: $dark-grey;
+  border-radius: 10px;
+  margin-top: 20px;
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .avatar {
+        border-radius: 50%;
+        overflow: hidden;
+      }
+    }
+  }
+  .post-text_place {
+    margin: 20px 0;
+  }
+  .reactions {
+    border: none;
+    background: transparent;
+  }
+  .like-comments {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.post-settings {
+  display: flex;
+  height: 10px;
+  position: relative;
+  gap: 5px;
+  .dot {
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: $dark-grey;
+    border-radius: 50%;
+    opacity: 0.8;
+  }
+}
+
+.settins {
+  position: absolute;
+  width: 120px;
+  padding: 10px;
+  right: 25px;
+  top: 10%;
+  list-style: none;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  border-radius: 10px;
+  .setting-item {
+    font-size: 14px;
+    padding: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+}
