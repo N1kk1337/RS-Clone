@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import './register.css';
+import './register.scss';
 
 function BasicExample() {
   const [email, setEmail] = useState('');

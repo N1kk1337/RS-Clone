@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import './LoginModal.css';
+import './LoginModal.scss';
 
 function LoginModal() {
   const [email, setEmail] = useState('');
