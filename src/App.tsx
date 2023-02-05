@@ -9,8 +9,8 @@ import LandingPage from './pages/Landing/LandingPage';
 import UserPage from './pages/UserPage/UserPage';
 import './App.css';
 
-export const emptyPath = '';
-export const userPage = 'user-page';
+export const emptyPath = '/';
+export const userPage = '/user-page';
 const starPath = '*';
 
 function App() {
