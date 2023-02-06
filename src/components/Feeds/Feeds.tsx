@@ -11,19 +11,20 @@ import './Feeds.scss';
 
 function Feeds(props: { personInfo: User }): JSX.Element {
   const person = props.personInfo;
-  console.log(person);
   const [postSetting, setPostSetting] = useState(false);
   const [postLike, setPostLike] = useState(false);
-  const mouseOverHandler = function () {
+  const mouseOverHandler = () => {
     setPostSetting(true);
   };
-  const mouseOutHandler = function () {
+  const mouseOutHandler = () => {
     setPostSetting(false);
   };
-  const deletePost = function () {
+  const deletePost = () => {
+    // ready for delete
     console.log(person.id);
   };
-  const editPost = function () {
+  const editPost = () => {
+    // ready for update
     console.log(person.id);
   };
 

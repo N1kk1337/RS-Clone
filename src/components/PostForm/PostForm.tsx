@@ -18,11 +18,13 @@ function PostForm() {
       '.ql-editor',
     )?.innerHTML as string;
     setDeltaVal(htmlElemnts);
+    // ready for post
     console.log(deltaVal);
   };
   const fileInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     const selectedFiles: FileList = files as FileList;
+    // ready for post
     console.log(selectedFiles);
   };
   const quillBlurHandler = () => {
