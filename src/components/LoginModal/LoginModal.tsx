@@ -7,7 +7,7 @@ interface UserRegister {
   email: string;
   password: string;
 }
-const baseUrl = 'https://reqres.in/api/posts';
+const baseUrl = 'http://localhost:3004/users';
 
 function LoginModal() {
   const [email, setEmail] = useState('');

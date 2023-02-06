@@ -13,7 +13,7 @@ interface UserRegister {
   confirmPassword: string;
 }
 
-const baseUrl = 'https://reqres.in/api/posts';
+const baseUrl = 'http://localhost:3004/users';
 
 function BasicExample() {
   const [email, setEmail] = useState('');
