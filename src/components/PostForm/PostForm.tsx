@@ -19,13 +19,13 @@ function PostForm() {
     )?.innerHTML as string;
     setDeltaVal(htmlElemnts);
     // ready for post
-    console.log(deltaVal);
+    console.log('ready for post', deltaVal);
   };
   const fileInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     const selectedFiles: FileList = files as FileList;
     // ready for post
-    console.log(selectedFiles);
+    console.log('ready for post', selectedFiles);
   };
   const quillBlurHandler = () => {
     setDefaultClass('form-control_text tool');

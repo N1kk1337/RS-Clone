@@ -5,14 +5,20 @@
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React, { useState } from 'react';
 import { AiOutlineComment, AiOutlineLike } from 'react-icons/ai';
-import User from '../../data/test-data/User';
+import { IoMdSend } from 'react-icons/io';
+import ReactQuill from 'react-quill';
+import parse from 'html-react-parser';
+import { Button, Form } from 'react-bootstrap';
 import avatar from '../../assets/camera_50.png';
 import './Feeds.scss';
+import User from '../../data/test-data/User';
 
 function Feeds(props: { personInfo: User }): JSX.Element {
   const person = props.personInfo;
   const [postSetting, setPostSetting] = useState(false);
   const [postLike, setPostLike] = useState(false);
+  const [comment, setComment] = useState(false);
+  const [commentText, setCommentText] = useState('');
   const mouseOverHandler = () => {
     setPostSetting(true);
   };
@@ -36,6 +42,19 @@ function Feeds(props: { personInfo: User }): JSX.Element {
     if (postLike) setPostLike(false);
     else setPostLike(true);
   }
+  function addCommentHandler() {
+    comment ? setComment(false) : setComment(true);
+  }
+
+  function sendComment(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const htmlElemnts: string = (e.target as HTMLElement).querySelector(
+      '.ql-editor',
+    )?.innerHTML as string;
+    htmlElemnts === '<p><br></p>' ? setCommentText('') : setCommentText(htmlElemnts);
+    // htmlElements for post
+  }
+
   return (
     <div className="feed-post">
       <div className="post-header">
@@ -89,10 +108,27 @@ function Feeds(props: { personInfo: User }): JSX.Element {
             <AiOutlineLike size={30} color="rgb(68, 68, 68)" />
           )}
         </button>
-        <button type="button" className="reactions comment">
+        <button
+          type="button"
+          className="reactions comment"
+          onKeyUp={(e) => handlerKeyDown(e.keyCode)}
+          onClick={addCommentHandler}
+        >
           <AiOutlineComment size={30} color="#444" />
         </button>
       </div>
+      {comment ? (
+        <>
+          <hr />
+          <div>{parse(commentText)}</div>
+          <Form className="add-comment_place" onSubmit={(e) => sendComment(e)}>
+            <hr />
+            <ReactQuill placeholder="Add comment" className="add-comment" />
+            <Button type="submit" className="btn-submit_comment"><IoMdSend className="send-icon" /></Button>
+          </Form>
+        </>
+      )
+        : ''}
     </div>
   );
 }
