@@ -1,48 +1,72 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import './LoginModal.scss';
 
+interface UserRegister {
+  email: string;
+  password: string;
+}
+const baseUrl = 'https://reqres.in/api/posts';
+
 function LoginModal() {
   const [email, setEmail] = useState('');
-  const [isEmail, setIsEmail] = useState(false);
   const [password, setPassword] = useState('');
+  const [isEmail, setIsEmail] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
 
-  console.log(password);
-  function emailValid(e: React.ChangeEvent) {
-    const emailVal = (e.target as HTMLInputElement).value;
-    setEmail(emailVal);
-    const isEmailVal: string = email.match(/^[^@\s]+@[^@\s]+\.[a-zA-Z]{0,}$/)
-      ?.input as string;
+  function inputChangeHandler(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) {
+    const { id, value } = e.target;
+    if (id === 'email') {
+      const isEmailVal: string = value.match(/^[^@\s]+@[^@\s]+\.[a-zA-Z]{0,}$/)
+        ?.input as string;
+      if (!isEmailVal) setIsEmail(true);
+      else setIsEmail(false);
+      setEmail(isEmailVal);
+    }
+    if (id === 'password') {
+      const isPassword = value.match(
+        /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{7,}$/,
+      )?.input as string;
 
-    if (!isEmailVal) setIsEmail(true);
-    else setIsEmail(false);
+      if (!isPassword) {
+        setIsPasswordValid(true);
+      } else {
+        setIsPasswordValid(false);
+      }
+      setPassword(isPassword);
+    }
   }
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const body: UserRegister = {
+      email,
+      password,
+    };
+    try {
+      axios.post(baseUrl, body);
 
-  function passwordValid(e: React.ChangeEvent) {
-    const passwordVal = (e.target as HTMLInputElement).value;
-    const isPassword = passwordVal.match(
-      /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z]).{7,}$/,
-    );
-
-    if (!isPassword) {
+      setEmail('');
       setPassword('');
-      setIsPasswordValid(true);
-    } else {
-      setPassword(isPassword[0]);
-      setIsPasswordValid(false);
+    } catch (error) {
+      console.error(error);
     }
   }
 
   return (
     <div className="login login-active">
-      <Form>
+      <Form onSubmit={(e) => handleSubmit(e)}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label className="fs-4">Email address</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
-            onChange={(e) => emailValid(e)}
+            onChange={(e) => inputChangeHandler(e)}
+            id="email"
+            value={email}
+            required
           />
           {isEmail ? <p className="error">Email is not valid</p> : ''}
         </Form.Group>
@@ -52,7 +76,10 @@ function LoginModal() {
           <Form.Control
             type="password"
             placeholder="Password"
-            onChange={(e) => passwordValid(e)}
+            onChange={(e) => inputChangeHandler(e)}
+            id="password"
+            value={password}
+            required
           />
           {!isPasswordValid ? (
             ''
@@ -63,10 +90,7 @@ function LoginModal() {
             </p>
           )}
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" disabled={isEmail || isPasswordValid}>
           Submit
         </Button>
       </Form>
