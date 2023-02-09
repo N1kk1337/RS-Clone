@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-// import { useNavigate } from 'react-router-dom';
+import UpDateUserModal from '../UpDateUserModal/UpDateUserModal';
 import './style.scss';
 
 function Toolbar(): JSX.Element {
-  // const router = useNavigate();
+  const [modalActive, setModalActive] = useState(false);
 
   return (
     <div className="toolbar">
-      <Button type="button" className="btn btn-outline-primary">Изменить информацию в профиле</Button>
+      <Button type="button" className="btn btn-outline-primary" onClick={() => setModalActive(!modalActive)}>Изменить информацию в профиле</Button>
       <Button type="button" className="btn btn-outline-primary">Создать пост</Button>
+      {modalActive && <UpDateUserModal active={modalActive} setActive={setModalActive} />}
     </div>
   );
 }
