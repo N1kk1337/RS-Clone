@@ -2,14 +2,16 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import ReactQuill from 'react-quill';
+import axios from 'axios';
+import User, { Posts } from '../../data/test-data/User';
 import uploadFile from '../../assets/1102689.png';
 import Feeds from '../Feeds/Feeds';
 import './PostForm.scss';
-import data from '../../data/test-data/test-data.json';
-import User from '../../data/test-data/User';
 
-function PostForm() {
-  const [deltaVal, setDeltaVal] = useState('');
+const baseUrl = 'http://localhost:3004/users';
+
+function PostForm({ users }: { users: User[] }) {
+  const [file, setFile] = useState<FileList>();
   const [defaultClass, setDefaultClass] = useState('form-control_text');
 
   const postSubmitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -17,15 +19,17 @@ function PostForm() {
     const htmlElemnts: string = (e.target as HTMLElement).querySelector(
       '.ql-editor',
     )?.innerHTML as string;
-    setDeltaVal(htmlElemnts);
-    // ready for post
-    console.log('ready for post', deltaVal);
+    const body: Posts | File | unknown = {
+      text: htmlElemnts,
+      files: file?.item(0),
+    };
+
+    axios.post(`${baseUrl}/${1}/posts`, body);
   };
   const fileInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     const selectedFiles: FileList = files as FileList;
-    // ready for post
-    console.log('ready for post', selectedFiles);
+    setFile(selectedFiles);
   };
   const quillBlurHandler = () => {
     setDefaultClass('form-control_text tool');
@@ -70,9 +74,11 @@ function PostForm() {
           Post
         </Button>
       </Form>
-      {data.products.map((x: User) => (
-        <Feeds personInfo={x} key={x.id} />
-      ))}
+      {
+        users.map((user: User) => (
+          <Feeds user={user} key={user.id} />
+        ))
+      }
     </>
   );
 }
