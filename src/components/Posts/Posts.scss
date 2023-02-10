@@ -39,54 +39,7 @@ p {
     display: flex;
     gap: 20px;
   }
-  .add-comment_place {
-    position: relative;
-    margin-top: 20px;
-    .add-comment {
-      width: 100%;
-      padding: 12px 15px;
-      background: transparent;
-      border-radius: 5px;
-
-      .ql-header {
-        display: none;
-      }
-
-      &:focus {
-        outline: none;
-      }
-    }
-    .btn-submit_comment {
-      position: absolute;
-      right: 25px;
-      top: 80px;
-      background: transparent;
-      border: none;
-      padding: 0;
-
-      .send-icon {
-        font-size: 30px;
-        color: $blue;
-      }
-    }
-  }
 }
-
-.post-settings {
-  display: flex;
-  height: 10px;
-  position: relative;
-  gap: 5px;
-  .dot {
-    display: block;
-    width: 5px;
-    height: 5px;
-    background: $dark-grey;
-    border-radius: 50%;
-    opacity: 0.8;
-  }
-}
-
 .settins {
   position: absolute;
   width: 120px;
