@@ -7,7 +7,6 @@ import './style.scss';
 function User(): JSX.Element {
   const { data: users, isLoading } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
-  console.log(users);
   return (
     isLoading
       ? <div>Loading users</div>
@@ -35,11 +34,15 @@ function User(): JSX.Element {
           </li>
           <li>
             Like cats:&nbsp;
-            {users[0] && users[0].likeCats}
+            {users[0] && users[0].likeCats === true ? 'yes' : 'no'}
           </li>
           <li>
             Like dogs:&nbsp;
-            {users[0] && users[0].likeDogs}
+            {users[0] && users[0].likeDogs === true ? 'yes' : 'no'}
+          </li>
+          <li>
+            Favorite film:&nbsp;
+            {users[0] && users[0].favoriteFilm}
           </li>
         </div>
       ));

@@ -7,9 +7,9 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import LandingPage from './pages/Landing/LandingPage';
 import UserPage from './pages/UserPage/UserPage';
-import './App.css';
 import { fetchUsersInfo } from './api/users';
 import { useAppDispatch } from './hooks/redux';
+import './App.css';
 
 export const emptyPath = '/';
 export const userPage = '/user-page';
