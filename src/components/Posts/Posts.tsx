@@ -8,6 +8,13 @@ function PostsPlace(props: { user: User, posts: Posts }) {
   const [postLike, setPostLike] = useState(false);
   const { user, posts } = props;
 
+  function timeConvert(param: string) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [month, monthName, day, year, time] = param.split(' ');
+
+    return `${day} ${monthName} ${time}`;
+  }
+
   function likeHandler() {
     if (postLike) setPostLike(false);
     else setPostLike(true);
@@ -28,7 +35,7 @@ function PostsPlace(props: { user: User, posts: Posts }) {
               {' '}
               {user.lastName}
             </h4>
-            <p className="post-time">{user.email}</p>
+            <p className="post-time">{timeConvert(posts.time as string)}</p>
           </div>
         </div>
       </div>
