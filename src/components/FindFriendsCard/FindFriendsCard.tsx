@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
+import './FindFriendsCard.scss';
 
 import User from '../../data/test-data/User';
 
@@ -13,8 +14,13 @@ export default function FindFriendsCard({ user }:Props) {
     firstName, lastName, nickName, city, country, avatarImg,
   } = user;
 
+  const onAddClick = () => {
+    // eslint-disable-next-line no-alert
+    alert(`${firstName} ${lastName} добавлен в друзья`);
+  };
+
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card className="mt-3 mb-3 mx-auto" style={{ width: '16rem' }}>
       <Card.Img variant="top" src={avatarImg} />
       <Card.Body>
         <Card.Title>
@@ -26,11 +32,11 @@ export default function FindFriendsCard({ user }:Props) {
         </Card.Title>
         <Card.Text>
           {country}
-          {' '}
+          {' - '}
           {city}
 
         </Card.Text>
-        <Button variant="primary">Add Friend</Button>
+        <Button variant="primary" onClick={onAddClick}>Add Friend</Button>
       </Card.Body>
     </Card>
   );
