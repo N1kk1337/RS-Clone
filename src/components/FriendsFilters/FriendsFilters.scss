@@ -1,4 +1,9 @@
+@import '../../general.scss';
 .find-friends-filter{
     padding: 16px 0 16px 0;
+}
 
+.filter-form{
+    padding: 10px;
+    background-color: $light-gray;
 }

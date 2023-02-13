@@ -17,7 +17,7 @@ export default function FindFriends() {
     getUsers();
   }, []);
   return (
-    <Container className="find-friends-page" fluid>
+    <Container className="find-friends-page p-0" fluid>
       <FriendsFilter />
       <FindFriendsList users={users} />
     </Container>
