@@ -57,8 +57,9 @@ function LoginModal() {
 
   return (
     <div className="login login-active">
+      <h2 className="text-center">Sign in</h2>
       <Form onSubmit={(e) => handleSubmit(e)}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3">
           <Form.Label className="fs-4">Email address</Form.Label>
           <Form.Control
             type="email"
@@ -71,7 +72,7 @@ function LoginModal() {
           {isEmail ? <p className="error">Email is not valid</p> : ''}
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3">
           <Form.Label className="fs-4">Password</Form.Label>
           <Form.Control
             type="password"

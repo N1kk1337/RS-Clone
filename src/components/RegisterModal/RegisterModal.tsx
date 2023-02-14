@@ -108,7 +108,7 @@ function BasicExample() {
 
   return (
     <div className="register register-active">
-      <h2 className="text-center">Register</h2>
+      <h2 className="text-center">Sign up</h2>
       <Form onSubmit={(e) => handleSubmit(e)}>
         <Form.Group className="mb-3">
           <Form.Label className="fs-4">Email address</Form.Label>

@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import LoginModal from '../../components/LoginModal/LoginModal';
 import BasicExample from '../../components/RegisterModal/RegisterModal';
 import './Landing.scss';
 
 function LandingPage() {
   const [showRegister, setShowRegister] = useState(false);
-  const router = useNavigate();
+  const [showLogin, setShowLogin] = useState(false);
 
   return (
     <main>
@@ -15,6 +15,14 @@ function LandingPage() {
         <div>
           <div className="overlay" onClick={() => setShowRegister(false)} />
           <BasicExample />
+        </div>
+      ) : (
+        ''
+      )}
+      {showLogin ? (
+        <div>
+          <div className="overlay" onClick={() => setShowLogin(false)} />
+          <LoginModal />
         </div>
       ) : (
         ''
@@ -33,50 +41,23 @@ function LandingPage() {
                 alt=""
               />
             </div>
-            <div className="index-form col-lg-3 col-md-12">
-              <form className="row row-cols-lg-5 g-3 align-items-center">
-                <h3 className="col-12">Sign in</h3>
-                <div className="col-12">
-                  <div className="input-group">
-                    <span className="visually-hidden">Username</span>
-                    <div className="input-group-text">@</div>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="inlineFormInputGroupUsername"
-                      placeholder="Username"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-12">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="inlineFormCheck"
-                    />
-                    <span className="form-check-label">Remember me</span>
-                  </div>
-                </div>
-
-                <div className="col-12">
-                  <button
-                    type="submit"
-                    className="btn btn-primary col-12 mb-5"
-                    onClick={() => router('/user-page')}
-                  >
-                    Sign in
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-success col-12"
-                    onClick={() => setShowRegister(true)}
-                  >
-                    Sign up
-                  </button>
-                </div>
-              </form>
+            <div className="index-form col-lg-3 col-md-12 mt-5">
+              <div className="col-12">
+                <button
+                  type="submit"
+                  className="btn btn-primary col-12 mb-5"
+                  onClick={() => setShowLogin(true)}
+                >
+                  Sign in
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-success col-12"
+                  onClick={() => setShowRegister(true)}
+                >
+                  Sign up
+                </button>
+              </div>
             </div>
           </div>
         </div>
