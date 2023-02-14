@@ -20,10 +20,10 @@ function App() {
     <div className="App">
       <Header />
       <Routes>
-        <Route path={`/${findFriendsPage}`} element={<FindFriends />} />
-        <Route path={`/${emptyPath}`} element={<LandingPage />} />
-        <Route path={`/${userPage}`} element={<UserPage />} />
-        <Route path={`/${starPath}`} element={<Navigate to="" />} />
+        <Route path={`${findFriendsPage}`} element={<FindFriends />} />
+        <Route path={`${emptyPath}`} element={<LandingPage />} />
+        <Route path={`${userPage}`} element={<UserPage />} />
+        <Route path={`${starPath}`} element={<Navigate to="" />} />
       </Routes>
       <Footer />
     </div>
