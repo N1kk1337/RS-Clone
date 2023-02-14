@@ -14,15 +14,15 @@ export const fetchUsersInfo = createAsyncThunk(
 );
 
 interface IUpDateUser {
-  userId: number,
-  firstNameUser: string,
-  lastNameUser: string,
-  locationUser: string,
-  countryUser: string,
-  cityUser: string,
-  likeCatsUser: string,
-  likeDogsUser: string,
-  favoriteFilmUser: string,
+  userId: number;
+  firstNameUser: string;
+  lastNameUser: string;
+  locationUser: string;
+  countryUser: string;
+  cityUser: string;
+  likeCatsUser: string;
+  likeDogsUser: string;
+  favoriteFilmUser: string;
 }
 
 export const fetchUpDateUser = createAsyncThunk(
@@ -44,7 +44,7 @@ export const fetchUpDateUser = createAsyncThunk(
       headers: {
         'Content-Type': 'application/json',
       },
-      body: (upDateUser),
+      body: upDateUser,
     }).then((data) => data.json());
     return response;
   },

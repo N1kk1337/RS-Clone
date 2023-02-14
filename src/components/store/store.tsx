@@ -6,9 +6,7 @@ const store = configureStore({
   reducer: combineReducers({
     users,
   }),
-  middleware: [
-    thunk,
-  ],
+  middleware: [thunk],
 });
 
 export type RootState = ReturnType<typeof store.getState>;
