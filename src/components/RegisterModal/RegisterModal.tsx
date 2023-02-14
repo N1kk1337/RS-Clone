@@ -1,8 +1,9 @@
 /* eslint-disable react/react-in-jsx-scope */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import './register.scss';
 import axios from 'axios';
+import User from '../../data/test-data/User';
 
 interface UserRegister {
   email: string;
@@ -16,6 +17,7 @@ interface UserRegister {
 const baseUrl = 'http://localhost:3004/users';
 
 function BasicExample() {
+  const [users, setUsers] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -25,6 +27,8 @@ function BasicExample() {
   const [isEmail, setIsEmail] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
+
+  const [emailMessage, setEmailMessage] = useState('');
 
   function handleInputChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -65,6 +69,13 @@ function BasicExample() {
       setNickName(value);
     }
   }
+  useEffect(() => {
+    async function usersGet() {
+      const response = await axios.get(baseUrl);
+      setUsers(response.data);
+    }
+    usersGet();
+  }, [email]);
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const body: UserRegister = {
@@ -76,14 +87,20 @@ function BasicExample() {
       confirmPassword,
     };
     try {
-      axios.post(baseUrl, body);
+      const isValid = users.filter((user: User) => user.email === body.email);
 
-      setEmail('');
-      setPassword('');
-      setFirstName('');
-      setLastName('');
-      setNickName('');
-      setConfirmPassword('');
+      if (isValid.length > 0) {
+        setEmailMessage('This email is busy');
+      } else {
+        axios.post(baseUrl, body);
+        setEmail('');
+        setPassword('');
+        setFirstName('');
+        setLastName('');
+        setNickName('');
+        setConfirmPassword('');
+        setEmailMessage('');
+      }
     } catch (error) {
       console.error(error);
     }
@@ -91,6 +108,7 @@ function BasicExample() {
 
   return (
     <div className="register register-active">
+      <h2 className="text-center">Register</h2>
       <Form onSubmit={(e) => handleSubmit(e)}>
         <Form.Group className="mb-3">
           <Form.Label className="fs-4">Email address</Form.Label>
@@ -103,6 +121,7 @@ function BasicExample() {
             required
           />
           {isEmail ? <p className="error">Email is not valid</p> : ''}
+          {emailMessage ? <p className="error">{ emailMessage }</p> : ''}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -173,7 +192,11 @@ function BasicExample() {
             id="nickName"
           />
         </InputGroup>
-        <Button variant="primary" type="submit" disabled={isEmail || isPasswordValid || confirmPasswordValid}>
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={isEmail || isPasswordValid || confirmPasswordValid}
+        >
           Submit
         </Button>
       </Form>
