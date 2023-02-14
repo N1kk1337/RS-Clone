@@ -1,7 +1,7 @@
 import {
   createSlice, Dispatch,
 } from '@reduxjs/toolkit';
-import { fetchUsersInfo } from '../../../api/users';
+import { fetchUsersInfo, IUpDateUser } from '../../../api/users';
 import { IUser } from '../../type';
 
 interface IUsersState {
@@ -31,6 +31,9 @@ export const slice = createSlice({
     addUserState: (state: IUsersState, { payload }) => {
       state.data = [...state.data, payload];
     },
+    updateFirstUserState: (state: IUsersState, { payload }) => {
+      state.data = [payload, ...state.data.splice(1, state.data.length)];
+    },
   },
   extraReducers(builder) {
     builder.addCase(fetchUsersInfo.pending, (state) => {
@@ -50,6 +53,7 @@ const {
   deleteAllUsersState,
   deleteAllErrorsState,
   addUserState,
+  updateFirstUserState,
 } = slice.actions;
 
 export const deleteAllUsers = () => async (dispatch: Dispatch) => {
@@ -62,6 +66,10 @@ export const deleteAllErrors = () => async (dispatch: Dispatch) => {
 
 export const addUser = (payload: IUser) => async (dispatch: Dispatch) => {
   dispatch(addUserState(payload));
+};
+
+export const updateFirstUser = (payload: IUpDateUser) => async (dispatch: Dispatch) => {
+  dispatch(updateFirstUserState(payload));
 };
 
 export default slice.reducer;

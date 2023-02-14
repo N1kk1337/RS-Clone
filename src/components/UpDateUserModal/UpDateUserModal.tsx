@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { fetchUpDateUser } from '../../api/users';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { updateFirstUser } from '../store/slices/users';
+import { baseUrl } from '../type';
 import './style.scss';
 
-function UpDateUserModal(active: any, setActive: any) {
+function UpDateUserModal({ active, setActive }: any) {
   const { data: users } = useAppSelector((state) => state.users);
-  console.log(active, setActive);
 
   const [firstName, setFirstName] = useState(`${users[0].firstName}`);
   const [lastName, setLastName] = useState(`${users[0].lastName}`);
@@ -16,8 +17,6 @@ function UpDateUserModal(active: any, setActive: any) {
   const [likeCats, setLikeCats] = useState(`${users[0].likeCats}`);
   const [likeDogs, setLikeDogs] = useState(`${users[0].likeDogs}`);
   const [favoriteFilm, setFavoriteFilm] = useState(`${users[0].favoriteFilm}`);
-
-  console.log(firstName, lastName, location, country, city, likeCats, likeDogs, favoriteFilm);
 
   const newUser = {
     userId: users[0].id,
@@ -32,18 +31,24 @@ function UpDateUserModal(active: any, setActive: any) {
   };
 
   const dispatch = useAppDispatch();
+
   const upDateUser = async () => {
-    const aa = await dispatch(fetchUpDateUser(newUser));
-    console.log(aa);
+    await dispatch(fetchUpDateUser(newUser));
+    setActive(false);
+
+    try {
+      const response = await fetch(`${baseUrl}/1`, {
+        method: 'GET',
+      }).then((data) => data.json());
+      dispatch(updateFirstUser(response));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <div
       className={active ? 'modal active' : 'modal'}
-    // onClick={() => setActive(!active)}
-    // onKeyDown={() => { }}
-    // role="button"
-    // tabIndex={0}
     >
       <div className="register register-active">
         <Form onSubmit={() => upDateUser()}>

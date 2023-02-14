@@ -13,7 +13,7 @@ export const fetchUsersInfo = createAsyncThunk(
   },
 );
 
-interface IUpDateUser {
+export interface IUpDateUser {
   userId: number,
   firstNameUser: string,
   lastNameUser: string,
@@ -28,7 +28,6 @@ interface IUpDateUser {
 export const fetchUpDateUser = createAsyncThunk(
   'PUT_user/fetchUpDateUser',
   async (props: IUpDateUser) => {
-    console.log(props.firstNameUser);
     const upDateUser = JSON.stringify({
       firstName: props.firstNameUser,
       lastName: props.lastNameUser,

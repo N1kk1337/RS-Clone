@@ -1,18 +1,15 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { addUser } from '../store/slices/users';
+import { useAppSelector } from '../../hooks/redux';
 import './style.scss';
 
 function User(): JSX.Element {
   const { data: users, isLoading } = useAppSelector((state) => state.users);
-  const dispatch = useAppDispatch();
+
   return (
     isLoading
       ? <div>Loading users</div>
       : (
         <div className="user">
-          <Button onClick={() => dispatch(addUser(users[0]))}>add user</Button>
           <img className="avatar" src={users[0] && users[0].avatarImg} alt="avatar" />
           <li>
             First name and Last name:&nbsp;
