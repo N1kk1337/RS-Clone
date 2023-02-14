@@ -1,6 +1,8 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import User from '../../data/test-data/User';
 import './LoginModal.scss';
 
 interface UserRegister {
@@ -10,10 +12,13 @@ interface UserRegister {
 const baseUrl = 'http://localhost:3004/users';
 
 function LoginModal() {
+  const router = useNavigate();
+  const [users, setUsers] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmail, setIsEmail] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [passwordMessage, setPasswordMessage] = useState('');
 
   function inputChangeHandler(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -39,6 +44,13 @@ function LoginModal() {
       setPassword(isPassword);
     }
   }
+  useEffect(() => {
+    async function usersGet() {
+      const response = await axios.get(baseUrl);
+      setUsers(response.data);
+    }
+    usersGet();
+  }, [email]);
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const body: UserRegister = {
@@ -46,10 +58,14 @@ function LoginModal() {
       password,
     };
     try {
-      axios.post(baseUrl, body);
-
-      setEmail('');
-      setPassword('');
+      const isValid: User[] = users.filter((user: User) => user.email === body.email);
+      if (isValid.length > 0) {
+        setPasswordMessage('Password is wrong!');
+        if (body.password === isValid[0].password) {
+          document.cookie = `login=${isValid[0].id}`;
+          router('/user-page');
+        }
+      }
     } catch (error) {
       console.error(error);
     }
@@ -82,6 +98,11 @@ function LoginModal() {
             value={password}
             required
           />
+          {
+            passwordMessage
+              ? <p className="error">{ passwordMessage }</p>
+              : ''
+          }
           {!isPasswordValid ? (
             ''
           ) : (
