@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppSelector } from '../../hooks/redux';
 import './style.scss';
 
-function User(): JSX.Element {
+function UserInfo(): JSX.Element {
   const { data: users, isLoading } = useAppSelector((state) => state.users);
 
   return (
@@ -45,4 +45,4 @@ function User(): JSX.Element {
       ));
 }
 
-export default User;
+export default UserInfo;
