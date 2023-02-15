@@ -1,0 +1,15 @@
+.footer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background-color: #d5d6d2;
+  padding: 10px;
+  flex-shrink: 0;
+}
+
+.github {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  margin: 3px;
+}
