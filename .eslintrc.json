@@ -13,8 +13,15 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state"]
+      }
+    ],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
-    "semi": ["error", "always"]
+    "import/prefer-default-export": "off"
   }
 }

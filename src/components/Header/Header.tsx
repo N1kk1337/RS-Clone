@@ -5,7 +5,7 @@ import './style.scss';
 
 function Header(): JSX.Element {
   const router = useNavigate();
-
+  // добавить в кнопки правильный путь
   return (
     <div className="header">
       <Button type="button" className="btn btn-outline-primary" onClick={() => router('')}>
@@ -14,6 +14,11 @@ function Header(): JSX.Element {
           alt="logo"
         />
       </Button>
+      <div className="navbar">
+        <Button onClick={() => router('')}>Мой профиль</Button>
+        <Button onClick={() => router('')}>Найти друзей</Button>
+        <Button onClick={() => router('')}>Открыть ленту постов</Button>
+      </div>
 
     </div>
   );
