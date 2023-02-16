@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import PostsPlace from '../Posts/Posts';
+import PostsPlace from '../Post/Post';
 
 import User from '../../data/test-data/User';
 import './PostForm.scss';
@@ -23,7 +23,7 @@ function PostForm(props: { user: User }) {
     <div>
       {
         postsOfList && postsOfList.map((posts) => (
-          <PostsPlace user={user} posts={posts} key={posts.id} />
+          <PostsPlace user={user} post={posts} key={posts.id} />
         ))
       }
     </div>

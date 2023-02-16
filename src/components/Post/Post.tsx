@@ -1,48 +1,44 @@
 import React, { useState } from 'react';
 import { AiOutlineLike } from 'react-icons/ai';
-import User, { Posts } from '../../data/test-data/User';
+import User, { FeedPost } from '../../data/test-data/User';
 import avatar from '../../assets/camera_50.png';
-import './Posts.scss';
+import './Post.scss';
 
-function PostsPlace(props: { user: User, posts: Posts }) {
-  const [postLike, setPostLike] = useState(false);
-  const { user, posts } = props;
+function Post(props: { user: User; post: FeedPost }) {
+  // const [postLike, setPostLike] = useState(false);
+  const { user, post } = props;
 
-  function timeConvert(param: string) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [month, monthName, day, year, time] = param.split(' ');
+  // function timeConvert(param: string) {
+  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //   const [month, monthName, day, year, time] = param.split(' ');
 
-    return `${day} ${monthName} ${time}`;
-  }
+  //   return `${day} ${monthName} ${time}`;
+  // }
 
-  function likeHandler() {
-    if (postLike) setPostLike(false);
-    else setPostLike(true);
-  }
+  // function likeHandler() {
+  //   if (postLike) setPostLike(false);
+  //   else setPostLike(true);
+  // }
   return (
     <div className="feed-post">
       <div className="post-header">
         <div className="user-info">
           <div className="avatar">
-            <img
-              src={!user.avatarImg ? avatar : user.avatarImg}
-              alt="png"
-            />
+            <img src={!user.avatarImg ? avatar : user.avatarImg} alt="png" />
           </div>
           <div className="post-info">
             <h4 className="post-author">
               {user.firstName}
-              {' '}
               {user.lastName}
             </h4>
-            <p className="post-time">{timeConvert(posts.time as string)}</p>
+            {/* <p className="post-time">{timeConvert(posts.time as string)}</p> */}
           </div>
         </div>
       </div>
       <div className="post-text_place">
-        <span>{posts.text}</span>
+        <span>{post.text}</span>
       </div>
-      <div className="like-comments">
+      {/* <div className="like-comments">
         <button
           type="button"
           className="reactions like"
@@ -55,9 +51,9 @@ function PostsPlace(props: { user: User, posts: Posts }) {
             <AiOutlineLike size={30} color="rgb(68, 68, 68)" />
           )}
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
 
-export default PostsPlace;
+export default Post;

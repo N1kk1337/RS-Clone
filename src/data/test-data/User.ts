@@ -12,10 +12,10 @@ interface User {
   likeCats?: boolean;
   likeDogs?: boolean;
   favoriteFilm?: string;
-  posts?: Posts
+  posts?: FeedPost[];
 }
 
-export interface Posts {
+export interface FeedPost {
   like?: number;
   id?: number;
   userId?: number;
@@ -31,13 +31,13 @@ export interface Comments {
   commentsId: number
 }
 
-export interface PostAndUser {
-  user: User;
-  post: Posts;
-}
-export interface AnswerPost {
-  user: User;
-  post: Posts;
-}
+// export interface PostAndUser {
+//   user: User;
+//   post: Posts;
+// }
+// export interface AnswerPost {
+//   user: User;
+//   post: Posts;
+// }
 
 export default User;
