@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import './register.scss';
 import axios from 'axios';
-import User from '../../data/test-data/User';
+import { User } from '../types';
 
 interface UserRegister {
   email: string;

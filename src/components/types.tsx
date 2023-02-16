@@ -1,4 +1,6 @@
-interface User {
+export const baseUrl = 'http://localhost:3004/users';
+
+export interface User {
   id?: number;
   email?: string;
   password?: string;
@@ -39,5 +41,3 @@ export interface Comments {
 //   user: User;
 //   post: Posts;
 // }
-
-export default User;

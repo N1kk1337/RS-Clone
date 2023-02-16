@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import User from '../../data/test-data/User';
+import { User } from '../types';
 import './LoginModal.scss';
 
 interface UserRegister {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import 'react-quill/dist/quill.snow.css';
-import User, { FeedPost } from '../../data/test-data/User';
 import Post from '../Post/Post';
+import { User } from '../types';
 
 function NewsFeed(props:{ users:Array<User> }) {
   const { users } = props;
@@ -12,18 +12,14 @@ function NewsFeed(props:{ users:Array<User> }) {
     users.forEach(async (user) => {
       const response = await fetch(`http://127.0.0.1:3004/users/${user.id}/posts`);
       const data = await response.json();
-      setPosts([...posts, data]);
+      console.log(data);
+      // setPosts([...posts, data]);
     });
 
-    return (
-      <div>
-        {data
-          .map((post: FeedPost) => <Post key={post.id} user={user} post={post} />)}
-      </div>
-    );
+    return null;
   }
 
-  //
+  getPosts();
 
   const postSubmitHandler = () => {
 
@@ -58,10 +54,10 @@ function NewsFeed(props:{ users:Array<User> }) {
           Post
         </Button>
       </Form>
-      <div>
+      {/* <div>
         {users
             && users.map((user) => getPosts(user))}
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -29,7 +29,6 @@ function App() {
         <Routes>
           <Route path={`${emptyPath}`} element={<LandingPage />} />
           <Route path={`${userPage}`} element={<UserPage />} />
-          <Route path={`${starPath}`} element={<Navigate to="" />} />
         </Routes>
       </Container>
       <Footer />

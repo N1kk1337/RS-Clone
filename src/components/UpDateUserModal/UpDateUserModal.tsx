@@ -3,7 +3,7 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import { fetchUpDateUser } from '../../api/users';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { updateFirstUser } from '../store/slices/users';
-import { baseUrl } from '../type';
+import { baseUrl } from '../types';
 import './style.scss';
 
 function UpDateUserModal({ active, setActive }: any) {
@@ -18,22 +18,13 @@ function UpDateUserModal({ active, setActive }: any) {
   const [likeDogs, setLikeDogs] = useState(`${users[0].likeDogs}`);
   const [favoriteFilm, setFavoriteFilm] = useState(`${users[0].favoriteFilm}`);
 
-  const newUser = {
-    userId: users[0].id,
-    firstNameUser: firstName,
-    lastNameUser: lastName,
-    locationUser: location,
-    countryUser: country,
-    cityUser: city,
-    likeCatsUser: likeCats,
-    likeDogsUser: likeDogs,
-    favoriteFilmUser: favoriteFilm,
-  };
+  const newUser = users[0];
 
   const dispatch = useAppDispatch();
 
   const upDateUser = async () => {
     await dispatch(fetchUpDateUser(newUser));
+
     setActive(false);
 
     try {

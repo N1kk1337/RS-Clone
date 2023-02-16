@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AiOutlineLike } from 'react-icons/ai';
-import User, { FeedPost } from '../../data/test-data/User';
 import avatar from '../../assets/camera_50.png';
+import { FeedPost, User } from '../types';
 import './Post.scss';
 
 function Post(props: { user: User; post: FeedPost }) {
