@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import User from '../../data/test-data/User';
 import './LoginModal.scss';
 
@@ -12,7 +12,7 @@ interface UserRegister {
 const baseUrl = 'http://localhost:3004/users';
 
 function LoginModal() {
-  const router = useNavigate();
+  // const router = useNavigate();
   const [users, setUsers] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -63,7 +63,7 @@ function LoginModal() {
         setPasswordMessage('Password is wrong!');
         if (body.password === isValid[0].password) {
           document.cookie = `login=${isValid[0].id}`;
-          router('/user-page');
+          // router('/user-page');
         }
       }
     } catch (error) {
@@ -74,12 +74,12 @@ function LoginModal() {
   return (
     <div className="login login-active">
       <h2 className="text-center">Sign in</h2>
-      <Form onSubmit={(e) => handleSubmit(e)}>
+      <Form data-testid="submit" onSubmit={(e) => handleSubmit(e)}>
         <Form.Group className="mb-3">
-          <Form.Label className="fs-4">Email address</Form.Label>
+          <Form.Label className="fs-4">Email</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder="email"
             onChange={(e) => inputChangeHandler(e)}
             id="email"
             value={email}
@@ -92,7 +92,7 @@ function LoginModal() {
           <Form.Label className="fs-4">Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder="password"
             onChange={(e) => inputChangeHandler(e)}
             id="password"
             value={password}
