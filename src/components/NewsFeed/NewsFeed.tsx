@@ -1,28 +1,70 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import 'react-quill/dist/quill.snow.css';
+// import { useAppSelector } from '../../hooks/redux';
 import Post from '../Post/Post';
-import { User } from '../types';
+import { baseUrl, IFeedPost, IUser } from '../types';
 
-function NewsFeed(props:{ users:Array<User> }) {
+function NewsFeed(props:{ users:Array<IUser> }) {
   const { users } = props;
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<IFeedPost[]>([]);
 
-  async function getPosts() {
-    users.forEach(async (user) => {
-      const response = await fetch(`http://127.0.0.1:3004/users/${user.id}/posts`);
-      const data = await response.json();
-      console.log(data);
-      // setPosts([...posts, data]);
-    });
-
-    return null;
+  interface FormValues {
+    text: string;
   }
 
-  getPosts();
+  const [formValues, setFormValues] = useState<FormValues>({ text: '' });
 
-  const postSubmitHandler = () => {
+  // const { data: usersa, isLoading } = useAppSelector((state) => state.users);
 
+  async function getPosts() {
+    setPosts([]);
+    users.forEach(async (user) => {
+      const response = await fetch(`${baseUrl}/${user.id}/posts`);
+
+      const data = await response.json() as IFeedPost[];
+      setPosts(data);
+    });
+  }
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  const postSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await fetch(`${baseUrl}/1/posts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: (JSON.stringify(formValues)),
+    }).then((data) => data.json());
+    setFormValues({ text: '' });
+    getPosts();
+  };
+
+  const handleNewPostChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFormValues({ ...formValues, text: e.target.value });
+  };
+
+  const handleDelete = async (id:string) => {
+    fetch(`http://localhost:3004/posts/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to delete post');
+        }
+        getPosts();
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error
+      });
   };
 
   return (
@@ -48,12 +90,17 @@ function NewsFeed(props:{ users:Array<User> }) {
             as="textarea"
             placeholder="Wazzup?"
             style={{ height: '100px' }}
+            onChange={handleNewPostChange}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
           Post
         </Button>
       </Form>
+      {posts
+      && posts.map(
+        (post) => <Post key={post.id} handleDelete={handleDelete} user={users[0]} post={post} />,
+      )}
       {/* <div>
         {users
             && users.map((user) => getPosts(user))}

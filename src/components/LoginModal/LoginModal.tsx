@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { User } from '../types';
+import { IUser } from '../types';
 import './LoginModal.scss';
 
 interface UserRegister {
@@ -58,7 +58,7 @@ function LoginModal() {
       password,
     };
     try {
-      const isValid: User[] = users.filter((user: User) => user.email === body.email);
+      const isValid: IUser[] = users.filter((user: IUser) => user.email === body.email);
       if (isValid.length > 0) {
         setPasswordMessage('Password is wrong!');
         if (body.password === isValid[0].password) {

@@ -2,10 +2,10 @@ import {
   createSlice, Dispatch,
 } from '@reduxjs/toolkit';
 import { fetchUsersInfo } from '../../../api/users';
-import { User } from '../../types';
+import { IUser } from '../../types';
 
 interface UsersState {
-  data: User[];
+  data: IUser[];
   isLoading: boolean;
   error: string;
   count: number;
@@ -64,11 +64,11 @@ export const deleteAllErrors = () => async (dispatch: Dispatch) => {
   dispatch(deleteAllErrorsState());
 };
 
-export const addUser = (payload: User) => async (dispatch: Dispatch) => {
+export const addUser = (payload: IUser) => async (dispatch: Dispatch) => {
   dispatch(addUserState(payload));
 };
 
-export const updateFirstUser = (payload: User) => async (dispatch: Dispatch) => {
+export const updateFirstUser = (payload: IUser) => async (dispatch: Dispatch) => {
   dispatch(updateFirstUserState(payload));
 };
 

@@ -7,12 +7,11 @@ import { useAppSelector } from '../../hooks/redux';
 
 function UserPage() {
   const { data: users, isLoading } = useAppSelector((state) => state.users);
-
   return (
     <div>
       <Toolbar />
       <UserInfo />
-      <NewsFeed users={[users[1]]} />
+      {!isLoading && <NewsFeed users={[users[0]]} />}
     </div>
   );
 }

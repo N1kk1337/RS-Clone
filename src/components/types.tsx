@@ -1,7 +1,7 @@
 export const baseUrl = 'http://localhost:3004/users';
 
-export interface User {
-  id?: number;
+export interface IUser {
+  id: number;
   email?: string;
   password?: string;
   firstName?: string;
@@ -14,12 +14,12 @@ export interface User {
   likeCats?: boolean;
   likeDogs?: boolean;
   favoriteFilm?: string;
-  posts?: FeedPost[];
+  posts?: IFeedPost[];
 }
 
-export interface FeedPost {
+export interface IFeedPost {
   like?: number;
-  id?: number;
+  id: number;
   userId?: number;
   time?: string;
   text?: string;

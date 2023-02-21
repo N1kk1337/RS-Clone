@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import './register.scss';
 import axios from 'axios';
-import { User } from '../types';
+import { IUser } from '../types';
 
 interface UserRegister {
   email: string;
@@ -87,7 +87,7 @@ function BasicExample() {
       confirmPassword,
     };
     try {
-      const isValid = users.filter((user: User) => user.email === body.email);
+      const isValid = users.filter((user: IUser) => user.email === body.email);
 
       if (isValid.length > 0) {
         setEmailMessage('This email is busy');

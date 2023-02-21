@@ -3,7 +3,7 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import { fetchUpDateUser } from '../../api/users';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { updateFirstUser } from '../store/slices/users';
-import { baseUrl } from '../types';
+import { baseUrl, IUser } from '../types';
 import './style.scss';
 
 function UpDateUserModal({ active, setActive }: any) {
@@ -18,7 +18,17 @@ function UpDateUserModal({ active, setActive }: any) {
   const [likeDogs, setLikeDogs] = useState(`${users[0].likeDogs}`);
   const [favoriteFilm, setFavoriteFilm] = useState(`${users[0].favoriteFilm}`);
 
-  const newUser = users[0];
+  const newUser: IUser = {
+    id: users[0].id,
+    firstName,
+    lastName,
+    location,
+    country,
+    city,
+    likeCats: true,
+    likeDogs: true,
+    favoriteFilm,
+  };
 
   const dispatch = useAppDispatch();
 
@@ -48,7 +58,7 @@ function UpDateUserModal({ active, setActive }: any) {
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
-              placeholder={firstName}
+              value={firstName}
               onChange={(event) => setFirstName(event.target.value)}
               id="firstName"
             />
@@ -58,7 +68,7 @@ function UpDateUserModal({ active, setActive }: any) {
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
-              placeholder={lastName}
+              value={lastName}
               onChange={(event) => setLastName(event.target.value)}
               id="lastName"
             />
@@ -68,7 +78,7 @@ function UpDateUserModal({ active, setActive }: any) {
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
-              placeholder={location}
+              value={location}
               onChange={(event) => setLocation(event.target.value)}
               id="location"
             />
@@ -78,7 +88,7 @@ function UpDateUserModal({ active, setActive }: any) {
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
-              placeholder={country}
+              value={country}
               onChange={(event) => setCountry(event.target.value)}
               id="country"
             />
@@ -88,7 +98,7 @@ function UpDateUserModal({ active, setActive }: any) {
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
-              placeholder={city}
+              value={city}
               onChange={(event) => setCity(event.target.value)}
               id="city"
             />
@@ -98,7 +108,7 @@ function UpDateUserModal({ active, setActive }: any) {
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
-              placeholder={likeCats}
+              value={likeCats}
               onChange={(event) => setLikeCats(event.target.value)}
               id="likeCats"
             />
@@ -108,7 +118,7 @@ function UpDateUserModal({ active, setActive }: any) {
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
-              placeholder={likeDogs}
+              value={likeDogs}
               onChange={(event) => setLikeDogs(event.target.value)}
               id="likeDogs"
             />
@@ -118,7 +128,7 @@ function UpDateUserModal({ active, setActive }: any) {
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
-              placeholder={favoriteFilm}
+              value={favoriteFilm}
               onChange={(event) => setFavoriteFilm(event.target.value)}
               id="favoriteFilm"
             />
