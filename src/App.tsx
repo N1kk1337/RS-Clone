@@ -11,9 +11,11 @@ import UserPage from './pages/UserPage/UserPage';
 import { fetchUsersInfo } from './api/users';
 import { useAppDispatch } from './hooks/redux';
 import './App.scss';
+import Chat from './components/Chat/Chat';
 
 export const emptyPath = '/';
 export const userPage = '/user-page';
+export const chat = '/chat';
 const starPath = '*';
 
 function App() {
@@ -30,6 +32,7 @@ function App() {
           <Route path={`${emptyPath}`} element={<LandingPage />} />
           <Route path={`${userPage}`} element={<UserPage />} />
           <Route path={`${starPath}`} element={<Navigate to="" />} />
+          <Route path={`${chat}`} element={<Chat />} />
         </Routes>
       </Container>
       <Footer />
