@@ -46,7 +46,7 @@ function BasicExample() {
           id: user.uid,
           token: user.refreshToken,
         }));
-        // navigate('/user-page');
+        navigate('/user-page');
       })
       .catch(console.error);
   };
