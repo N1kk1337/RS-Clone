@@ -4,7 +4,6 @@ import './style.scss';
 
 function UserInfo(): JSX.Element {
   const { data: users, isLoading } = useAppSelector((state) => state.users);
-
   return (
     isLoading
       ? <div>Loading users</div>
