@@ -8,6 +8,7 @@ import {
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { db, auth } from '../../firebase';
 import ChatMessage from './ChatMessage/ChatMessage';
+import ChatUsers from './ChatUsers/ChatUsers';
 
 function Chat() {
   const [user] = useAuthState(auth);
@@ -19,7 +20,7 @@ function Chat() {
 
   const scrollTo = useRef(null);
 
-  const sendMessage = async (e: any) => {
+  const sendMessage = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (!user || !formValue) return;
@@ -47,35 +48,54 @@ function Chat() {
   };
 
   return (
-    <div>
-      <h1>Chat</h1>
+    <div className="row justify-content-center">
+      <div className="chat">
+        <div className="chat-sidebar">
+          <div className="search-users">
+            <input type="text" className="search-input" placeholder="Search" />
+          </div>
+          <div className="chat-users">
+            <ChatUsers />
+            <ChatUsers />
+            <ChatUsers />
+            <ChatUsers />
+          </div>
+        </div>
+        <div className="chat-texts">
+          <div className="messages">
+            <div ref={scrollTo} />
+            {
+              messages && messages.docs.map((msg) => (
+                <ChatMessage
+                  key={msg.id}
+                  message={msg.data() as any}
+                />
+              ))
+            }
+          </div>
 
-      <div className="messages">
-        <div ref={scrollTo} />
-        {messages && messages.docs.map((msg) => <ChatMessage key={msg.id} message={msg.data()} />)}
-      </div>
-
-      <form className="form">
-        <input
-          className="form-control mt-2 mb-2"
-          type="text"
-          value={formValue}
-          onChange={(e) => setFormValue((e.target as HTMLInputElement).value)}
-        />
-        <button
-          type="button"
-          className="btn btn-info"
-          onClick={(e) => sendMessage(e)}
-        >
-          Send
-        </button>
-      </form>
-
-      <div className="buttons">
-        {
-            !user ? <button type="button" className="btn btn-primary loginWithGoogle" onClick={() => googleSignIn()}>Login with google</button>
-              : <button type="button" className="btn btn-danger logout" onClick={() => logOut()}>Log Out</button>
-        }
+          <div className="buttons">
+            {
+                !user ? <button type="button" className="btn btn-primary loginWithGoogle" onClick={() => googleSignIn()}>Login with google</button>
+                  : <button type="button" className="btn btn-danger logout" onClick={() => logOut()}>Log Out</button>
+            }
+          </div>
+        </div>
+        <form className="form">
+          <input
+            className="form-control mt-2 mb-2"
+            type="text"
+            value={formValue}
+            onChange={(e) => setFormValue((e.target as HTMLInputElement).value)}
+          />
+          <button
+            type="button"
+            className="btn btn-info"
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => sendMessage(e)}
+          >
+            Send
+          </button>
+        </form>
       </div>
     </div>
   );

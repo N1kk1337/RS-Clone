@@ -6,8 +6,9 @@ import './ChatMessage.scss';
 function ChatMessage(props: any) {
   const { message } = props;
   const { text, uid, photoURL } = message;
-
-  const className = uid === (auth.currentUser as { uid: string }) ? 'send user-send' : 'recieved user-recieved';
+  // console.log('currentUser', (auth.currentUser as { uid: string }).uid);
+  // console.log('uid', uid);
+  const className = uid === auth.currentUser?.uid ? 'send user-send' : 'recieved user-recieved';
   return (
     <div className={className}>
       <p className="text-message">{text}</p>

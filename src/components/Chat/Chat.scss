@@ -1,4 +1,108 @@
-.messages{
-    display: flex;
-    flex-direction: column-reverse;
+.messages {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.chat {
+  width: 100%;
+  display: grid;
+  border-radius: 10px;
+  overflow: hidden;
+  grid-template-areas: 
+  "sidebar text text text"
+  "sidebar form form form";
+
+  .chat-sidebar {
+    background-color: #87cefa;
+    height: 500px;
+    overflow: auto;
+    grid-area: sidebar;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      background: #444;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 5px;
+    }
+
+    .search-users {
+      width: 100%;
+
+      .search-input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        padding: 7px;
+        border-bottom: 1px solid #606060;
+        transition: 0.3s;
+        color: #fff;
+
+        &:focus {
+          outline: none;
+          padding: 10px;
+        }
+        &::placeholder {
+          color: #fff;
+        }
+      }
+    }
+
+    .chat-users {
+      .chat-user {
+        display: grid;
+        grid-template-areas:
+          'b a a a a'
+          'b c c c c';
+        padding: 7px;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.5s;
+
+        &:hover {
+          background: #ccc;
+        }
+
+        .user-image {
+          width: 45px;
+          border-radius: 50%;
+          grid-area: b;
+        }
+        .user-name {
+          font-size: 20px;
+          grid-area: a;
+        }
+        .user-last_text {
+          grid-area: c;
+        }
+      }
+      .active {
+        background: #ccc;
+      }
+    }
+  }
+  .chat-texts {
+    background-color: #b0c4de;
+    padding: 10px;
+    height: 500px;
+    overflow: auto;
+    position: relative;
+    grid-area: text;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      background: #444;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 5px;
+    }
+  }
+  .form {
+    grid-area: form;
+
+    .btn-info {
+      width: 100%;
+    }
+  }
 }
