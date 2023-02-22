@@ -18,6 +18,7 @@ function Header(): JSX.Element {
         <Button onClick={() => router('')}>Мой профиль</Button>
         <Button onClick={() => router('')}>Найти друзей</Button>
         <Button onClick={() => router('')}>Открыть ленту постов</Button>
+        <Button onClick={() => router('chat')}>Открыть Чат</Button>
       </div>
 
     </div>
