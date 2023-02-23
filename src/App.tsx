@@ -12,10 +12,12 @@ import { fetchUsersInfo } from './api/users';
 import { useAppDispatch } from './hooks/redux';
 import './App.scss';
 import Chat from './components/Chat/Chat';
+import GlobalChat from './components/GlobalChat/GlobalChat';
 
 export const emptyPath = '/';
 export const userPage = '/user-page';
 export const chat = '/chat';
+export const chatGlobal = '/globalchat';
 const starPath = '*';
 
 function App() {
@@ -33,6 +35,7 @@ function App() {
           <Route path={`${userPage}`} element={<UserPage />} />
           <Route path={`${starPath}`} element={<Navigate to="" />} />
           <Route path={`${chat}`} element={<Chat />} />
+          <Route path={`${chatGlobal}`} element={<GlobalChat />} />
         </Routes>
       </Container>
       <Footer />

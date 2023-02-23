@@ -9,18 +9,21 @@ import { HashRouter } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './components/store/store';
+import { AuthContextProvider } from './hooks/AuthContextProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <HashRouter>
-        <App />
-      </HashRouter>
-    </Provider>
-  </React.StrictMode>,
+  <AuthContextProvider>
+    <React.StrictMode>
+      <Provider store={store}>
+        <HashRouter>
+          <App />
+        </HashRouter>
+      </Provider>
+    </React.StrictMode>
+  </AuthContextProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,25 +1,18 @@
-import React, {
-  useEffect, useRef, useState, KeyboardEvent,
-} from 'react';
-import './Chat.scss';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import {
-  collection, orderBy, limit, query, serverTimestamp, addDoc, where, getDocs,
+  collection, orderBy, limit, query, serverTimestamp, addDoc,
 } from 'firebase/firestore';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { db, auth } from '../../firebase';
-import ChatMessage from './ChatMessage/ChatMessage';
-import ChatUsers from './ChatUsers/ChatUsers';
+import ChatMessage from '../Chat/ChatMessage/ChatMessage';
 
-function Chat() {
+function GlobalChat() {
   const [user] = useAuthState(auth);
   const messageRef = collection(db, 'messages');
   const queryRef = query(messageRef, orderBy('createdAt', 'desc'), limit(20));
   const [messages] = useCollection(queryRef);
-  const [username, setUsername] = useState('');
-  const [someUser, setSomeUser] = useState({});
-  const [err, setErr] = useState(false);
 
   const [formValue, setFormValue] = useState('');
 
@@ -47,53 +40,14 @@ function Chat() {
   const logOut = async () => {
     await signOut(auth);
   };
-  const googleSignIn = async () => {
-    const provider = await new GoogleAuthProvider();
-    // await setDoc(doc(db, 'userChats', provider),);
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider);
   };
-
-  const handleSearch = async () => {
-    const q = query(
-      collection(db, 'users'),
-      where('name', '==', username),
-    );
-    try {
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        setSomeUser(doc.data());
-      });
-    } catch (error) {
-      setErr(true);
-    }
-  };
-  const handleKey = (e: KeyboardEvent<HTMLElement>) => e.code === 'Enter' && 'NumpadEnter' && handleSearch();
 
   return (
     <div className="row justify-content-center">
       <div className="chat">
-        <div className="chat-sidebar bg-primary">
-          <div className="search-users">
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search"
-              onChange={(e) => setUsername((e.target as HTMLInputElement).value)}
-              onKeyDown={handleKey}
-            />
-          </div>
-          <div className="chat-users">
-            {
-              err && <p>User Not defined</p>
-            }
-            {
-              someUser && <ChatUsers userinfo={someUser} />
-            }
-            {/* <ChatUsers />
-            <ChatUsers />
-            <ChatUsers /> */}
-          </div>
-        </div>
         <div className="chat-texts">
           <div className="messages">
             <div ref={scrollTo} />
@@ -134,4 +88,4 @@ function Chat() {
   );
 }
 
-export default Chat;
+export default GlobalChat;
