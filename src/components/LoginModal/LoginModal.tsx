@@ -13,7 +13,6 @@ interface UserRegister {
   email: string;
   password: string;
 }
-const baseUrl = 'http://localhost:3004/users';
 
 function LoginModal() {
   const router = useNavigate();
@@ -27,7 +26,8 @@ function LoginModal() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = (mail: string, pass: string) => {
+  const handleLogin = (event:any, mail: string, pass: string) => {
+    event.preventDefault();
     signInWithEmailAndPassword(auth, mail, pass)
       .then(({ user }) => {
         dispatch(setUser({
@@ -64,13 +64,13 @@ function LoginModal() {
       setPassword(isPassword);
     }
   }
-  useEffect(() => {
-    async function usersGet() {
-      const response = await axios.get(baseUrl);
-      setUsers(response.data);
-    }
-    usersGet();
-  }, [email]);
+  // useEffect(() => {
+  //   async function usersGet() {
+  //     const response = await axios.get(baseUrl);
+  //     setUsers(response.data);
+  //   }
+  //   usersGet();
+  // }, [email]);
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const body: UserRegister = {
@@ -94,7 +94,7 @@ function LoginModal() {
   return (
     <div className="login login-active">
       <h2 className="text-center">Sign in</h2>
-      <Form onSubmit={(e) => handleLogin(email, password)}>
+      <Form onSubmit={(e) => handleLogin(e, email, password)}>
         <Form.Group className="mb-3">
           <Form.Label className="fs-4">Email address</Form.Label>
           <Form.Control
