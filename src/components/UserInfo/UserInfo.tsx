@@ -1,9 +1,22 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks/redux';
 import './style.scss';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../firebase';
+import { getUserData } from '../../utils/utils';
 
 function UserInfo(): JSX.Element {
+  // todo главный вопрос, хранить ли всё это в редаксе или всё же каждый раз загружать с сервера.
   const { data: users, isLoading } = useAppSelector((state) => state.users);
+
+  // if (docSnap.exists()) {
+  //   console.log('Document data:', docSnap.data());
+  // } else {
+  //   // doc.data() will be undefined in this case
+  //   console.log('No such document!');
+  // }
+  getUserData();
+
   return (
     isLoading
       ? <div>Loading users</div>

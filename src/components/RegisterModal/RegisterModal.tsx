@@ -41,7 +41,6 @@ function BasicExample() {
 
   const handleRegister = (event: any, mail:string, pass:string) => {
     event.preventDefault();
-    console.log('регаемся');
 
     createUserWithEmailAndPassword(auth, mail, pass)
       .then(({ user }) => {
@@ -50,11 +49,10 @@ function BasicExample() {
           id: user.uid,
           token: user.refreshToken,
         }));
-        console.log('зарегались');
         writeUserData(user.uid, mail, firstName, lastName, nickName);
-        // navigate('/user-page');
       })
       .catch(console.error);
+    navigate('/user-page');
   };
 
   function handleInputChange(
