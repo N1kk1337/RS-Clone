@@ -30,6 +30,7 @@ function LoginModal() {
     event.preventDefault();
     signInWithEmailAndPassword(auth, mail, pass)
       .then(({ user }) => {
+        console.log(user);
         dispatch(setUser({
           email: user.email,
           id: user.uid,

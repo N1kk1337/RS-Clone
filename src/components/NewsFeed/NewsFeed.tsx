@@ -19,12 +19,12 @@ function NewsFeed(props:{ users:Array<IUser> }) {
 
   async function getPosts() {
     setPosts([]);
-    users.forEach(async (user) => {
-      const response = await fetch(`${baseUrl}/${user.id}/posts`);
+    // users.forEach(async (user) => {
+    //   const response = await fetch(`${baseUrl}/${user.id}/posts`);
 
-      const data = await response.json() as IFeedPost[];
-      setPosts(data);
-    });
+    //   const data = await response.json() as IFeedPost[];
+    //   setPosts(data);
+    // });
   }
 
   useEffect(() => {

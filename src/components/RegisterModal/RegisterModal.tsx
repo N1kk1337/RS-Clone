@@ -44,6 +44,7 @@ function BasicExample() {
 
     createUserWithEmailAndPassword(auth, mail, pass)
       .then(({ user }) => {
+        console.log(user);
         dispatch(setUser({
           email: user.email,
           id: user.uid,

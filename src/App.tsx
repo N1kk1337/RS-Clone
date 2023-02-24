@@ -18,9 +18,9 @@ const starPath = '*';
 
 function App() {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchUsersInfo());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchUsersInfo());
+  // }, []);
 
   return (
     <div className="App">

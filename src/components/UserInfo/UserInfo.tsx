@@ -1,57 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../hooks/redux';
 import './style.scss';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
 import { getUserData } from '../../utils/utils';
+import { IUser } from '../types';
 
 function UserInfo(): JSX.Element {
   // todo главный вопрос, хранить ли всё это в редаксе или всё же каждый раз загружать с сервера.
-  const { data: users, isLoading } = useAppSelector((state) => state.users);
+  const [user, setUser] = useState<IUser>();
+  const [loading, setLoading] = useState(true);
+  // const { data: users, isLoading } = useAppSelector((state) => state.users);
+  const { id } = useAppSelector((state) => state.userAuth);
 
-  // if (docSnap.exists()) {
-  //   console.log('Document data:', docSnap.data());
-  // } else {
-  //   // doc.data() will be undefined in this case
-  //   console.log('No such document!');
-  // }
-  getUserData();
+  useEffect(() => {
+    getUserData(id as unknown as string)?.then((value) => {
+      setUser(value!);
+    });
+  }, []);
+  useEffect(() => {
+    setLoading(false);
+  }, [user]);
 
   return (
-    isLoading
+    loading
       ? <div>Loading users</div>
       : (
         <div className="user">
-          <img className="avatar" src={users[0] && users[0].avatarImg} alt="avatar" />
+          <img className="avatar" src={user && user.avatarImg} alt="avatar" />
           <li>
             First name and Last name:&nbsp;
-            {users[0] && users[0].firstName}
+            {user && user.firstName}
             &nbsp;
-            {users[0] && users[0].lastName}
+            {user && user.lastName}
           </li>
           <li>
             Location:&nbsp;
-            {users[0] && users[0].location}
+            {user && user.location}
           </li>
           <li>
             Country:&nbsp;
-            {users[0] && users[0].country}
+            {user && user.country}
           </li>
           <li>
             City:&nbsp;
-            {users[0] && users[0].city}
+            {user && user.city}
           </li>
           <li>
             Like cats:&nbsp;
-            {users[0] && users[0].likeCats === true ? 'yes' : 'no'}
+            {user && user.likeCats === true ? 'yes' : 'no'}
           </li>
           <li>
             Like dogs:&nbsp;
-            {users[0] && users[0].likeDogs === true ? 'yes' : 'no'}
+            {user && user.likeDogs === true ? 'yes' : 'no'}
           </li>
           <li>
             Favorite film:&nbsp;
-            {users[0] && users[0].favoriteFilm}
+            {user && user.favoriteFilm}
           </li>
         </div>
       ));
