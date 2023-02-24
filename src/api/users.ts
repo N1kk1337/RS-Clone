@@ -8,8 +8,6 @@ export const fetchUsersInfo = createAsyncThunk(
       method: 'GET',
     });
     return response.json();
-    // const response: any = await axios(`${baseUrl}`);
-    // return response;
   },
 );
 
