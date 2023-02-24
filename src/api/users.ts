@@ -29,7 +29,7 @@ export const fetchUpDateUser = createAsyncThunk(
   'PATCH_user/fetchUpDateUser',
   async (props: IUser) => {
     const upDateUser = JSON.stringify(props);
-    const response = await fetch(`${baseUrl}/${props.id}`, {
+    const response = await fetch(`${baseUrl}/${props.userId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

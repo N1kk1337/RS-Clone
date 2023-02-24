@@ -1,8 +1,8 @@
 export const baseUrl = 'http://localhost:3004/users';
 
 export interface IUser {
-  id: number;
-  email?: string;
+  userId: string;
+  email: string;
   password?: string;
   firstName?: string;
   lastName?: string;

@@ -72,25 +72,25 @@ function LoginModal() {
   //   }
   //   usersGet();
   // }, [email]);
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const body: UserRegister = {
-      email,
-      password,
-    };
-    try {
-      const isValid: IUser[] = users.filter((user: IUser) => user.email === body.email);
-      if (isValid.length > 0) {
-        setPasswordMessage('Password is wrong!');
-        if (body.password === isValid[0].password) {
-          document.cookie = `login=${isValid[0].id}`;
-          router('/user-page');
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  //   e.preventDefault();
+  //   const body: UserRegister = {
+  //     email,
+  //     password,
+  //   };
+  //   try {
+  //     const isValid: IUser[] = users.filter((user: IUser) => user.email === body.email);
+  //     if (isValid.length > 0) {
+  //       setPasswordMessage('Password is wrong!');
+  //       if (body.password === isValid[0].password) {
+  //         document.cookie = `login=${isValid[0].id}`;
+  //         router('/user-page');
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   return (
     <div className="login login-active">
