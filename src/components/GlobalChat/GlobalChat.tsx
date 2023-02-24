@@ -4,7 +4,6 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import {
   collection, orderBy, limit, query, serverTimestamp, addDoc,
 } from 'firebase/firestore';
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { db, auth } from '../../firebase';
 import ChatMessage from '../Chat/ChatMessage/ChatMessage';
 
@@ -37,17 +36,10 @@ function GlobalChat() {
     (scrollTo.current as any).scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const logOut = async () => {
-    await signOut(auth);
-  };
-  const googleSignIn = () => {
-    const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
-  };
-
   return (
     <div className="row justify-content-center">
-      <div className="chat">
+      <h1 style={{ color: '#0069d9' }}>Global Chat</h1>
+      <div className="chat d-block">
         <div className="chat-texts">
           <div className="messages">
             <div ref={scrollTo} />
@@ -61,12 +53,6 @@ function GlobalChat() {
             }
           </div>
 
-          <div className="buttons">
-            {
-                !user ? <button type="button" className="btn btn-primary loginWithGoogle" onClick={() => googleSignIn()}>Login with google</button>
-                  : <button type="button" className="btn btn-danger logout" onClick={() => logOut()}>Log Out</button>
-            }
-          </div>
         </div>
         <form className="form">
           <input

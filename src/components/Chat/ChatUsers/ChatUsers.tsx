@@ -7,7 +7,6 @@ import './ChatUsers.scss';
 function ChatUsers({ userinfo }: any) {
   // console.log(Object.values(userinfo));
   const { text } = userinfo;
-  console.log(text);
   const [userActive, setUserActive] = useState('');
   const [activeUsers, setActiveUsers] = useState<NodeListOf<Element>>();
 

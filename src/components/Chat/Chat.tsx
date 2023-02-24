@@ -7,7 +7,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import {
   collection, orderBy, limit, query, serverTimestamp, addDoc, where, getDocs,
 } from 'firebase/firestore';
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+// import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { db, auth } from '../../firebase';
 import ChatMessage from './ChatMessage/ChatMessage';
 import ChatUsers from './ChatUsers/ChatUsers';
@@ -44,14 +44,14 @@ function Chat() {
     (scrollTo.current as any).scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const logOut = async () => {
-    await signOut(auth);
-  };
-  const googleSignIn = async () => {
-    const provider = await new GoogleAuthProvider();
-    // await setDoc(doc(db, 'userChats', provider),);
-    return signInWithPopup(auth, provider);
-  };
+  // const logOut = async () => {
+  //   await signOut(auth);
+  // };
+  // const googleSignIn = async () => {
+  //   const provider = await new GoogleAuthProvider();
+  //   // await setDoc(doc(db, 'userChats', provider),);
+  //   return signInWithPopup(auth, provider);
+  // };
 
   const handleSearch = async () => {
     const q = query(
@@ -89,9 +89,6 @@ function Chat() {
             {
               someUser && <ChatUsers userinfo={someUser} />
             }
-            {/* <ChatUsers />
-            <ChatUsers />
-            <ChatUsers /> */}
           </div>
         </div>
         <div className="chat-texts">
@@ -107,12 +104,6 @@ function Chat() {
             }
           </div>
 
-          <div className="buttons">
-            {
-                !user ? <button type="button" className="btn btn-primary loginWithGoogle" onClick={() => googleSignIn()}>Login with google</button>
-                  : <button type="button" className="btn btn-danger logout" onClick={() => logOut()}>Log Out</button>
-            }
-          </div>
         </div>
         <form className="form">
           <input
