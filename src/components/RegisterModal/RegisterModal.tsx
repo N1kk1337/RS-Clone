@@ -10,6 +10,7 @@ import { IUser } from '../types';
 import { setUser } from '../store/slices/userAuth';
 import { useAppDispatch } from '../../hooks/redux';
 import { auth } from '../../firebase';
+import { writeUserData } from '../../utils/utils';
 
 interface UserRegister {
   email: string;
@@ -38,7 +39,10 @@ function BasicExample() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleRegister = (mail:string, pass:string) => {
+  const handleRegister = (event: any, mail:string, pass:string) => {
+    event.preventDefault();
+    console.log('регаемся');
+
     createUserWithEmailAndPassword(auth, mail, pass)
       .then(({ user }) => {
         dispatch(setUser({
@@ -46,7 +50,9 @@ function BasicExample() {
           id: user.uid,
           token: user.refreshToken,
         }));
-        navigate('/user-page');
+        console.log('зарегались');
+        writeUserData(user.uid, mail, firstName, lastName, nickName);
+        // navigate('/user-page');
       })
       .catch(console.error);
   };
@@ -132,7 +138,7 @@ function BasicExample() {
   return (
     <div className="register register-active">
       <h2 className="text-center">Sign up</h2>
-      <Form onSubmit={() => handleRegister(email, password)}>
+      <Form onSubmit={(e) => handleRegister(e, email, password)}>
         <Form.Group className="mb-3">
           <Form.Label className="fs-4">Email address</Form.Label>
           <Form.Control

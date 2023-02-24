@@ -27,8 +27,8 @@ function App() {
       <Header />
       <Container className="content">
         <Routes>
-          <Route path={`${emptyPath}`} element={<LandingPage />} />
-          <Route path={`${userPage}`} element={<UserPage />} />
+          <Route path={emptyPath} element={<LandingPage />} />
+          <Route path={userPage} element={<UserPage />} />
         </Routes>
       </Container>
       <Footer />

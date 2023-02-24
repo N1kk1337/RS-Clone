@@ -1,7 +1,7 @@
 {
   "name": "rs-clone",
   "version": "0.1.0",
-  "homepage": "https://N1kk1337.github.io/rs-clone",
+  "homepage": "https://N1kk1337.github.io/rs-clone/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
