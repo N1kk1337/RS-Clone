@@ -1,7 +1,11 @@
 import axios from 'axios';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../../firebase';
+import { useAppDispatch } from '../../hooks/redux';
+import { setUser } from '../store/slices/userAuth';
 import { IUser } from '../types';
 import './LoginModal.scss';
 
@@ -9,7 +13,6 @@ interface UserRegister {
   email: string;
   password: string;
 }
-const baseUrl = 'http://localhost:3004/users';
 
 function LoginModal() {
   const router = useNavigate();
@@ -19,6 +22,24 @@ function LoginModal() {
   const [isEmail, setIsEmail] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [passwordMessage, setPasswordMessage] = useState('');
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogin = (event:any, mail: string, pass: string) => {
+    event.preventDefault();
+    signInWithEmailAndPassword(auth, mail, pass)
+      .then(({ user }) => {
+        console.log(user);
+        dispatch(setUser({
+          email: user.email,
+          id: user.uid,
+          token: user.refreshToken,
+        }));
+        navigate('/user-page');
+      })
+      .catch(() => alert('Invalid user!'));
+  };
 
   function inputChangeHandler(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -44,37 +65,37 @@ function LoginModal() {
       setPassword(isPassword);
     }
   }
-  useEffect(() => {
-    async function usersGet() {
-      const response = await axios.get(baseUrl);
-      setUsers(response.data);
-    }
-    usersGet();
-  }, [email]);
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const body: UserRegister = {
-      email,
-      password,
-    };
-    try {
-      const isValid: IUser[] = users.filter((user: IUser) => user.email === body.email);
-      if (isValid.length > 0) {
-        setPasswordMessage('Password is wrong!');
-        if (body.password === isValid[0].password) {
-          document.cookie = `login=${isValid[0].id}`;
-          router('/user-page');
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // useEffect(() => {
+  //   async function usersGet() {
+  //     const response = await axios.get(baseUrl);
+  //     setUsers(response.data);
+  //   }
+  //   usersGet();
+  // }, [email]);
+  // async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  //   e.preventDefault();
+  //   const body: UserRegister = {
+  //     email,
+  //     password,
+  //   };
+  //   try {
+  //     const isValid: IUser[] = users.filter((user: IUser) => user.email === body.email);
+  //     if (isValid.length > 0) {
+  //       setPasswordMessage('Password is wrong!');
+  //       if (body.password === isValid[0].password) {
+  //         document.cookie = `login=${isValid[0].id}`;
+  //         router('/user-page');
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   return (
     <div className="login login-active">
       <h2 className="text-center">Sign in</h2>
-      <Form onSubmit={(e) => handleSubmit(e)}>
+      <Form onSubmit={(e) => handleLogin(e, email, password)}>
         <Form.Group className="mb-3">
           <Form.Label className="fs-4">Email address</Form.Label>
           <Form.Control

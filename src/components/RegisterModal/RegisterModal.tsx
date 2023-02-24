@@ -1,9 +1,16 @@
 /* eslint-disable react/react-in-jsx-scope */
+import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import './register.scss';
 import axios from 'axios';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+
 import { IUser } from '../types';
+import { setUser } from '../store/slices/userAuth';
+import { useAppDispatch } from '../../hooks/redux';
+import { auth } from '../../firebase';
+import { writeUserData } from '../../utils/utils';
 
 interface UserRegister {
   email: string;
@@ -17,7 +24,7 @@ interface UserRegister {
 const baseUrl = 'http://localhost:3004/users';
 
 function BasicExample() {
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -27,8 +34,27 @@ function BasicExample() {
   const [isEmail, setIsEmail] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
-
   const [emailMessage, setEmailMessage] = useState('');
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleRegister = (event: any, mail:string, pass:string) => {
+    event.preventDefault();
+
+    createUserWithEmailAndPassword(auth, mail, pass)
+      .then(({ user }) => {
+        console.log(user);
+        dispatch(setUser({
+          email: user.email,
+          id: user.uid,
+          token: user.refreshToken,
+        }));
+        writeUserData(user.uid, mail, firstName, lastName, nickName);
+      })
+      .catch(console.error);
+    navigate('/user-page');
+  };
 
   function handleInputChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -45,7 +71,7 @@ function BasicExample() {
         ?.input as string;
       if (!isEmailVal) setIsEmail(true);
       else setIsEmail(false);
-      setEmail(isEmailVal);
+      setEmail(value);
     }
     if (id === 'password') {
       const isPassword = value.match(
@@ -57,7 +83,7 @@ function BasicExample() {
       } else {
         setIsPasswordValid(false);
       }
-      setPassword(isPassword);
+      setPassword(value);
     }
     if (id === 'confirmPassword') {
       setConfirmPassword(value);
@@ -69,47 +95,49 @@ function BasicExample() {
       setNickName(value);
     }
   }
-  useEffect(() => {
-    async function usersGet() {
-      const response = await axios.get(baseUrl);
-      setUsers(response.data);
-    }
-    usersGet();
-  }, [email]);
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const body: UserRegister = {
-      firstName,
-      nickName,
-      lastName,
-      email,
-      password,
-      confirmPassword,
-    };
-    try {
-      const isValid = users.filter((user: IUser) => user.email === body.email);
 
-      if (isValid.length > 0) {
-        setEmailMessage('This email is busy');
-      } else {
-        axios.post(baseUrl, body);
-        setEmail('');
-        setPassword('');
-        setFirstName('');
-        setLastName('');
-        setNickName('');
-        setConfirmPassword('');
-        setEmailMessage('');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // useEffect(() => {
+  //   async function usersGet() {
+  //     const response = await axios.get(baseUrl);
+  //     setUsers(response.data);
+  //   }
+  //   usersGet();
+  // }, [email]);
+
+  // async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  //   e.preventDefault();
+  //   const body: UserRegister = {
+  //     firstName,
+  //     nickName,
+  //     lastName,
+  //     email,
+  //     password,
+  //     confirmPassword,
+  //   };
+  //   try {
+  //     const isValid = users.filter((user: IUser) => user.email === body.email);
+
+  //     if (isValid.length > 0) {
+  //       setEmailMessage('This email is busy');
+  //     } else {
+  //       axios.post(baseUrl, body);
+  //       setEmail('');
+  //       setPassword('');
+  //       setFirstName('');
+  //       setLastName('');
+  //       setNickName('');
+  //       setConfirmPassword('');
+  //       setEmailMessage('');
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   return (
     <div className="register register-active">
       <h2 className="text-center">Sign up</h2>
-      <Form onSubmit={(e) => handleSubmit(e)}>
+      <Form onSubmit={(e) => handleRegister(e, email, password)}>
         <Form.Group className="mb-3">
           <Form.Label className="fs-4">Email address</Form.Label>
           <Form.Control
