@@ -1,29 +1,32 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import React, { useState } from 'react';
+import {
+  Button, Form, InputGroup, Modal,
+} from 'react-bootstrap';
 import './register.scss';
-import axios from 'axios';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
-import { IUser } from '../types';
+// import { IUser } from '../types';
 import { setUser } from '../store/slices/userAuth';
 import { useAppDispatch } from '../../hooks/redux';
 import { auth } from '../../firebase';
 import { writeUserData } from '../../utils/utils';
 
-interface UserRegister {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  nickName: string;
-  confirmPassword: string;
-}
+// interface UserRegister {
+//   email: string;
+//   password: string;
+//   firstName: string;
+//   lastName: string;
+//   nickName: string;
+//   confirmPassword: string;
+// }
 
-const baseUrl = 'http://localhost:3004/users';
+type RegisterModalProps = {
+  handleClose:(value:boolean)=> void;
+};
 
-function BasicExample() {
+function RegisterModal({ handleClose }:RegisterModalProps) {
   // const [users, setUsers] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,6 +37,7 @@ function BasicExample() {
   const [isEmail, setIsEmail] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [emailMessage, setEmailMessage] = useState('');
 
   const dispatch = useAppDispatch();
@@ -44,7 +48,6 @@ function BasicExample() {
 
     createUserWithEmailAndPassword(auth, mail, pass)
       .then(({ user }) => {
-        console.log(user);
         dispatch(setUser({
           email: user.email,
           id: user.uid,
@@ -52,6 +55,7 @@ function BasicExample() {
         }));
         writeUserData(user.uid, mail, firstName, lastName, nickName);
       })
+      // eslint-disable-next-line no-console
       .catch(console.error);
     navigate('/user-page');
   };
@@ -136,100 +140,112 @@ function BasicExample() {
 
   return (
     <div className="register register-active">
-      <h2 className="text-center">Sign up</h2>
-      <Form onSubmit={(e) => handleRegister(e, email, password)}>
-        <Form.Group className="mb-3">
-          <Form.Label className="fs-4">Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            onChange={(e) => handleInputChange(e)}
-            id="email"
-            value={email}
-            required
-          />
-          {isEmail ? <p className="error">Email is not valid</p> : ''}
-          {emailMessage ? <p className="error">{ emailMessage }</p> : ''}
-        </Form.Group>
+      <Modal.Dialog>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-center">Sign up</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label className="fs-4">Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                onChange={(e) => handleInputChange(e)}
+                id="email"
+                value={email}
+                required
+              />
+              {isEmail ? <p className="error">Email is not valid</p> : ''}
+              {emailMessage ? <p className="error">{ emailMessage }</p> : ''}
+            </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label className="fs-4">Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={(e) => handleInputChange(e)}
-            id="password"
-            value={password}
-            required
-          />
-          {!isPasswordValid ? (
-            ''
-          ) : (
-            <p className="error">
-              Please use min 7 letter password, symbol, lower case letters and a
-              number
-            </p>
-          )}
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label className="fs-4">Repeat your password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={(e) => handleInputChange(e)}
-            id="confirmPassword"
-            value={confirmPassword}
-            required
-          />
-          {confirmPasswordValid ? (
-            <p className="error">Please add correct password</p>
-          ) : (
-            ''
-          )}
-        </Form.Group>
-        <InputGroup className="mb-3">
-          <Form.Label className="fs-4">First name</Form.Label>
-          <Form.Control
-            aria-label="Default"
-            aria-describedby="inputGroup-sizing-default"
-            placeholder="First name"
-            value={firstName}
-            onChange={(e) => handleInputChange(e)}
-            id="firstName"
-          />
-        </InputGroup>
-        <InputGroup className="mb-3">
-          <Form.Label className="fs-4">Last name</Form.Label>
-          <Form.Control
-            aria-label="Default"
-            aria-describedby="inputGroup-sizing-default"
-            placeholder="Last name"
-            value={lastName}
-            onChange={(e) => handleInputChange(e)}
-            id="lastName"
-          />
-        </InputGroup>
-        <InputGroup className="mb-3">
-          <Form.Label className="fs-4">Nick name</Form.Label>
-          <Form.Control
-            aria-label="Default"
-            aria-describedby="inputGroup-sizing-default"
-            placeholder="Nick name"
-            value={nickName}
-            onChange={(e) => handleInputChange(e)}
-            id="nickName"
-          />
-        </InputGroup>
-        <Button
-          variant="primary"
-          type="submit"
-          disabled={isEmail || isPasswordValid || confirmPasswordValid}
-        >
-          Submit
-        </Button>
-      </Form>
+            <Form.Group className="mb-3">
+              <Form.Label className="fs-4">Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={(e) => handleInputChange(e)}
+                id="password"
+                value={password}
+                required
+              />
+              {!isPasswordValid ? (
+                ''
+              ) : (
+                <p className="error">
+                  Please use min 7 letter password, symbol, lower case letters and a
+                  number
+                </p>
+              )}
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="fs-4">Repeat your password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={(e) => handleInputChange(e)}
+                id="confirmPassword"
+                value={confirmPassword}
+                required
+              />
+              {confirmPasswordValid ? (
+                <p className="error">Please add correct password</p>
+              ) : (
+                ''
+              )}
+            </Form.Group>
+            <InputGroup className="mb-3">
+              <Form.Label className="fs-4">First name</Form.Label>
+              <Form.Control
+                aria-label="Default"
+                aria-describedby="inputGroup-sizing-default"
+                placeholder="First name"
+                value={firstName}
+                onChange={(e) => handleInputChange(e)}
+                id="firstName"
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Form.Label className="fs-4">Last name</Form.Label>
+              <Form.Control
+                aria-label="Default"
+                aria-describedby="inputGroup-sizing-default"
+                placeholder="Last name"
+                value={lastName}
+                onChange={(e) => handleInputChange(e)}
+                id="lastName"
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Form.Label className="fs-4">Nick name</Form.Label>
+              <Form.Control
+                aria-label="Default"
+                aria-describedby="inputGroup-sizing-default"
+                placeholder="Nick name"
+                value={nickName}
+                onChange={(e) => handleInputChange(e)}
+                id="nickName"
+              />
+            </InputGroup>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => handleClose(false)}>
+            Close
+          </Button>
+          <Button
+            onClick={(e) => handleRegister(e, email, password)}
+            variant="primary"
+            type="submit"
+            disabled={isEmail || isPasswordValid || confirmPasswordValid}
+          >
+            Submit
+          </Button>
+        </Modal.Footer>
+      </Modal.Dialog>
     </div>
   );
 }
 
-export default BasicExample;
+export default RegisterModal;

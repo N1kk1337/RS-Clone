@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react';
 import LoginModal from '../../components/LoginModal/LoginModal';
-import BasicExample from '../../components/RegisterModal/RegisterModal';
+import RegisterModal from '../../components/RegisterModal/RegisterModal';
 import './Landing.scss';
 
 function LandingPage() {
@@ -14,7 +14,7 @@ function LandingPage() {
       {showRegister ? (
         <div>
           <div className="overlay" onClick={() => setShowRegister(false)} />
-          <BasicExample />
+          <RegisterModal handleClose={setShowRegister} />
         </div>
       ) : (
         ''

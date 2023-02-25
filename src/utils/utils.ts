@@ -19,22 +19,7 @@ export async function writeUserData(
   favoriteFilm?: string,
 ) {
   try {
-    console.log('добавляем');
-    console.log({
-      userId,
-      firstName,
-      lastName,
-      nickName,
-      email,
-      location,
-      country,
-      city,
-      avatarImg,
-      likeCats,
-      likeDogs,
-      favoriteFilm,
-    });
-    const docRef = await setDoc(doc(db, 'users', userId), {
+    await setDoc(doc(db, 'users', userId), {
       userId,
       firstName,
       lastName,
@@ -49,6 +34,7 @@ export async function writeUserData(
       favoriteFilm,
     });
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error('Error adding document: ', e);
   }
 }
@@ -61,6 +47,7 @@ export async function getUserData(userId: string) {
     const user:IUser = { userId: uid, email, ...rest };
     return user;
   }
+  // eslint-disable-next-line no-console
   console.log('No such document!');
   return null;
 }
