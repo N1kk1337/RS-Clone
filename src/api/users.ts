@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { baseUrl } from '../components/type';
+import { baseUrl, IUser } from '../components/types';
 
 export const fetchUsersInfo = createAsyncThunk(
   'GET_users/fetchUsersInfo',
@@ -24,20 +24,11 @@ export interface IUpDateUser {
 }
 
 export const fetchUpDateUser = createAsyncThunk(
-  'PUT_user/fetchUpDateUser',
-  async (props: IUpDateUser) => {
-    const upDateUser = JSON.stringify({
-      firstName: props.firstNameUser,
-      lastName: props.lastNameUser,
-      location: props.locationUser,
-      country: props.countryUser,
-      city: props.cityUser,
-      likeCats: props.likeCatsUser,
-      likeDogs: props.likeDogsUser,
-      favoriteFilm: props.favoriteFilmUser,
-    });
+  'PATCH_user/fetchUpDateUser',
+  async (props: IUser) => {
+    const upDateUser = JSON.stringify(props);
     const response = await fetch(`${baseUrl}/${props.userId}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },

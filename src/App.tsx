@@ -18,18 +18,17 @@ const starPath = '*';
 
 function App() {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchUsersInfo());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchUsersInfo());
+  // }, []);
 
   return (
     <div className="App">
       <Header />
       <Container className="content">
         <Routes>
-          <Route path={`${emptyPath}`} element={<LandingPage />} />
-          <Route path={`${userPage}`} element={<UserPage />} />
-          <Route path={`${starPath}`} element={<Navigate to="" />} />
+          <Route path={emptyPath} element={<LandingPage />} />
+          <Route path={userPage} element={<UserPage />} />
         </Routes>
       </Container>
       <Footer />
