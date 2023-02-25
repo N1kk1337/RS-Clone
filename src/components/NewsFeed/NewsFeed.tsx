@@ -15,7 +15,7 @@ function NewsFeed(props:{ users:Array<IUser> }) {
 
   const [formValues, setFormValues] = useState<FormValues>({ text: '' });
 
-  // const { data: usersa, isLoading } = useAppSelector((state) => state.users);
+  // const { data: users, isLoading } = useAppSelector((state) => state.users);
 
   async function getPosts() {
     setPosts([]);
@@ -62,8 +62,8 @@ function NewsFeed(props:{ users:Array<IUser> }) {
         getPosts();
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.error(error);
-        // Handle error
       });
   };
 
@@ -88,7 +88,7 @@ function NewsFeed(props:{ users:Array<IUser> }) {
           </span>
           <Form.Control
             as="textarea"
-            placeholder="Wazzup?"
+            placeholder="What do you think?"
             style={{ height: '100px' }}
             onChange={handleNewPostChange}
           />
