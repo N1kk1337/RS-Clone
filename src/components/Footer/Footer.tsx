@@ -6,7 +6,7 @@ import './style.scss';
 function Footer(): JSX.Element {
   const router = useNavigate();
   return (
-    <div className="footer">
+    <div className="footer" data-testid="footer">
       <Button type="button" className="btn btn-outline-primary" onClick={() => router('')}>Перейти на главный сайт</Button>
       <div className="github">
         Site by:

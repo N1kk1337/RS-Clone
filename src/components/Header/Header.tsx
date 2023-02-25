@@ -7,8 +7,9 @@ function Header(): JSX.Element {
   const router = useNavigate();
   // добавить в кнопки правильный путь
   return (
-    <div className="header">
-      <Button type="button" className="btn btn-outline-primary" onClick={() => router('/')}>
+    <div className="header" data-testid="header">
+      <Button type="button" className="btn btn-outline-primary" onClick={() => router('')}>
+
         <img
           src="/rs-clone/logo.png"
           alt="logo"
