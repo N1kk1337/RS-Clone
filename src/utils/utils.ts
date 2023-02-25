@@ -1,26 +1,28 @@
 import {
   setDoc, doc, getDoc,
 } from 'firebase/firestore';
-import { IUser } from '../components/types';
+import { IFeedPost, IUser } from '../components/types';
 import { db } from '../firebase';
 
-export async function writeUserData(
-  userId:string,
-  email:string,
-  firstName:string,
-  lastName:string,
-  nickName:string,
-  location?: string,
-  country?: string,
-  city?: string,
-  avatarImg?: string,
-  likeCats?: boolean,
-  likeDogs?: boolean,
-  favoriteFilm?: string,
-) {
+export async function writeUserData(user: IUser) {
+  const {
+    userId,
+    email,
+    firstName,
+    lastName,
+    nickName,
+    location,
+    country,
+    city,
+    avatarImg,
+    likeCats,
+    likeDogs,
+    favoriteFilm,
+    posts,
+  } = user;
+
   try {
-    console.log('добавляем');
-    console.log({
+    await setDoc(doc(db, 'users', userId), {
       userId,
       firstName,
       lastName,
@@ -33,20 +35,7 @@ export async function writeUserData(
       likeCats,
       likeDogs,
       favoriteFilm,
-    });
-    const docRef = await setDoc(doc(db, 'users', userId), {
-      userId,
-      firstName,
-      lastName,
-      nickName,
-      email,
-      location,
-      country,
-      city,
-      avatarImg,
-      likeCats,
-      likeDogs,
-      favoriteFilm,
+      posts,
     });
   } catch (e) {
     console.error('Error adding document: ', e);

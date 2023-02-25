@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import 'react-quill/dist/quill.snow.css';
+import { getUserData, writeUserData } from '../../utils/utils';
 // import { useAppSelector } from '../../hooks/redux';
 import Post from '../Post/Post';
 import { baseUrl, IFeedPost, IUser } from '../types';
 
 function NewsFeed(props:{ users:Array<IUser> }) {
   const { users } = props;
+  const [user, setUser] = useState<IUser>();
   const [posts, setPosts] = useState<IFeedPost[]>([]);
 
   interface FormValues {
@@ -19,12 +21,9 @@ function NewsFeed(props:{ users:Array<IUser> }) {
 
   async function getPosts() {
     setPosts([]);
-    // users.forEach(async (user) => {
-    //   const response = await fetch(`${baseUrl}/${user.id}/posts`);
-
-    //   const data = await response.json() as IFeedPost[];
-    //   setPosts(data);
-    // });
+    getUserData(users[0].userId as unknown as string)?.then((value) => {
+      setUser(value!);
+    });
   }
 
   useEffect(() => {
@@ -33,13 +32,15 @@ function NewsFeed(props:{ users:Array<IUser> }) {
 
   const postSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await fetch(`${baseUrl}/1/posts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: (JSON.stringify(formValues)),
-    }).then((data) => data.json());
+    writeUserData(
+      user?.userId!,
+      user?.email!,
+      user?.firstName!,
+      user?.lastName!,
+      user?.nickName!,
+      user?.posts,
+    );
+
     setFormValues({ text: '' });
     getPosts();
   };
