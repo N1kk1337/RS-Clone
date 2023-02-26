@@ -1,12 +1,10 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { IUser } from '../types';
 import './FindFriendsCard.scss';
 
-import User from '../../data/test-data/User';
-
 interface Props {
-
-  user: User;
+  user: IUser;
 }
 
 export default function FindFriendsCard({ user }:Props) {

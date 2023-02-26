@@ -64,8 +64,6 @@ export async function getUserData(userId: string) {
   if (docSnap.exists()) {
     const { uid, email, ...rest } = docSnap.data();
     const user:IUser = { userId: uid, email, ...rest };
-    console.log(user);
-
     return user;
   }
   console.log('No such document!');

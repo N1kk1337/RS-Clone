@@ -1,24 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import User from '../../data/test-data/User';
+import { IUser } from '../types';
 import './FriendsFilters.scss';
 
 export default function FriendsFilter() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [city, setCity] = useState('');
   const [likeCats, setLikeCats] = useState(false);
   const [likeDogs, setLikeDogs] = useState(false);
   const [favoriteFilm, setFavoriteFilm] = useState('');
-
-  useEffect(() => {
-    axios.get('http://localhost:3004/users').then((res) => {
-      setUsers(res.data);
-    });
-  }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

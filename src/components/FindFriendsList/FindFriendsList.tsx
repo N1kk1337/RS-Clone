@@ -2,11 +2,11 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import User from '../../data/test-data/User';
 import FindFriendsCard from '../FindFriendsCard/FindFriendsCard';
+import { IUser } from '../types';
 
 interface Props {
-  users:User[]
+  users:IUser[]
 }
 export default function FindFriendsList({ users }:Props) {
   return (
@@ -14,8 +14,8 @@ export default function FindFriendsList({ users }:Props) {
       <Row xs={1} md={2} className="g-4">
 
         { users
-          ? users.map((user: User) => (
-            <Col key={user.id}>
+          ? users.map((user: IUser) => (
+            <Col key={user.userId}>
               <FindFriendsCard user={user} />
             </Col>
           ))

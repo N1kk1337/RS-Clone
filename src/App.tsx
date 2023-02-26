@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
-  Navigate,
   Route, Routes,
 } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
@@ -12,11 +11,12 @@ import UserPage from './pages/UserPage/UserPage';
 import './App.scss';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import GlobalFeedPage from './pages/Landing/GlobalFeedPage/GlobalFeedPage';
+import FindFriends from './pages/FindFriends/FindFriends';
 
 export const emptyPath = '/';
 export const userPage = '/user-page';
-export export const findFriendsPage = '/find-friends';
-const globalFeedPage = '/feed';
+export const findFriendsPage = '/search';
+export const globalFeedPage = '/feed';
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
       <Container className="content">
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
-          <Route path={`${findFriendsPage}`} element={<FindFriends />} />
+          <Route path={findFriendsPage} element={<FindFriends />} />
           <Route path={emptyPath} element={<LandingPage />} />
           <Route path={globalFeedPage} element={<GlobalFeedPage />} />
           <Route path={userPage} element={<UserPage />} />

@@ -21,8 +21,6 @@ interface UserRegister {
   confirmPassword: string;
 }
 
-const baseUrl = 'http://localhost:3004/users';
-
 function BasicExample() {
   // const [users, setUsers] = useState([]);
   const [email, setEmail] = useState('');
@@ -44,7 +42,6 @@ function BasicExample() {
 
     createUserWithEmailAndPassword(auth, mail, pass)
       .then(({ user }) => {
-        console.log(user);
         dispatch(setUser({
           email: user.email,
           id: user.uid,
