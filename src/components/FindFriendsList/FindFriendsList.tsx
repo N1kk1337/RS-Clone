@@ -12,7 +12,6 @@ export default function FindFriendsList({ users }:Props) {
   return (
     <Container>
       <Row xs={1} md={2} className="g-4">
-
         { users
           ? users.map((user: IUser) => (
             <Col key={user.userId}>

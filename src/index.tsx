@@ -10,7 +10,6 @@ import { HashRouter } from 'react-router-dom';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { store, persistor } from './components/store/store';
 
 const queryClient = new QueryClient();

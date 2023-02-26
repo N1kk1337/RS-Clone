@@ -143,3 +143,7 @@ export async function getAllUsers() {
   const users = querySnapshot.docs.map((document) => document.data() as IUser);
   return users;
 }
+
+export async function addFriend() {
+
+}

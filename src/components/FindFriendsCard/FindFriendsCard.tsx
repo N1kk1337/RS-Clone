@@ -18,7 +18,7 @@ export default function FindFriendsCard({ user }:Props) {
   };
 
   return (
-    <Card className="mt-3 mb-3 mx-auto" style={{ width: '16rem' }}>
+    <Card className="mt-3 mb-3 mx-auto user-search-card">
       <Card.Img variant="top" src={avatarImg} />
       <Card.Body>
         <Card.Title>
@@ -32,9 +32,11 @@ export default function FindFriendsCard({ user }:Props) {
           {country}
           {' - '}
           {city}
-
         </Card.Text>
-        <Button variant="primary" onClick={onAddClick}>Add Friend</Button>
+        <Card.Footer className="user-search-card__footer">
+          <Button variant="primary" onClick={onAddClick}>Add Friend</Button>
+          <Button variant="primary" onClick={onAddClick}>Start Chat</Button>
+        </Card.Footer>
       </Card.Body>
     </Card>
   );
