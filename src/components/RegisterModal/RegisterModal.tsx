@@ -11,8 +11,9 @@ import { setUser } from '../store/slices/userAuth';
 import { useAppDispatch } from '../../hooks/redux';
 import { auth } from '../../firebase';
 import { writeUserData } from '../../utils/utils';
+import { fakeUser } from '../fakeUsers';
 
-interface UserRegister {
+export interface UserRegister {
   email: string;
   password: string;
   firstName: string;
@@ -36,10 +37,19 @@ function BasicExample() {
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
   const [emailMessage, setEmailMessage] = useState('');
 
+  function createFakeUser() {
+    setEmail(fakeUser.email);
+    setPassword(fakeUser.password);
+    setFirstName(fakeUser.firstName);
+    setLastName(fakeUser.lastName);
+    setNickName(fakeUser.nickName);
+    setConfirmPassword(fakeUser.confirmPassword);
+  }
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleRegister = (event: any, mail:string, pass:string) => {
+  const handleRegister = (event: any, mail: string, pass: string) => {
     event.preventDefault();
 
     createUserWithEmailAndPassword(auth, mail, pass)
@@ -50,7 +60,7 @@ function BasicExample() {
           id: user.uid,
           token: user.refreshToken,
         }));
-        const newUser:IUser = {
+        const newUser: IUser = {
           userId: user.uid, email: mail, firstName, lastName, nickName,
         };
         writeUserData(newUser);
@@ -152,7 +162,7 @@ function BasicExample() {
             required
           />
           {isEmail ? <p className="error">Email is not valid</p> : ''}
-          {emailMessage ? <p className="error">{ emailMessage }</p> : ''}
+          {emailMessage ? <p className="error">{emailMessage}</p> : ''}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -230,6 +240,7 @@ function BasicExample() {
         >
           Submit
         </Button>
+        <Button onClick={() => createFakeUser()} className="margin-top-20">Create a random user</Button>
       </Form>
     </div>
   );
