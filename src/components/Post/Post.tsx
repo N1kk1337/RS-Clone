@@ -8,7 +8,7 @@ import './Post.scss';
 type Props = {
   user: IUser;
   post: IFeedPost;
-  handleDelete:(id:string)=>void;
+  handleDelete:(userId:string, postId:string)=>Promise<void>;
 };
 
 function Post(props:Props) {
@@ -16,7 +16,6 @@ function Post(props:Props) {
   const { user, post, handleDelete } = props;
 
   // function timeConvert(param: string) {
-  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   //   const [month, monthName, day, year, time] = param.split(' ');
 
   //   return `${day} ${monthName} ${time}`;
@@ -26,6 +25,7 @@ function Post(props:Props) {
   //   if (postLike) setPostLike(false);
   //   else setPostLike(true);
   // }
+
   return (
     <div className="feed-post">
       <div className="post-header">
@@ -60,7 +60,7 @@ function Post(props:Props) {
           )}
         </button>
       </div> */}
-      <Button onClick={() => handleDelete(post.id?.toString())}>DELETE</Button>
+      <Button onClick={() => handleDelete(user.userId, post.id?.toString())}>DELETE</Button>
     </div>
   );
 }

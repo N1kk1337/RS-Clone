@@ -1,72 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { deleteDoc, doc } from 'firebase/firestore';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import 'react-quill/dist/quill.snow.css';
-import { getUserData, writeUserData } from '../../utils/utils';
-// import { useAppSelector } from '../../hooks/redux';
+import { db } from '../../firebase';
+import {
+  createPost, getUserPosts,
+} from '../../utils/utils';
 import Post from '../Post/Post';
-import { baseUrl, IFeedPost, IUser } from '../types';
+import { IFeedPost, IUser } from '../types';
 
 function NewsFeed(props:{ users:Array<IUser> }) {
   const { users } = props;
-  const [user, setUser] = useState<IUser>();
-  const [posts, setPosts] = useState<IFeedPost[]>([]);
-
-  interface FormValues {
-    text: string;
-  }
-
-  const [formValues, setFormValues] = useState<FormValues>({ text: '' });
-
-  // const { data: usersa, isLoading } = useAppSelector((state) => state.users);
-
-  async function getPosts() {
-    setPosts([]);
-    getUserData(users[0].userId as unknown as string)?.then((value) => {
-      setUser(value!);
-    });
-  }
-
-  useEffect(() => {
-    getPosts();
-  }, []);
+  const {
+    status, error, refetch, data: posts,
+  } = useQuery<IFeedPost[] | null>(['user', users[0].userId, 'posts'], () => getUserPosts(users[0].userId!));
+  const [formValues, setFormValues] = useState('');
 
   const postSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    writeUserData(
-      user?.userId!,
-      user?.email!,
-      user?.firstName!,
-      user?.lastName!,
-      user?.nickName!,
-      user?.posts,
-    );
-
-    setFormValues({ text: '' });
-    getPosts();
+    createPost(users[0].userId, formValues);
+    refetch();
+    setFormValues('');
   };
 
   const handleNewPostChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setFormValues({ ...formValues, text: e.target.value });
+    setFormValues(e.target.value);
   };
 
-  const handleDelete = async (id:string) => {
-    fetch(`http://localhost:3004/posts/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to delete post');
-        }
-        getPosts();
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle error
-      });
-  };
+  async function handleDelete(userId:string, postId: string) {
+    try {
+      await deleteDoc(doc(db, 'users', userId, 'posts', postId));
+      refetch();
+    } catch (e) {
+      console.error('Error deleting document: ', e);
+    }
+  }
 
   return (
     <div className="feed-posts col-12">
@@ -88,8 +57,9 @@ function NewsFeed(props:{ users:Array<IUser> }) {
             </svg>
           </span>
           <Form.Control
+            value={formValues}
             as="textarea"
-            placeholder="Wazzup?"
+            placeholder="Got some news?"
             style={{ height: '100px' }}
             onChange={handleNewPostChange}
           />
@@ -98,10 +68,9 @@ function NewsFeed(props:{ users:Array<IUser> }) {
           Post
         </Button>
       </Form>
-      {posts
-      && posts.map(
-        (post) => <Post key={post.id} handleDelete={handleDelete} user={users[0]} post={post} />,
-      )}
+      {posts && posts.map((post) => (
+        <Post key={post.id} handleDelete={handleDelete} user={users[0]} post={post} />
+      ))}
       {/* <div>
         {users
             && users.map((user) => getPosts(user))}

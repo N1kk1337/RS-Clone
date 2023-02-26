@@ -19,11 +19,9 @@ export interface IUser {
 
 export interface IFeedPost {
   like?: number;
-  id: number;
-  userId?: number;
+  id: string;
   time?: string;
-  text?: string;
-  postTime?: string;
+  text: string;
   views?: number;
   comments?: Comments
 }
