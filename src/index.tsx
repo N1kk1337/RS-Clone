@@ -4,22 +4,32 @@ import './index.css';
 // import {
 //   createStore, AnyAction,
 // } from 'redux';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './components/store/store';
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <HashRouter>
-        <App />
-      </HashRouter>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <HashRouter>
+          <App />
+          <ReactQueryDevtools />
+        </HashRouter>
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>,
 );
 

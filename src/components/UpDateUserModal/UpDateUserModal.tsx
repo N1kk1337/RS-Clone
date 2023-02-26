@@ -62,9 +62,8 @@ function UpDateUserModal({ active, setActive }: any) {
 
   const updateUser = async () => {
     setActive(false);
-    writeUserData(
-      user.userId,
-      user.email,
+    writeUserData({
+      ...user,
       firstName,
       lastName,
       nickName,
@@ -75,7 +74,7 @@ function UpDateUserModal({ active, setActive }: any) {
       likeCats,
       likeDogs,
       favoriteFilm,
-    );
+    });
   };
 
   // const upDateUser = async () => {

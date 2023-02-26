@@ -2,21 +2,19 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 // import { AiOutlineLike } from 'react-icons/ai';
 import avatar from '../../assets/camera_50.png';
-import { IFeedPost, IUser } from '../types';
+import { IFeedPost } from '../types';
 import './Post.scss';
 
 type Props = {
-  user: IUser;
   post: IFeedPost;
-  handleDelete:(id:string)=>void;
+  handleDelete:(userId:string, postId:string)=>Promise<void>;
 };
 
 function Post(props:Props) {
   // const [postLike, setPostLike] = useState(false);
-  const { user, post, handleDelete } = props;
+  const { post, handleDelete } = props;
 
   // function timeConvert(param: string) {
-  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   //   const [month, monthName, day, year, time] = param.split(' ');
 
   //   return `${day} ${monthName} ${time}`;
@@ -26,18 +24,19 @@ function Post(props:Props) {
   //   if (postLike) setPostLike(false);
   //   else setPostLike(true);
   // }
+
   return (
     <div className="feed-post">
       <div className="post-header">
         <div className="user-info">
           <div className="avatar">
-            <img src={!user.avatarImg ? avatar : user.avatarImg} alt="png" />
+            <img src={!post.avatarImg ? avatar : post.avatarImg} alt="png" />
           </div>
           <div className="post-info">
             <h4 className="post-author">
-              {user.firstName}
+              {post.firstName}
               {' '}
-              {user.lastName}
+              {post.lastName}
             </h4>
             {/* <p className="post-time">{timeConvert(posts.time as string)}</p> */}
           </div>
@@ -60,7 +59,7 @@ function Post(props:Props) {
           )}
         </button>
       </div> */}
-      <Button onClick={() => handleDelete(post.id?.toString())}>DELETE</Button>
+      <Button onClick={() => handleDelete(post.userId, post.id?.toString())}>DELETE</Button>
     </div>
   );
 }
