@@ -1,7 +1,7 @@
 {
   "name": "rs-clone",
   "version": "0.1.0",
-  "homepage": "https://N1kk1337.github.io/rs-clone/",
+  "homepage": "https://N1kk1337.github.io/rs-clone//",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
@@ -17,9 +17,6 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
-    "react-firebase-hooks": "^5.1.1",
-    "react-icons": "^4.7.1",
-    "react-quill": "^2.0.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
