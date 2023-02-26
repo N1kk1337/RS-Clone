@@ -234,13 +234,14 @@ function BasicExample() {
           />
         </InputGroup>
         <Button
+          className="margin-top"
           variant="primary"
           type="submit"
           disabled={isEmail || isPasswordValid || confirmPasswordValid}
         >
           Submit
         </Button>
-        <Button onClick={() => createFakeUser()} className="margin-top-20">Create a random user</Button>
+        <Button onClick={() => createFakeUser()} className="margin-top margin-left">Create a random user</Button>
       </Form>
     </div>
   );
