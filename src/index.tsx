@@ -8,8 +8,10 @@ import {
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
-import store from './components/store/store';
+import reportWebVitals from './reportWebVitals';
+import { store, persistor } from './components/store/store';
 
 const queryClient = new QueryClient();
 
@@ -20,10 +22,12 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <HashRouter>
-          <App />
-          <ReactQueryDevtools />
-        </HashRouter>
+        <PersistGate loading={null} persistor={persistor}>
+          <HashRouter>
+            <App />
+            <ReactQueryDevtools />
+          </HashRouter>
+        </PersistGate>
       </Provider>
     </QueryClientProvider>
   </React.StrictMode>,
