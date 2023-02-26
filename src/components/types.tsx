@@ -14,16 +14,21 @@ export interface IUser {
   likeCats?: boolean;
   likeDogs?: boolean;
   favoriteFilm?: string;
-  posts?: IFeedPost[];
+  friends?:string[]
 }
 
 export interface IFeedPost {
+  firstName: string;
+  lastName: string;
+  nickName: string;
+  avatarImg: string;
   like?: number;
   id: string;
   time?: string;
   text: string;
   views?: number;
   comments?: Comments
+  userId: string;
 }
 
 export interface Comments {

@@ -4,23 +4,43 @@ import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import 'react-quill/dist/quill.snow.css';
 import { db } from '../../firebase';
+import { useAppSelector } from '../../hooks/redux';
 import {
-  createPost, getUserPosts,
+  createPost, getUserData, useFirestoreCollection,
 } from '../../utils/utils';
 import Post from '../Post/Post';
 import { IFeedPost, IUser } from '../types';
 
-function NewsFeed(props:{ users:Array<IUser> }) {
-  const { users } = props;
-  const {
-    status, error, refetch, data: posts,
-  } = useQuery<IFeedPost[] | null>(['user', users[0].userId, 'posts'], () => getUserPosts(users[0].userId!));
+// eslint-disable-next-line react/no-unused-prop-types
+function NewsFeed(props:{ users:Array<IUser>, isMyPage:boolean, isGlobal:boolean }) {
+  const { users, isMyPage } = props;
+  const { id } = useAppSelector((state) => state.userAuth);
+  const { status: userStatus, error: userError, data: userData } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
+
+  const allPosts = users.map((user) => useFirestoreCollection(`users/${user.userId}/posts`)) as {
+    status: 'error' | 'success' | 'loading';
+    data: IFeedPost[] | undefined;
+    error: unknown;
+    refetch:()=>void;
+  }[];
+
+  function handleRefetch() {
+    allPosts.forEach(({ refetch }) => refetch()); // call refetch on all collections
+  }
+
   const [formValues, setFormValues] = useState('');
 
   const postSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createPost(users[0].userId, formValues);
-    refetch();
+    createPost(
+      userData?.userId!,
+      formValues,
+      userData?.firstName!,
+      userData?.lastName!,
+      userData?.nickName!,
+      userData?.avatarImg!,
+    );
+    handleRefetch();
     setFormValues('');
   };
 
@@ -28,17 +48,19 @@ function NewsFeed(props:{ users:Array<IUser> }) {
     setFormValues(e.target.value);
   };
 
-  async function handleDelete(userId:string, postId: string) {
+  const handleDelete = async (userId:string, postId: string) => {
     try {
       await deleteDoc(doc(db, 'users', userId, 'posts', postId));
-      refetch();
+      handleRefetch();
     } catch (e) {
       console.error('Error deleting document: ', e);
     }
-  }
+  };
 
   return (
     <div className="feed-posts col-12">
+      {isMyPage
+      && (
       <Form onSubmit={postSubmitHandler} className="post-form col-12">
         <Form.Group className="mb-3 form-group" controlId="ControlTextarea1">
           <span className="post-avatar">
@@ -68,15 +90,15 @@ function NewsFeed(props:{ users:Array<IUser> }) {
           Post
         </Button>
       </Form>
-      {posts && posts.map((post) => (
-        <Post key={post.id} handleDelete={handleDelete} user={users[0]} post={post} />
+      )}
+      {allPosts[0].status === 'success' && allPosts.map((postPerUser) => (
+        postPerUser.data!.map(
+          (post) => <Post key={post.id} handleDelete={handleDelete} post={post} />,
+        )
       ))}
-      {/* <div>
-        {users
-            && users.map((user) => getPosts(user))}
-      </div> */}
+
     </div>
   );
 }
-
+// <Post key={post.data!} handleDelete={handleDelete} post={post} />
 export default NewsFeed;

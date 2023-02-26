@@ -11,9 +11,11 @@ import LandingPage from './pages/Landing/LandingPage';
 import UserPage from './pages/UserPage/UserPage';
 import './App.scss';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import GlobalFeedPage from './pages/Landing/GlobalFeedPage/GlobalFeedPage';
 
 export const emptyPath = '/';
 export const userPage = '/user-page';
+export const globalFeedPage = '/feed';
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
           <Route path={emptyPath} element={<LandingPage />} />
+          <Route path={globalFeedPage} element={<GlobalFeedPage />} />
           <Route path={userPage} element={<UserPage />} />
         </Routes>
       </Container>

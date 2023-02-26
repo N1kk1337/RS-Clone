@@ -8,6 +8,9 @@ import './Landing.scss';
 function LandingPage() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  // const { id } = useAppSelector((state) => state.userAuth);
+  // const navigate = useNavigate();
+  // if (id) navigate('/feed');
 
   return (
     <main>
