@@ -10,8 +10,8 @@ import LandingPage from './pages/Landing/LandingPage';
 import UserPage from './pages/UserPage/UserPage';
 import './App.scss';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
-import GlobalFeedPage from './pages/Landing/GlobalFeedPage/GlobalFeedPage';
-import FindFriends from './pages/FindFriends/FindFriends';
+import GlobalFeedPage from './pages/GlobalFeedPage/GlobalFeedPage';
+import FindFriendsPage from './pages/FindFriendsPage/FindFriendsPage';
 
 export const emptyPath = '/';
 export const userPage = '/user-page';
@@ -25,8 +25,8 @@ function App() {
       <Container className="content">
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
-          <Route path={findFriendsPage} element={<FindFriends />} />
           <Route path={emptyPath} element={<LandingPage />} />
+          <Route path={findFriendsPage} element={<FindFriendsPage />} />
           <Route path={globalFeedPage} element={<GlobalFeedPage />} />
           <Route path={userPage} element={<UserPage />} />
         </Routes>

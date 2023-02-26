@@ -136,3 +136,10 @@ export const useFirestoreCollection = (collectionPath: string) => {
     status, data, error, refetch,
   };
 };
+
+export async function getAllUsers() {
+  const usersCollection = collection(db, 'users');
+  const querySnapshot = await getDocs(usersCollection);
+  const users = querySnapshot.docs.map((document) => document.data() as IUser);
+  return users;
+}

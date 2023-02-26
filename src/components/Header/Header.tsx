@@ -17,7 +17,7 @@ function Header(): JSX.Element {
       </Button>
       <div className="navbar">
         <Button onClick={() => router('/user-page')}>Мой профиль</Button>
-        <Button onClick={() => router('')}>Найти друзей</Button>
+        <Button onClick={() => router('/search')}>Найти друзей</Button>
         <Button onClick={() => router('')}>Открыть ленту постов</Button>
       </div>
 
