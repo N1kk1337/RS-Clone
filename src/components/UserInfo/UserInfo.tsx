@@ -7,11 +7,13 @@ import { getUserData } from '../../utils/utils';
 import { IUser } from '../types';
 import UpDateUserModal from '../UpDateUserModal/UpDateUserModal';
 
-function UserInfo(): JSX.Element {
+interface UserInfoProps {
+  userInfo: IUser;
+}
+function UserInfo({ userInfo }: UserInfoProps): JSX.Element {
   // todo главный вопрос, хранить ли всё это в редаксе или всё же каждый раз загружать с сервера.
-  // const { data: users, isLoading } = useAppSelector((state) => state.users);
 
-  const [user, setUser] = useState<IUser>();
+  const [user, setUser] = useState<IUser>(userInfo);
   const [loading, setLoading] = useState(true);
   const { id } = useAppSelector((state) => state.userAuth);
   const [modalActive, setModalActive] = useState<boolean>(false);

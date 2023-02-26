@@ -50,7 +50,10 @@ function BasicExample() {
           id: user.uid,
           token: user.refreshToken,
         }));
-        writeUserData(user.uid, mail, firstName, lastName, nickName);
+        const newUser:IUser = {
+          userId: user.uid, email: mail, firstName, lastName, nickName,
+        };
+        writeUserData(newUser);
       })
       .catch(console.error);
     navigate('/user-page');
