@@ -1,17 +1,17 @@
 import {
   createSlice, Dispatch,
 } from '@reduxjs/toolkit';
-import { fetchUsersInfo, IUpDateUser } from '../../../api/users';
-import { IUser } from '../../type';
+import { fetchUsersInfo } from '../../../api/users';
+import { IUser } from '../../types';
 
-interface IUsersState {
+interface UsersState {
   data: IUser[];
   isLoading: boolean;
   error: string;
   count: number;
 }
 
-const initialState: IUsersState = {
+const initialState: UsersState = {
   data: [],
   isLoading: false,
   error: '',
@@ -25,13 +25,13 @@ export const slice = createSlice({
     deleteAllUsersState: (state) => {
       state.data = [];
     },
-    deleteAllErrorsState: (state: IUsersState) => {
+    deleteAllErrorsState: (state: UsersState) => {
       console.log(state);
     },
-    addUserState: (state: IUsersState, { payload }) => {
+    addUserState: (state: UsersState, { payload }) => {
       state.data = [...state.data, payload];
     },
-    updateFirstUserState: (state: IUsersState, { payload }) => {
+    updateFirstUserState: (state: UsersState, { payload }) => {
       state.data = [payload, ...state.data.splice(1, state.data.length)];
     },
   },
@@ -68,7 +68,7 @@ export const addUser = (payload: IUser) => async (dispatch: Dispatch) => {
   dispatch(addUserState(payload));
 };
 
-export const updateFirstUser = (payload: IUpDateUser) => async (dispatch: Dispatch) => {
+export const updateFirstUser = (payload: IUser) => async (dispatch: Dispatch) => {
   dispatch(updateFirstUserState(payload));
 };
 

@@ -6,9 +6,8 @@ import './style.scss';
 function Toolbar(): JSX.Element {
   const [modalActive, setModalActive] = useState<boolean>(false);
   return (
-    <div className="toolbar">
+    <div className="toolbar" data-testid="toolbar">
       <Button type="button" className="btn btn-outline-primary" onClick={() => setModalActive(!modalActive)}>Изменить информацию в профиле</Button>
-      <Button type="button" className="btn btn-outline-primary">Создать пост</Button>
       {modalActive
         && <UpDateUserModal active={modalActive} setActive={setModalActive} />}
     </div>

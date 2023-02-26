@@ -5,8 +5,7 @@ import React, { useState, useEffect } from 'react';
 import './ChatUsers.scss';
 
 function ChatUsers({ userinfo }: any) {
-  // console.log(Object.values(userinfo));
-  const { text } = userinfo;
+  const { firstName, lastName, avatarImg } = userinfo;
   const [userActive, setUserActive] = useState('');
   const [activeUsers, setActiveUsers] = useState<NodeListOf<Element>>();
 
@@ -14,11 +13,6 @@ function ChatUsers({ userinfo }: any) {
     const usersRemoveClass = document.querySelectorAll('.chat-user');
     setActiveUsers(usersRemoveClass);
   }, [userActive]);
-  // useEffect(() => {
-  //   for (const info in userinfo) {
-  //     console.log(info);
-  //   }
-  // }, []);
 
   function startChat() {
     if (userActive === '') {
@@ -32,9 +26,9 @@ function ChatUsers({ userinfo }: any) {
   }
   return (
     <div className={`chat-user ${userActive}`} onClick={() => startChat()}>
-      <img src="https://hips.hearstapps.com/hmg-prod/images/michael-jackson-gettyimages-89446104.jpg?resize=1200:*" alt="png" className="user-image" />
-      <p className="user-name">{text}</p>
-      <p className="user-last_text">daswds</p>
+      <img src={avatarImg} alt="png" className="user-image" />
+      <p className="user-name">{firstName}</p>
+      <p className="user-last_text">{lastName}</p>
     </div>
   );
 }

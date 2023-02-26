@@ -22,9 +22,9 @@ const starPath = '*';
 
 function App() {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchUsersInfo());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchUsersInfo());
+  // }, []);
 
   return (
     <div className="App">
@@ -34,8 +34,8 @@ function App() {
           <Route path={`${emptyPath}`} element={<LandingPage />} />
           <Route path={`${userPage}`} element={<UserPage />} />
           <Route path={`${starPath}`} element={<Navigate to="" />} />
-          <Route path={`${chat}`} element={<Chat />} />
           <Route path={`${chatGlobal}`} element={<GlobalChat />} />
+          <Route path={`${chat}`} element={<Chat />} />
         </Routes>
       </Container>
       <Footer />

@@ -5,21 +5,21 @@ import './Chat.scss';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import {
-  collection, orderBy, limit, query, serverTimestamp, addDoc, where, getDocs,
+  collection, orderBy, limit, query, serverTimestamp, addDoc, getDocs,
 } from 'firebase/firestore';
 // import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { db, auth } from '../../firebase';
+// import { AuthContext } from '../../hooks/AuthContextProvider';
 import ChatMessage from './ChatMessage/ChatMessage';
 import ChatUsers from './ChatUsers/ChatUsers';
 
+const usersData: any[] = [];
 function Chat() {
   const [user] = useAuthState(auth);
   const messageRef = collection(db, 'messages');
   const queryRef = query(messageRef, orderBy('createdAt', 'desc'), limit(20));
   const [messages] = useCollection(queryRef);
   const [username, setUsername] = useState('');
-  const [someUser, setSomeUser] = useState({});
-  const [err, setErr] = useState(false);
 
   const [formValue, setFormValue] = useState('');
 
@@ -44,6 +44,20 @@ function Chat() {
     (scrollTo.current as any).scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  async function getAllUsers() {
+    const q = query(
+      collection(db, 'users'),
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((docs) => {
+      usersData.push(docs.data());
+    });
+  }
+  useEffect(() => {
+    getAllUsers();
+    console.log(username);
+  }, []);
+
   // const logOut = async () => {
   //   await signOut(auth);
   // };
@@ -53,19 +67,16 @@ function Chat() {
   //   return signInWithPopup(auth, provider);
   // };
 
+  // const { currentUser } = useContext(AuthContext);
+
   const handleSearch = async () => {
-    const q = query(
-      collection(db, 'users'),
-      where('name', '==', username),
-    );
-    try {
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        setSomeUser(doc.data());
-      });
-    } catch (error) {
-      setErr(true);
-    }
+    // try {
+
+    //   const ada = await setDoc(doc(db, 'userChats'), {});
+    //   console.log(ada);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   const handleKey = (e: KeyboardEvent<HTMLElement>) => e.code === 'Enter' && 'NumpadEnter' && handleSearch();
 
@@ -84,10 +95,9 @@ function Chat() {
           </div>
           <div className="chat-users">
             {
-              err && <p>User Not defined</p>
-            }
-            {
-              someUser && <ChatUsers userinfo={someUser} />
+              usersData.length && usersData.map((userInfo) => (
+                <ChatUsers userinfo={userInfo} />
+              ))
             }
           </div>
         </div>
