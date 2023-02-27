@@ -51,7 +51,7 @@ function GlobalChat() {
           <div className="messages">
             <div ref={scrollTo} />
             {
-              messages && messages.docs.map((msg) => (
+              messages && messages.docs.map((msg: { id: string; data: () => void; }) => (
                 <ChatMessage
                   key={msg.id}
                   message={msg.data() as any}
