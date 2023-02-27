@@ -1,76 +1,62 @@
 import { Button } from 'react-bootstrap';
-
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useAppSelector } from '../../hooks/redux';
 import './style.scss';
 import { getUserData } from '../../utils/utils';
 import { IUser } from '../types';
 import UpDateUserModal from '../UpDateUserModal/UpDateUserModal';
 
-interface UserInfoProps {
-  userInfo: IUser;
-}
-function UserInfo({ userInfo }: UserInfoProps): JSX.Element {
+function UserInfo(): JSX.Element {
   // todo главный вопрос, хранить ли всё это в редаксе или всё же каждый раз загружать с сервера.
 
-  const [user, setUser] = useState<IUser>(userInfo);
-  const [loading, setLoading] = useState(true);
   const { id } = useAppSelector((state) => state.userAuth);
+  const {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    status, error, data: currentUser, refetch,
+  } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
   const [modalActive, setModalActive] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!modalActive) {
-      getUserData(id as unknown as string)?.then((value) => {
-        setUser(value!);
-      });
-    }
-  }, [modalActive]);
-
-  useEffect(() => {
-    setLoading(false);
-  }, [user]);
 
   return (
     <div>
-
       <Button type="button" className="btn btn-outline-primary" onClick={() => setModalActive(!modalActive)}>Изменить информацию в профиле</Button>
       {modalActive
             && <UpDateUserModal active={modalActive} setActive={setModalActive} />}
       {
-      loading
+      !(currentUser && status === 'success')
         ? <div>Loading users</div>
         : (
           <div className="user">
-            <img className="avatar" src={user && user.avatarImg} alt="avatar" />
+            <img className="avatar" src={currentUser.avatarImg} alt="avatar" />
             <li>
               First name and Last name:&nbsp;
-              {user && user.firstName}
+              {currentUser.firstName}
               &nbsp;
-              {user && user.lastName}
+              {currentUser.lastName}
             </li>
             <li>
               Location:&nbsp;
-              {user && user.location}
+              {currentUser.location}
             </li>
             <li>
               Country:&nbsp;
-              {user && user.country}
+              {currentUser.country}
             </li>
             <li>
               City:&nbsp;
-              {user && user.city}
+              {currentUser.city}
             </li>
             <li>
               Like cats:&nbsp;
-              {user && user.likeCats === true ? 'yes' : 'no'}
+              {currentUser.likeCats === true ? 'yes' : 'no'}
             </li>
             <li>
               Like dogs:&nbsp;
-              {user && user.likeDogs === true ? 'yes' : 'no'}
+              {currentUser.likeDogs === true ? 'yes' : 'no'}
             </li>
             <li>
               Favorite film:&nbsp;
-              {user && user.favoriteFilm}
+              {currentUser.favoriteFilm}
             </li>
           </div>
         )

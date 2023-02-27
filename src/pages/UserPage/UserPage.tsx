@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useQuery } from '@tanstack/react-query';
-import { type } from 'os';
 import { useNavigate } from 'react-router-dom';
 import UserInfo from '../../components/UserInfo/UserInfo';
 import NewsFeed from '../../components/NewsFeed/NewsFeed';
@@ -33,7 +32,7 @@ function UserPage() {
     )
       : (
         <div>
-          <UserInfo userInfo={user!} />
+          <UserInfo />
           {status === 'success'
           && <NewsFeed isMyPage isGlobal={false} users={[user!]} />}
         </div>
