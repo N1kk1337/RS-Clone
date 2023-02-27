@@ -17,9 +17,8 @@ export default function FindFriendsCard({ user }: Props) {
   } = user;
   const { id } = useAppSelector((state) => state.userAuth);
   const {
-    status, error, data: currentUser, refetch,
+    status, data: currentUser, refetch,
   } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
-  const [loading, setLoading] = useState(true);
   const onAddClick = () => {
     addFriend(id!, user.userId);
     refetch();
@@ -28,37 +27,37 @@ export default function FindFriendsCard({ user }: Props) {
     deleteFriend(id!, user.userId);
     refetch();
   };
+
+  // todo переход в личный чат
   const onStartChatClick = () => { };
-  useEffect(() => {
-    setLoading(false);
-  }, [user]);
 
   return (
-    loading
+    status !== 'success'
       ? <Loading />
-      :
-      <Card className="mt-3 mb-3 mx-auto user-search-card">
-        <Card.Img variant="top" src={avatarImg} />
-        <Card.Body>
-          <Card.Title>
-            {firstName}
-            {' '}
-            {nickName}
-            {' '}
-            {lastName}
-          </Card.Title>
-          <Card.Text>
-            {country}
-            {' - '}
-            {city}
-          </Card.Text>
-          <Card.Footer className="user-search-card__footer">
-            {currentUser?.friends?.find(() => user.userId)
-              ? <Button variant="warning" onClick={() => onDeleteClick()}>Delete Friend</Button>
-              : <Button variant="success" onClick={() => onAddClick()}>Add Friend</Button>}
-            <Button variant="primary" onClick={() => onStartChatClick()}>Start Chat</Button>
-          </Card.Footer>
-        </Card.Body>
-      </Card>
+      : (
+        <Card className="mt-3 mb-3 mx-auto user-search-card">
+          <Card.Img variant="top" src={avatarImg} />
+          <Card.Body>
+            <Card.Title>
+              {firstName}
+              {' '}
+              {nickName}
+              {' '}
+              {lastName}
+            </Card.Title>
+            <Card.Text>
+              {country}
+              {' - '}
+              {city}
+            </Card.Text>
+            <Card.Footer className="user-search-card__footer">
+              {currentUser?.friends?.find(() => user.userId)
+                ? <Button variant="warning" onClick={() => onDeleteClick()}>Delete Friend</Button>
+                : <Button variant="success" onClick={() => onAddClick()}>Add Friend</Button>}
+              <Button variant="primary" onClick={() => onStartChatClick()}>Start Chat</Button>
+            </Card.Footer>
+          </Card.Body>
+        </Card>
+      )
   );
 }

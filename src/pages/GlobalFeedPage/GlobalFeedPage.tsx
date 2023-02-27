@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Loading from '../../components/Loading/Loading';
 import NewsFeed from '../../components/NewsFeed/NewsFeed';
 import { IUser } from '../../components/types';
@@ -9,21 +9,17 @@ import './GlobalFeedPage.scss';
 
 function GlobalFeedPage() {
   const { id } = useAppSelector((state) => state.userAuth);
-  const { status, error, data: friends } = useQuery<IUser[] | null>(['user', id], () => getFriends(id!));
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(false);
-  }, [friends]);
+  const { status, data: friends } = useQuery<IUser[] | null>(['user', id], () => getFriends(id!));
 
   return (
-    loading
+    status !== 'success'
       ? <Loading />
-      :
-      <div>
-        {status === 'success'
+      : (
+        <div>
+          {status === 'success'
           && <NewsFeed isMyPage isGlobal users={friends!} />}
-      </div>
+        </div>
+      )
   );
 }
 
