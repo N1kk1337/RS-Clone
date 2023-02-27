@@ -7,3 +7,21 @@
     padding: 10px;
     background-color: $light-gray;
 }
+
+@media only screen and (min-width: 485px) and (max-width: 770px) {
+    .find-friends-filter{
+        padding: 12px 0 12px 0;
+    }
+    .filter-form{
+        padding: 7px;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 485px) {
+    .find-friends-filter{
+        padding: 8px 0 8px 0;
+    }
+    .filter-form{
+        padding: 4px;
+    }
+}

@@ -1,11 +1,11 @@
 .header {
     display: flex;
     justify-content: space-between;
-    background-color: #D5D6D2 ;
+    background-color: #d5d6d2;
     padding: 10px;
 }
 
-.header img{
+.header img {
     width: 50px;
     height: 50px;
     cursor: pointer;
@@ -15,4 +15,35 @@
     display: flex;
     gap: 15px;
     justify-content: space-between;
+}
+
+@media only screen and (min-width: 485px) and (max-width: 995px) {
+    .btn {
+        width: 140px;
+        height: 30px;
+        font-size: 0.55rem;
+        vertical-align: baseline;
+        white-space: break-spaces;
+        padding: 0;
+    }
+    .header img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 485px) {
+    .btn {
+        width: 90px;
+        height: 30px;
+        font-size: 0.4rem;
+        padding: 0;
+        vertical-align: baseline;
+        white-space: break-spaces;
+        padding: 0;
+    }
+    .header img {
+        width: 20px;
+        height: 20px;
+    }
 }

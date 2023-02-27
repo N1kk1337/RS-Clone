@@ -30,7 +30,7 @@ function LandingPage() {
       ) : (
         ''
       )}
-      <section className="content-page">
+      <section className="t-page">
         <div className="container">
           <div className="row gap-4">
             <div className="index-page-content col-lg-6 col-md-12 text-center">

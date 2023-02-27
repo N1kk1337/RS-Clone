@@ -30,3 +30,38 @@
     }
   }
 }
+
+@media only screen and (min-width: 485px) and (max-width: 770px) {
+  .chat {
+    width: 100%;
+    .chat-texts {
+      padding: 8px;
+      height: 400px;
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 485px) {
+  .chat {
+    width: 100%;
+    .chat-texts {
+      padding: 5px;
+      height: 300px;
+      &::-webkit-scrollbar {
+        width: 3px;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+      }
+    }
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+}

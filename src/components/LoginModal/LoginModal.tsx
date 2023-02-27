@@ -52,7 +52,7 @@ function LoginModal() {
   }
 
   return (
-    <div className="login login-active">
+    <div id="login" className="login login-active">
       <h2 className="text-center">Sign in</h2>
       <Form onSubmit={(e) => handleLogin(e, email, password)}>
         <Form.Group className="mb-3">

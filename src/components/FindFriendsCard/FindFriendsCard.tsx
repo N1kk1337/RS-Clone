@@ -38,7 +38,7 @@ export default function FindFriendsCard({ user }:Props) {
   };
 
   return (
-    <Card className="mt-3 mb-3 mx-auto user-search-card">
+    <Card className="mt-3 mb-3 mx-auto user-search-card card">
       <Card.Img variant="top" src={avatarImg} />
       <Card.Body>
         <Card.Title>
