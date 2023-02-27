@@ -1,5 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect, useRef, useState, useContext,
+} from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import {
@@ -8,6 +10,7 @@ import {
 import { db, auth } from '../../firebase';
 import ChatMessage from './ChatMessage/ChatMessage';
 import './GlobalChat.scss';
+import { AuthContext } from '../../hooks/AuthContextProvider';
 
 function GlobalChat() {
   const [user] = useAuthState(auth);
@@ -18,6 +21,7 @@ function GlobalChat() {
   const [formValue, setFormValue] = useState('');
 
   const scrollTo = useRef(null);
+  const { currentUser } = useContext(AuthContext);
 
   const sendMessage = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -28,6 +32,7 @@ function GlobalChat() {
       createdAt: serverTimestamp(),
       uid: user.uid,
       photoURL: user.photoURL,
+      firstName: currentUser.email,
     };
     await addDoc(messageRef, payload);
 
