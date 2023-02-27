@@ -6,10 +6,9 @@ import './style.scss';
 import { getUserData } from '../../utils/utils';
 import { IUser } from '../types';
 import UpDateUserModal from '../UpDateUserModal/UpDateUserModal';
+import Loading from '../Loading/Loading';
 
 function UserInfo(): JSX.Element {
-  // todo главный вопрос, хранить ли всё это в редаксе или всё же каждый раз загружать с сервера.
-
   const { id } = useAppSelector((state) => state.userAuth);
   const {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -21,10 +20,10 @@ function UserInfo(): JSX.Element {
     <div>
       <Button type="button" className="btn btn-outline-primary" onClick={() => setModalActive(!modalActive)}>Изменить информацию в профиле</Button>
       {modalActive
-            && <UpDateUserModal active={modalActive} setActive={setModalActive} />}
+        && <UpDateUserModal active={modalActive} setActive={setModalActive} />}
       {
       !(currentUser && status === 'success')
-        ? <div>Loading users</div>
+        ? <Loading />
         : (
           <div className="user">
             <img className="avatar" src={currentUser.avatarImg} alt="avatar" />
