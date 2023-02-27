@@ -11,7 +11,7 @@ interface Props {
 export default function FindFriendsList({ users }:Props) {
   return (
     <Container>
-      <Row xs={1} md={2} className="g-4">
+      <Row xs={2} md={3}>
         { users
           ? users.map((user: IUser) => (
             <Col key={user.userId}>
