@@ -6,6 +6,7 @@ import './style.scss';
 import { getUserData } from '../../utils/utils';
 import { IUser } from '../types';
 import UpDateUserModal from '../UpDateUserModal/UpDateUserModal';
+import placeholderAvatar from '../../assets/user.png';
 
 function UserInfo(): JSX.Element {
   // todo главный вопрос, хранить ли всё это в редаксе или всё же каждый раз загружать с сервера.
@@ -27,7 +28,7 @@ function UserInfo(): JSX.Element {
         ? <div>Loading users</div>
         : (
           <div className="user">
-            <img className="avatar" src={currentUser.avatarImg} alt="avatar" />
+            <img className="avatar" src={currentUser.avatarImg === '' ? placeholderAvatar : currentUser.avatarImg} alt="avatar" />
             <li>
               First name and Last name:&nbsp;
               {currentUser.firstName}

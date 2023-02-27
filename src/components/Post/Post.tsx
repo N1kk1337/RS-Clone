@@ -1,9 +1,8 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-// import { AiOutlineLike } from 'react-icons/ai';
-import avatar from '../../assets/camera_50.png';
 import { IFeedPost } from '../types';
 import './Post.scss';
+import placeholderAvatar from '../../assets/user.png';
 
 type Props = {
   post: IFeedPost;
@@ -11,7 +10,6 @@ type Props = {
 };
 
 function Post(props:Props) {
-  // const [postLike, setPostLike] = useState(false);
   const { post, handleDelete } = props;
 
   // function timeConvert(param: string) {
@@ -24,13 +22,14 @@ function Post(props:Props) {
   //   if (postLike) setPostLike(false);
   //   else setPostLike(true);
   // }
+  // src={avatarImg===''? placeholderAvatar : avatarImg}
 
   return (
     <div className="feed-post">
       <div className="post-header">
         <div className="user-info">
           <div className="avatar">
-            <img src={!post.avatarImg ? avatar : post.avatarImg} alt="png" />
+            <img src={placeholderAvatar} alt="png" />
           </div>
           <div className="post-info">
             <h4 className="post-author">
