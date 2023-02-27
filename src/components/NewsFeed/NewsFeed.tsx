@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { deleteDoc, doc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import 'react-quill/dist/quill.snow.css';
 import { db } from '../../firebase';
 import { useAppSelector } from '../../hooks/redux';
 import {
