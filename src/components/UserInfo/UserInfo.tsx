@@ -38,7 +38,7 @@ function UserInfo({ userInfo }: UserInfoProps): JSX.Element {
       {
         loading
           ? (
-            <div className="spinner-grow text-primary margin-top" role="status"></div>
+            <div className="spinner-grow text-primary margin-top" role="status"> </div>
           )
           : (
             <div className="user">

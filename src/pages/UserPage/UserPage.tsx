@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useQuery } from '@tanstack/react-query';
-import { type } from 'os';
 import { useNavigate } from 'react-router-dom';
 import UserInfo from '../../components/UserInfo/UserInfo';
 import NewsFeed from '../../components/NewsFeed/NewsFeed';
@@ -15,8 +14,9 @@ function UserPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
   const navigate = useNavigate();
+  console.log(isLoading);
 
-  const { status, error, data: user } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
+  const { status, data: user } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
 
   useEffect(() => {
     setIsAuth(!id);
@@ -34,8 +34,8 @@ function UserPage() {
       : (
         <div>
           <UserInfo userInfo={user!} />
-          {status === 'success'
-          && <NewsFeed isMyPage isGlobal={false} users={[user!]} />}
+          {status === 'success' && user
+            && <NewsFeed isMyPage isGlobal={false} users={[user!]} />}
         </div>
       )
 
