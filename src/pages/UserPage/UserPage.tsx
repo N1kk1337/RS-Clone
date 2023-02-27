@@ -9,13 +9,13 @@ import './style.scss';
 import { getUserData } from '../../utils/utils';
 import { useAppSelector } from '../../hooks/redux';
 import { IUser } from '../../components/types';
+import Loading from '../../components/Loading/Loading';
 
 function UserPage() {
   const { id } = useAppSelector((state) => state.userAuth);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
   const navigate = useNavigate();
-  console.log(isLoading);
 
   const { status, data: user } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
 
@@ -31,13 +31,16 @@ function UserPage() {
         <Button onClick={() => navigate('/')}>Back to main page</Button>
       </div>
     )
-      : (
-        <div>
-          <UserInfo userInfo={user!} />
-          {status === 'success' && user
-            && <NewsFeed isMyPage isGlobal={false} users={[user!]} />}
-        </div>
-      )
+      : isLoading
+        ? <Loading />
+        :
+        (
+          <div>
+            <UserInfo userInfo={user!} />
+            {status === 'success' && user
+              && <NewsFeed isMyPage isGlobal={false} users={[user!]} />}
+          </div>
+        )
 
   );
 }

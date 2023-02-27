@@ -1,18 +1,16 @@
 import { Button } from 'react-bootstrap';
-
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../hooks/redux';
 import './style.scss';
 import { getUserData } from '../../utils/utils';
 import { IUser } from '../types';
 import UpDateUserModal from '../UpDateUserModal/UpDateUserModal';
+import Loading from '../Loading/Loading';
 
 interface UserInfoProps {
   userInfo: IUser;
 }
 function UserInfo({ userInfo }: UserInfoProps): JSX.Element {
-  // todo главный вопрос, хранить ли всё это в редаксе или всё же каждый раз загружать с сервера.
-
   const [user, setUser] = useState<IUser>(userInfo);
   const [loading, setLoading] = useState(true);
   const { id } = useAppSelector((state) => state.userAuth);
@@ -38,7 +36,9 @@ function UserInfo({ userInfo }: UserInfoProps): JSX.Element {
       {
         loading
           ? (
-            <div className="spinner-grow text-primary margin-top" role="status"> </div>
+            <div className="user-info">
+              <Loading />
+            </div>
           )
           : (
             <div className="user">
