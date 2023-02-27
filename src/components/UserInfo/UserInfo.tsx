@@ -31,49 +31,50 @@ function UserInfo({ userInfo }: UserInfoProps): JSX.Element {
   }, [user]);
 
   return (
-    <div>
-
+    <div className="user-info">
       <Button type="button" className="btn btn-outline-primary" onClick={() => setModalActive(!modalActive)}>Изменить информацию в профиле</Button>
       {modalActive
-            && <UpDateUserModal active={modalActive} setActive={setModalActive} />}
+        && <UpDateUserModal active={modalActive} setActive={setModalActive} />}
       {
-      loading
-        ? <div>Loading users</div>
-        : (
-          <div className="user">
-            <img className="avatar" src={user && user.avatarImg} alt="avatar" />
-            <li>
-              First name and Last name:&nbsp;
-              {user && user.firstName}
-              &nbsp;
-              {user && user.lastName}
-            </li>
-            <li>
-              Location:&nbsp;
-              {user && user.location}
-            </li>
-            <li>
-              Country:&nbsp;
-              {user && user.country}
-            </li>
-            <li>
-              City:&nbsp;
-              {user && user.city}
-            </li>
-            <li>
-              Like cats:&nbsp;
-              {user && user.likeCats === true ? 'yes' : 'no'}
-            </li>
-            <li>
-              Like dogs:&nbsp;
-              {user && user.likeDogs === true ? 'yes' : 'no'}
-            </li>
-            <li>
-              Favorite film:&nbsp;
-              {user && user.favoriteFilm}
-            </li>
-          </div>
-        )
+        loading
+          ? (
+            <div className="spinner-grow text-primary margin-top" role="status"></div>
+          )
+          : (
+            <div className="user">
+              <img className="avatar" src={user && user.avatarImg} alt="avatar" />
+              <li>
+                First name and Last name:&nbsp;
+                {user && user.firstName}
+                &nbsp;
+                {user && user.lastName}
+              </li>
+              <li>
+                Location:&nbsp;
+                {user && user.location}
+              </li>
+              <li>
+                Country:&nbsp;
+                {user && user.country}
+              </li>
+              <li>
+                City:&nbsp;
+                {user && user.city}
+              </li>
+              <li>
+                Like cats:&nbsp;
+                {user && user.likeCats === true ? 'yes' : 'no'}
+              </li>
+              <li>
+                Like dogs:&nbsp;
+                {user && user.likeDogs === true ? 'yes' : 'no'}
+              </li>
+              <li>
+                Favorite film:&nbsp;
+                {user && user.favoriteFilm}
+              </li>
+            </div>
+          )
       }
     </div>
   );
