@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-  setDoc, doc, getDoc, getDocs, query, collection, addDoc,
+  setDoc, doc, getDoc, getDocs, query, collection, addDoc, updateDoc, arrayUnion, arrayRemove,
 } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { IFeedPost, IUser } from '../components/types';
@@ -64,8 +64,6 @@ export async function getUserData(userId: string) {
   if (docSnap.exists()) {
     const { uid, email, ...rest } = docSnap.data();
     const user:IUser = { userId: uid, email, ...rest };
-    console.log(user);
-
     return user;
   }
   console.log('No such document!');
@@ -138,3 +136,32 @@ export const useFirestoreCollection = (collectionPath: string) => {
     status, data, error, refetch,
   };
 };
+
+export async function getAllUsers() {
+  const usersCollection = collection(db, 'users');
+  const querySnapshot = await getDocs(usersCollection);
+  const users = querySnapshot.docs.map((document) => document.data() as IUser);
+  return users;
+}
+
+export async function addFriend(currentUserId:string, friendUserId: string) {
+  try {
+    const userRef = doc(db, 'users', currentUserId!);
+    await updateDoc(userRef, {
+      friends: arrayUnion(friendUserId),
+    });
+  } catch (error) {
+    console.error('Error adding friend to current user:', error);
+  }
+}
+
+export async function deleteFriend(currentUserId:string, friendUserId: string) {
+  try {
+    const userRef = doc(db, 'users', currentUserId!);
+    await updateDoc(userRef, {
+      friends: arrayRemove(friendUserId),
+    });
+  } catch (error) {
+    console.error('Error adding friend to current user:', error);
+  }
+}

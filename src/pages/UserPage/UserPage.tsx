@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useQuery } from '@tanstack/react-query';
@@ -21,7 +22,6 @@ function UserPage() {
   useEffect(() => {
     setIsAuth(!id);
     if (status === 'success') setIsLoading(false);
-    console.log(user);
   }, [status, user]);
 
   return (
