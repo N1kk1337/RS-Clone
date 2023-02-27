@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import './register.scss';
 import axios from 'axios';

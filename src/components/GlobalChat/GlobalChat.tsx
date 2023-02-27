@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
@@ -5,7 +6,8 @@ import {
   collection, orderBy, limit, query, serverTimestamp, addDoc,
 } from 'firebase/firestore';
 import { db, auth } from '../../firebase';
-import ChatMessage from '../Chat/ChatMessage/ChatMessage';
+import ChatMessage from './ChatMessage/ChatMessage';
+import './GlobalChat.scss';
 
 function GlobalChat() {
   const [user] = useAuthState(auth);
@@ -37,7 +39,7 @@ function GlobalChat() {
   }, [messages]);
 
   return (
-    <div className="row justify-content-center">
+    <div className="message-place">
       <h1 style={{ color: '#0069d9' }}>Global Chat</h1>
       <div className="chat d-block">
         <div className="chat-texts">
