@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useAppSelector } from '../../hooks/redux';
 import { addFriend, deleteFriend, getUserData } from '../../utils/utils';

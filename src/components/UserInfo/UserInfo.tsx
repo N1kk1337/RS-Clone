@@ -9,8 +9,6 @@ import UpDateUserModal from '../UpDateUserModal/UpDateUserModal';
 import Loading from '../Loading/Loading';
 
 function UserInfo(): JSX.Element {
-  // todo главный вопрос, хранить ли всё это в редаксе или всё же каждый раз загружать с сервера.
-
   const { id } = useAppSelector((state) => state.userAuth);
   const {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -25,7 +23,7 @@ function UserInfo(): JSX.Element {
         && <UpDateUserModal active={modalActive} setActive={setModalActive} />}
       {
       !(currentUser && status === 'success')
-        ? <div>Loading users</div>
+        ? <Loading />
         : (
           <div className="user">
             <img className="avatar" src={currentUser.avatarImg} alt="avatar" />

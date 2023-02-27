@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { deleteDoc, doc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { db } from '../../firebase';
 import { useAppSelector } from '../../hooks/redux';
@@ -11,10 +11,11 @@ import Loading from '../Loading/Loading';
 import Post from '../Post/Post';
 import { IFeedPost, IUser } from '../types';
 
+// eslint-disable-next-line react/no-unused-prop-types
 function NewsFeed(props: { users: Array<IUser>, isMyPage: boolean, isGlobal: boolean }) {
   const { users, isMyPage } = props;
   const { id } = useAppSelector((state) => state.userAuth);
-  const { status: userStatus, error: userError, data: userData } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
+  const { data: userData } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
 
   const allPosts = users.map((user) => useFirestoreCollection(`users/${user.userId}/posts`)) as {
     status: 'error' | 'success' | 'loading';
@@ -28,11 +29,6 @@ function NewsFeed(props: { users: Array<IUser>, isMyPage: boolean, isGlobal: boo
   }
 
   const [formValues, setFormValues] = useState('');
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(false);
-  }, [users]);
 
   const postSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,11 +58,9 @@ function NewsFeed(props: { users: Array<IUser>, isMyPage: boolean, isGlobal: boo
   };
 
   return (
-    loading
-      ? <Loading />
-      :
-      <div className="feed-posts col-12">
-        {isMyPage
+
+    <div className="feed-posts col-12">
+      {isMyPage
           && (
             <Form onSubmit={postSubmitHandler} className="post-form col-12">
               <Form.Group className="mb-3 form-group" controlId="ControlTextarea1">
@@ -98,13 +92,13 @@ function NewsFeed(props: { users: Array<IUser>, isMyPage: boolean, isGlobal: boo
               </Button>
             </Form>
           )}
-        {allPosts[0].status === 'success' && allPosts.map((postPerUser) => (
-          postPerUser.data!.map(
-            (post) => <Post key={post.id} handleDelete={handleDelete} post={post} />,
-          )
-        ))}
+      {allPosts[0].status === 'success' ? allPosts.map((postPerUser) => (
+        postPerUser.data!.map(
+          (post) => <Post key={post.id} handleDelete={handleDelete} post={post} />,
+        )
+      )) : <Loading />}
 
-      </div>
+    </div>
   );
 }
 export default NewsFeed;

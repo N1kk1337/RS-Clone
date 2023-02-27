@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
 // import { AiOutlineLike } from 'react-icons/ai';
 import avatar from '../../assets/camera_50.png';
@@ -13,36 +13,32 @@ type Props = {
 
 function Post(props: Props) {
   const { post, handleDelete } = props;
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(false);
-  }, [post]);
 
   return (
-    loading
+    !post
       ? <Loading />
-      :
-      <div className="feed-post">
-        <div className="post-header">
-          <div className="user-info">
-            <div className="avatar">
-              <img src={!post.avatarImg ? avatar : post.avatarImg} alt="png" />
-            </div>
-            <div className="post-info">
-              <h4 className="post-author">
-                {post.firstName}
-                {' '}
-                {post.lastName}
-              </h4>
+      : (
+        <div className="feed-post">
+          <div className="post-header">
+            <div className="user-info">
+              <div className="avatar">
+                <img src={!post.avatarImg ? avatar : post.avatarImg} alt="png" />
+              </div>
+              <div className="post-info">
+                <h4 className="post-author">
+                  {post.firstName}
+                  {' '}
+                  {post.lastName}
+                </h4>
+              </div>
             </div>
           </div>
+          <div className="post-text_place">
+            <span>{post.text}</span>
+          </div>
+          <Button onClick={() => handleDelete(post.userId, post.id?.toString())}>DELETE</Button>
         </div>
-        <div className="post-text_place">
-          <span>{post.text}</span>
-        </div>
-        <Button onClick={() => handleDelete(post.userId, post.id?.toString())}>DELETE</Button>
-      </div>
+      )
   );
 }
 

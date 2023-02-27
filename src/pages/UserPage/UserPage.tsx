@@ -30,7 +30,7 @@ function UserPage() {
       ? <Loading />
       : (
         <div>
-          <UserInfo userInfo={user!} />
+          <UserInfo />
           {status === 'success' && user
               && <NewsFeed isMyPage isGlobal={false} users={[user!]} />}
         </div>
