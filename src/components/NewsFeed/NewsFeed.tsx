@@ -15,6 +15,7 @@ import { IFeedPost, IUser } from '../types';
 function NewsFeed(props:{ users:Array<IUser>, isMyPage:boolean, isGlobal:boolean }) {
   const { users, isMyPage } = props;
   const { id } = useAppSelector((state) => state.userAuth);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { status: userStatus, error: userError, data: userData } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
 
   const allPosts = users.map((user) => useFirestoreCollection(`users/${user.userId}/posts`)) as {

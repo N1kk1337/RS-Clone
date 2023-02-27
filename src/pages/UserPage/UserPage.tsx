@@ -21,7 +21,6 @@ function UserPage() {
   useEffect(() => {
     setIsAuth(!id);
     if (status === 'success') setIsLoading(false);
-    console.log(user);
   }, [status, user]);
 
   return (

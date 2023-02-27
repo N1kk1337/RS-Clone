@@ -8,6 +8,7 @@ import { getAllUsers } from '../../utils/utils';
 import './FindFriendsPage.scss';
 
 export default function FindFriendsPage() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { status, error, data: users } = useQuery<IUser[] | null>(['users'], () => getAllUsers());
 
   return (
