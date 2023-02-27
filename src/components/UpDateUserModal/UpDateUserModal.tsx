@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-// import { fetchUpDateUser } from '../../api/users';
 import { useAppSelector } from '../../hooks/redux';
 import { getUserData, writeUserData } from '../../utils/utils';
-// import { updateFirstUser } from '../store/slices/users';
 import { IUser } from '../types';
 import './style.scss';
 
 function UpDateUserModal({ active, setActive }: any) {
-  const { data: users } = useAppSelector((state) => state.users);
   const [user, setUser] = useState<IUser>({
     userId: '1',
     email: 'CaptainJackSparrow@gmail.com',

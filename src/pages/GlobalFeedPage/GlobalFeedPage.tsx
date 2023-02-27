@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import NewsFeed from '../../../components/NewsFeed/NewsFeed';
-import { IUser } from '../../../components/types';
-import { useAppSelector } from '../../../hooks/redux';
-import { getFriends } from '../../../utils/utils';
+import NewsFeed from '../../components/NewsFeed/NewsFeed';
+import { IUser } from '../../components/types';
+import { useAppSelector } from '../../hooks/redux';
+import { getFriends } from '../../utils/utils';
 import './GlobalFeedPage.scss';
 
 function GlobalFeedPage() {
