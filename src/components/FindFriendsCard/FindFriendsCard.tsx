@@ -15,10 +15,13 @@ export default function FindFriendsCard({ user }: Props) {
   const {
     firstName, lastName, nickName, city, country, avatarImg,
   } = user;
+
   const { id } = useAppSelector((state) => state.userAuth);
+
   const {
     status, data: currentUser, refetch,
   } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
+
   const onAddClick = () => {
     addFriend(id!, user.userId);
     refetch();
