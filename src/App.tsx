@@ -12,11 +12,13 @@ import './App.scss';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import GlobalFeedPage from './pages/GlobalFeedPage/GlobalFeedPage';
 import FindFriendsPage from './pages/FindFriendsPage/FindFriendsPage';
+import GlobalChat from './components/GlobalChat/GlobalChat';
 
 export const emptyPath = '/';
 export const userPage = '/user-page';
 export const findFriendsPage = '/search';
 export const globalFeedPage = '/feed';
+export const globalChat = '/globalchat';
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
           <Route path={emptyPath} element={<LandingPage />} />
           <Route path={findFriendsPage} element={<FindFriendsPage />} />
           <Route path={globalFeedPage} element={<GlobalFeedPage />} />
+          <Route path={globalChat} element={<GlobalChat />} />
           <Route path={userPage} element={<UserPage />} />
         </Routes>
       </Container>

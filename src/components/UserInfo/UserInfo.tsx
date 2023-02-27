@@ -1,5 +1,6 @@
 import { Button } from 'react-bootstrap';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useAppSelector } from '../../hooks/redux';
 import './style.scss';
 import { getUserData } from '../../utils/utils';
@@ -7,74 +8,59 @@ import { IUser } from '../types';
 import UpDateUserModal from '../UpDateUserModal/UpDateUserModal';
 import Loading from '../Loading/Loading';
 
-interface UserInfoProps {
-  userInfo: IUser;
-}
-function UserInfo({ userInfo }: UserInfoProps): JSX.Element {
-  const [user, setUser] = useState<IUser>(userInfo);
-  const [loading, setLoading] = useState(true);
+function UserInfo(): JSX.Element {
+  // todo главный вопрос, хранить ли всё это в редаксе или всё же каждый раз загружать с сервера.
+
   const { id } = useAppSelector((state) => state.userAuth);
+  const {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    status, error, data: currentUser, refetch,
+  } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
   const [modalActive, setModalActive] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (!modalActive) {
-      getUserData(id as unknown as string)?.then((value) => {
-        setUser(value!);
-      });
-    }
-  }, [modalActive]);
-
-  useEffect(() => {
-    setLoading(false);
-  }, [user]);
-
   return (
-    <div className="user-info">
+    <div>
       <Button type="button" className="btn btn-outline-primary" onClick={() => setModalActive(!modalActive)}>Изменить информацию в профиле</Button>
       {modalActive
         && <UpDateUserModal active={modalActive} setActive={setModalActive} />}
       {
-        loading
-          ? (
-            <div className="user-info">
-              <Loading />
-            </div>
-          )
-          : (
-            <div className="user">
-              <img className="avatar" src={user && user.avatarImg} alt="avatar" />
-              <li>
-                First name and Last name:&nbsp;
-                {user && user.firstName}
-                &nbsp;
-                {user && user.lastName}
-              </li>
-              <li>
-                Location:&nbsp;
-                {user && user.location}
-              </li>
-              <li>
-                Country:&nbsp;
-                {user && user.country}
-              </li>
-              <li>
-                City:&nbsp;
-                {user && user.city}
-              </li>
-              <li>
-                Like cats:&nbsp;
-                {user && user.likeCats === true ? 'yes' : 'no'}
-              </li>
-              <li>
-                Like dogs:&nbsp;
-                {user && user.likeDogs === true ? 'yes' : 'no'}
-              </li>
-              <li>
-                Favorite film:&nbsp;
-                {user && user.favoriteFilm}
-              </li>
-            </div>
-          )
+      !(currentUser && status === 'success')
+        ? <div>Loading users</div>
+        : (
+          <div className="user">
+            <img className="avatar" src={currentUser.avatarImg} alt="avatar" />
+            <li>
+              First name and Last name:&nbsp;
+              {currentUser.firstName}
+              &nbsp;
+              {currentUser.lastName}
+            </li>
+            <li>
+              Location:&nbsp;
+              {currentUser.location}
+            </li>
+            <li>
+              Country:&nbsp;
+              {currentUser.country}
+            </li>
+            <li>
+              City:&nbsp;
+              {currentUser.city}
+            </li>
+            <li>
+              Like cats:&nbsp;
+              {currentUser.likeCats === true ? 'yes' : 'no'}
+            </li>
+            <li>
+              Like dogs:&nbsp;
+              {currentUser.likeDogs === true ? 'yes' : 'no'}
+            </li>
+            <li>
+              Favorite film:&nbsp;
+              {currentUser.favoriteFilm}
+            </li>
+          </div>
+        )
       }
     </div>
   );
