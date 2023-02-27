@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './style.scss';
+import logo from '../../assets/logo.png';
 
 function Header(): JSX.Element {
   const router = useNavigate();
@@ -11,7 +12,7 @@ function Header(): JSX.Element {
       <Button type="button" className="btn btn-outline-primary" onClick={() => router('')}>
 
         <img
-          src="/rs-clone/logo.png"
+          src={logo}
           alt="logo"
         />
       </Button>
@@ -19,6 +20,7 @@ function Header(): JSX.Element {
         <Button onClick={() => router('/user-page')}>Мой профиль</Button>
         <Button onClick={() => router('/search')}>Найти друзей</Button>
         <Button onClick={() => router('')}>Открыть ленту постов</Button>
+        <Button onClick={() => router('/globalchat')}>Открыть ГЛ Чат</Button>
       </div>
 
     </div>

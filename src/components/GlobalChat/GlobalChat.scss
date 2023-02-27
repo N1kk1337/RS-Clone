@@ -1,0 +1,32 @@
+.messages {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.chat {
+  width: 100%;
+
+  .chat-texts {
+    background-color: #b0c4de;
+    padding: 10px;
+    height: 500px;
+    overflow: auto;
+    position: relative;
+    grid-area: text;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      background: #444;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 5px;
+    }
+  }
+  .form {
+    grid-area: form;
+
+    .btn-info {
+      width: 100%;
+    }
+  }
+}

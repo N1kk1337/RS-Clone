@@ -1,0 +1,23 @@
+p {
+  margin: 0;
+}
+.user-send,
+.user-recieved {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.user-recieved {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.user-send {
+  justify-content: flex-end;
+  .user-info {
+    text-align: right;
+  }
+}
+.avatar-user {
+  width: 40px;
+  border-radius: 50%;
+}
