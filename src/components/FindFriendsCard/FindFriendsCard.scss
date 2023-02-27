@@ -1,0 +1,20 @@
+@import '../../general.scss';
+.user-search-card{
+    background-color: $light-gray;
+    width: 16rem;
+    height: 500px;
+
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.user-search-card__footer{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    justify-content: space-between;
+}

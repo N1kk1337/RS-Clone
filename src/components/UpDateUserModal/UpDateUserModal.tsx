@@ -1,30 +1,12 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-// import { fetchUpDateUser } from '../../api/users';
 import { useAppSelector } from '../../hooks/redux';
 import { getUserData, writeUserData } from '../../utils/utils';
-// import { updateFirstUser } from '../store/slices/users';
 import { IUser } from '../types';
 import './style.scss';
 
 function UpDateUserModal({ active, setActive }: any) {
-  const { data: users } = useAppSelector((state) => state.users);
-  const [user, setUser] = useState<IUser>({
-    userId: '1',
-    email: 'CaptainJackSparrow@gmail.com',
-    password: 'qwerty1!',
-    firstName: 'zxczxcxcasdasd',
-    lastName: 'Sparrowzxczxc',
-    nickName: 'Captain',
-    location: '',
-    country: 'Caribbean',
-    city: 'Santo Domingo',
-    avatarImg: 'https://m.economictimes.com/thumb/msid-96227844,width-1200,height-900,resizemode-4,imgsize-65640/jack-sparrow-canva.jpg',
-    likeCats: true,
-    likeDogs: true,
-    favoriteFilm: 'Avengers',
-  });
-
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [nickName, setNickName] = useState('');
@@ -37,45 +19,46 @@ function UpDateUserModal({ active, setActive }: any) {
   const [favoriteFilm, setFavoriteFilm] = useState('');
 
   const { id } = useAppSelector((state) => state.userAuth);
+  const {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    status, error, data: user, refetch,
+  } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
 
   useEffect(() => {
-    getUserData(id as unknown as string)?.then((value) => {
-      if (value) {
-        setUser(value!);
-      }
-    });
-  }, []);
-  useEffect(() => {
-    setFirstName(user.firstName ? user.firstName : '');
-    setLastName(user.lastName ? user.lastName : '');
-    setNickName(user.nickName ? user.nickName : '');
-    setAvatarImg(user.avatarImg ? user.avatarImg : '');
-    setLocation(user.location ? user.location : '');
-    setCountry(user.country ? user.country : '');
-    setCity(user.city ? user.city : '');
-    setLikeCats(user.likeCats !== undefined ? user.likeCats : false);
-    setLikeDogs(user.likeDogs !== undefined ? user.likeDogs : false);
-    setFavoriteFilm(user.favoriteFilm ? user.favoriteFilm : '');
+    if (status === 'success' && user) {
+      setFirstName(user.firstName ? user.firstName : '');
+      setLastName(user.lastName ? user.lastName : '');
+      setNickName(user.nickName ? user.nickName : '');
+      setAvatarImg(user.avatarImg ? user.avatarImg : '');
+      setLocation(user.location ? user.location : '');
+      setCountry(user.country ? user.country : '');
+      setCity(user.city ? user.city : '');
+      setLikeCats(user.likeCats !== undefined ? user.likeCats : false);
+      setLikeDogs(user.likeDogs !== undefined ? user.likeDogs : false);
+      setFavoriteFilm(user.favoriteFilm ? user.favoriteFilm : '');
+    }
   }, [user]);
 
   // const dispatch = useAppDispatch();
 
   const updateUser = async () => {
     setActive(false);
-    writeUserData(
-      user.userId,
-      user.email,
-      firstName,
-      lastName,
-      nickName,
-      location,
-      country,
-      city,
-      avatarImg,
-      likeCats,
-      likeDogs,
-      favoriteFilm,
-    );
+    if (user) {
+      writeUserData({
+        ...user,
+        firstName,
+        lastName,
+        nickName,
+        location,
+        country,
+        city,
+        avatarImg,
+        likeCats,
+        likeDogs,
+        favoriteFilm,
+      });
+      refetch();
+    }
   };
 
   // const upDateUser = async () => {

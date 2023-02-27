@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import './register.scss';
-import axios from 'axios';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 import { IUser } from '../types';
 import { setUser } from '../store/slices/userAuth';
@@ -12,19 +11,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import { auth } from '../../firebase';
 import { writeUserData } from '../../utils/utils';
 
-interface UserRegister {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  nickName: string;
-  confirmPassword: string;
-}
-
-const baseUrl = 'http://localhost:3004/users';
-
-function BasicExample() {
-  // const [users, setUsers] = useState([]);
+function RegisterModal() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -34,7 +21,6 @@ function BasicExample() {
   const [isEmail, setIsEmail] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
-  const [emailMessage, setEmailMessage] = useState('');
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -44,15 +30,19 @@ function BasicExample() {
 
     createUserWithEmailAndPassword(auth, mail, pass)
       .then(({ user }) => {
-        console.log(user);
         dispatch(setUser({
           email: user.email,
           id: user.uid,
           token: user.refreshToken,
         }));
-        writeUserData(user.uid, mail, firstName, lastName, nickName);
+        const newUser:IUser = {
+          userId: user.uid, email: mail, firstName, lastName, nickName,
+        };
+        writeUserData(newUser);
       })
-      .catch(console.error);
+    // todo сделать более красивую и осмысленную ошибку
+    // eslint-disable-next-line no-alert
+      .catch(() => alert('Invalid user!'));
     navigate('/user-page');
   };
 
@@ -60,20 +50,20 @@ function BasicExample() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) {
     const { id, value } = e.target;
-    if (id === 'firstName') {
+    if (id === 'firstName' && value) {
       setFirstName(value);
     }
-    if (id === 'lastName') {
+    if (id === 'lastName' && value) {
       setLastName(value);
     }
-    if (id === 'email') {
+    if (id === 'email' && value) {
       const isEmailVal: string = value.match(/^[^@\s]+@[^@\s]+\.[a-zA-Z]{0,}$/)
         ?.input as string;
       if (!isEmailVal) setIsEmail(true);
       else setIsEmail(false);
       setEmail(value);
     }
-    if (id === 'password') {
+    if (id === 'password' && value) {
       const isPassword = value.match(
         /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{7,}$/,
       )?.input as string;
@@ -96,44 +86,6 @@ function BasicExample() {
     }
   }
 
-  // useEffect(() => {
-  //   async function usersGet() {
-  //     const response = await axios.get(baseUrl);
-  //     setUsers(response.data);
-  //   }
-  //   usersGet();
-  // }, [email]);
-
-  // async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-  //   e.preventDefault();
-  //   const body: UserRegister = {
-  //     firstName,
-  //     nickName,
-  //     lastName,
-  //     email,
-  //     password,
-  //     confirmPassword,
-  //   };
-  //   try {
-  //     const isValid = users.filter((user: IUser) => user.email === body.email);
-
-  //     if (isValid.length > 0) {
-  //       setEmailMessage('This email is busy');
-  //     } else {
-  //       axios.post(baseUrl, body);
-  //       setEmail('');
-  //       setPassword('');
-  //       setFirstName('');
-  //       setLastName('');
-  //       setNickName('');
-  //       setConfirmPassword('');
-  //       setEmailMessage('');
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
   return (
     <div className="register register-active">
       <h2 className="text-center">Sign up</h2>
@@ -149,7 +101,6 @@ function BasicExample() {
             required
           />
           {isEmail ? <p className="error">Email is not valid</p> : ''}
-          {emailMessage ? <p className="error">{ emailMessage }</p> : ''}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -232,4 +183,4 @@ function BasicExample() {
   );
 }
 
-export default BasicExample;
+export default RegisterModal;
