@@ -11,7 +11,6 @@ import Loading from '../Loading/Loading';
 function UserInfo(): JSX.Element {
   const { id } = useAppSelector((state) => state.userAuth);
   const {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     status, error, data: currentUser, refetch,
   } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
   const [modalActive, setModalActive] = useState<boolean>(false);
@@ -27,36 +26,40 @@ function UserInfo(): JSX.Element {
         : (
           <div className="user">
             <img className="avatar" src={currentUser.avatarImg} alt="avatar" />
-            <li>
+            <div>
               First name and Last name:&nbsp;
               {currentUser.firstName}
               &nbsp;
               {currentUser.lastName}
-            </li>
-            <li>
+            </div>
+            <div>
               Location:&nbsp;
               {currentUser.location}
-            </li>
-            <li>
+            </div>
+            <div>
               Country:&nbsp;
               {currentUser.country}
-            </li>
-            <li>
+            </div>
+            <div>
               City:&nbsp;
               {currentUser.city}
-            </li>
-            <li>
-              Like cats:&nbsp;
+            </div>
+            <div>
+            <mark>
+              Like cats:
+            </mark>
               {currentUser.likeCats === true ? 'yes' : 'no'}
-            </li>
-            <li>
-              Like dogs:&nbsp;
+            </div>
+            <div>
+            <mark>
+              Like dogs:
+            </mark>
               {currentUser.likeDogs === true ? 'yes' : 'no'}
-            </li>
-            <li>
+            </div>
+            <div>
               Favorite film:&nbsp;
               {currentUser.favoriteFilm}
-            </li>
+            </div>
           </div>
         )
       }

@@ -39,8 +39,6 @@ function UpDateUserModal({ active, setActive }: any) {
     }
   }, [user]);
 
-  // const dispatch = useAppDispatch();
-
   const updateUser = async () => {
     setActive(false);
     if (user) {
@@ -61,26 +59,11 @@ function UpDateUserModal({ active, setActive }: any) {
     }
   };
 
-  // const upDateUser = async () => {
-  //   await dispatch(fetchUpDateUser(newUser));
-
-  //   setActive(false);
-
-  //   try {
-  //     const response = await fetch(`${baseUrl}/1`, {
-  //       method: 'GET',
-  //     }).then((data) => data.json());
-  //     dispatch(updateFirstUser(response));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   return (
     <div
       className={active ? 'modal active' : 'modal'}
     >
-      <div className="register register-active">
+      <div id="update-modal" className="register register-active">
         <Form>
           <InputGroup className="mb-3">
             <Form.Label className="fs-4">First name</Form.Label>
