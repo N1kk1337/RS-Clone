@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import LoginModal from '../../components/LoginModal/LoginModal';
-import BasicExample from '../../components/RegisterModal/RegisterModal';
-import lending from '../../assets/lending.png';
+import RegisterModal from '../../components/RegisterModal/RegisterModal';
+import landing from '../../assets/landing.png';
 import './Landing.scss';
+import { useAppSelector } from '../../hooks/redux';
+import { userPageLink } from '../../utils/routes';
 
 function LandingPage() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [t] = useTranslation();
+  const { id } = useAppSelector((state) => state.userAuth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id !== null) {
+      navigate(userPageLink);
+    }
+  });
 
   return (
     <main>
       {showRegister ? (
         <div>
           <div className="overlay" onClick={() => setShowRegister(false)} />
-          <BasicExample />
+          <RegisterModal />
         </div>
       ) : (
         ''
@@ -26,41 +42,38 @@ function LandingPage() {
       ) : (
         ''
       )}
-      <section className="t-page">
-        <div className="container">
-          <div className="row gap-4">
-            <div className="index-page-content col-lg-6 col-md-12 text-center">
-              <h2 className="main-title">TAILS AND PAWS</h2>
-              <p className="main-info">
-                This is a social network for those who have pets.
-              </p>
-              <img
-                className="lending-img"
-                src={lending}
-                alt=""
-              />
-            </div>
-            <div className="index-form col-lg-3 col-md-12 mt-5">
-              <div className="col-12">
-                <button
-                  type="submit"
-                  className="btn btn-primary col-12 mb-5"
-                  onClick={() => setShowLogin(true)}
-                >
-                  Sign in
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-success col-12"
-                  onClick={() => setShowRegister(true)}
-                >
-                  Sign up
-                </button>
-              </div>
-            </div>
-          </div>
+
+      <div className="landing-page">
+        <h2 className="main-title">TAILS & PAWS</h2>
+
+        <p className="main-info">
+          This is a social network for those who have pets.
+        </p>
+
+        <div className="landing-btn-container">
+          <Button
+            type="submit"
+            className="landing-btn btn-primary"
+            onClick={() => setShowLogin(true)}
+          >
+            {t('button.sign_in')}
+          </Button>
+          <Button
+            type="button"
+            className="landing-btn btn-success"
+            onClick={() => setShowRegister(true)}
+          >
+            {t('button.sign_up')}
+          </Button>
         </div>
-      </section>
+        <img
+          className="lending-img"
+          src={landing}
+          alt=""
+        />
+
+      </div>
+
     </main>
   );
 }

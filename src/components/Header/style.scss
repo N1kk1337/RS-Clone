@@ -18,10 +18,9 @@
 }
 
 @media only screen and (min-width: 485px) and (max-width: 995px) {
-    .btn {
+    .header-btn {
         width: 140px;
         height: 30px;
-        font-size: 0.55rem;
         vertical-align: baseline;
         white-space: break-spaces;
         padding: 0;
@@ -38,10 +37,13 @@
     .btn {
         width: 90px;
         height: 30px;
-        font-size: 0.4rem;
         padding: 0;
         vertical-align: baseline;
         white-space: break-spaces;
         padding: 0;
     }
+}
+
+.navbar-select, .nav-btn{
+    width: 150px;
 }

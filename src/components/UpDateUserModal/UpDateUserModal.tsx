@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../../hooks/redux';
 import { getUserData, writeUserData } from '../../utils/utils';
 import { IUser } from '../types';
@@ -18,10 +19,11 @@ function UpDateUserModal({ active, setActive }: any) {
   const [likeDogs, setLikeDogs] = useState(true);
   const [favoriteFilm, setFavoriteFilm] = useState('');
 
+  const [t] = useTranslation();
+
   const { id } = useAppSelector((state) => state.userAuth);
   const {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    status, error, data: user, refetch,
+    status, data: user, refetch,
   } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
 
   useEffect(() => {
@@ -150,7 +152,7 @@ function UpDateUserModal({ active, setActive }: any) {
             />
           </InputGroup>
           <Button variant="primary" type="button" onClick={updateUser}>
-            Update
+            {t('button.update')}
           </Button>
         </Form>
       </div>

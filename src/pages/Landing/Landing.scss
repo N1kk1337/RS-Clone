@@ -9,12 +9,29 @@
 }
 
 .lending-img {
-    width: 200px;
-    height: 200px;
-    border-radius: 100%;
+    width: 40%;
 }
 
 p {
-    font-size: 14px;
+    font-size: 24px;
+}
+
+.landing-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.landing-btn-container{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
 }
   
+.landing-btn{
+    width: 200px;
+}

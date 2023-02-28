@@ -5,6 +5,7 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import './register.scss';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
+import { useTranslation } from 'react-i18next';
 import { IUser } from '../types';
 import { setUser } from '../store/slices/userAuth';
 import { useAppDispatch } from '../../hooks/redux';
@@ -24,6 +25,7 @@ function RegisterModal() {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [t] = useTranslation();
 
   const handleRegister = (event: any, mail:string, pass:string) => {
     event.preventDefault();
@@ -176,7 +178,7 @@ function RegisterModal() {
           type="submit"
           disabled={isEmail || isPasswordValid || confirmPasswordValid}
         >
-          Submit
+          {t('button.sign_up')}
         </Button>
       </Form>
     </div>

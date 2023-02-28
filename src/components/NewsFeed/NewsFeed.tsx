@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { deleteDoc, doc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { db } from '../../firebase';
 import { useAppSelector } from '../../hooks/redux';
 import {
@@ -11,11 +12,12 @@ import Loading from '../Loading/Loading';
 import Post from '../Post/Post';
 import { IFeedPost, IUser } from '../types';
 
+// eslint-disable-next-line react/no-unused-prop-types
 function NewsFeed(props: { users: Array<IUser>, isMyPage: boolean, isGlobal: boolean }) {
   const { users, isMyPage } = props;
   const { id } = useAppSelector((state) => state.userAuth);
   const { data: userData } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
-
+  const [t] = useTranslation();
   const allPosts = users.map((user) => useFirestoreCollection(`users/${user.userId}/posts`)) as {
     status: 'error' | 'success' | 'loading';
     data: IFeedPost[] | undefined;
@@ -86,7 +88,7 @@ function NewsFeed(props: { users: Array<IUser>, isMyPage: boolean, isGlobal: boo
                 />
               </Form.Group>
               <Button variant="primary" type="submit">
-                Post
+                {t('button.post')}
               </Button>
             </Form>
           )}
