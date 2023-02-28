@@ -65,8 +65,11 @@ function UpDateUserModal({ setActive }: any) {
     <div>
       <div id="update-modal" className="register register-active">
         <Form>
-          <InputGroup className="mb-3">
-            <Form.Label className="fs-4">{t('validation.first-name')}</Form.Label>
+          <Form.Group>
+            <Form.Label className="fs-5">
+              {t('validation.first-name')}
+
+            </Form.Label>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -74,9 +77,10 @@ function UpDateUserModal({ setActive }: any) {
               onChange={(event) => setFirstName(event.target.value)}
               id="firstName"
             />
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <Form.Label className="fs-4">{t('validation.last-name')}</Form.Label>
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label className="fs-5">{t('validation.last-name')}</Form.Label>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -84,9 +88,9 @@ function UpDateUserModal({ setActive }: any) {
               onChange={(event) => setLastName(event.target.value)}
               id="lastName"
             />
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <Form.Label className="fs-4">{t('validation.location')}</Form.Label>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label className="fs-5">{t('validation.location')}</Form.Label>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -94,9 +98,9 @@ function UpDateUserModal({ setActive }: any) {
               onChange={(event) => setLocation(event.target.value)}
               id="location"
             />
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <Form.Label className="fs-4">{t('validation.country')}</Form.Label>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label className="fs-5">{t('validation.country')}</Form.Label>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -104,9 +108,9 @@ function UpDateUserModal({ setActive }: any) {
               onChange={(event) => setCountry(event.target.value)}
               id="country"
             />
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <Form.Label className="fs-4">{t('validation.city')}</Form.Label>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label className="fs-5">{t('validation.city')}</Form.Label>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -124,9 +128,7 @@ function UpDateUserModal({ setActive }: any) {
               type="checkbox"
               id="checkbox1"
               onChange={() => setLikeCats(!likeCats)}
-
             />
-
           </InputGroup>
           <Form.Group>
             <Form.Check
@@ -138,8 +140,9 @@ function UpDateUserModal({ setActive }: any) {
               id="checkbox2"
               onChange={() => setLikeDogs(!likeDogs)}
             />
-          </InputGroup>
-          <InputGroup className="mb-3">
+          </Form.Group>
+          {' '}
+          <Form.Group>
             <Form.Label className="fs-4">{t('validation.film')}</Form.Label>
             <Form.Control
               aria-label="Default"
