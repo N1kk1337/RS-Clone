@@ -9,8 +9,10 @@ import { getUserData } from '../../utils/utils';
 import { useAppSelector } from '../../hooks/redux';
 import { IUser } from '../../components/types';
 import Loading from '../../components/Loading/Loading';
+import { useTranslation } from 'react-i18next';
 
 function UserPage() {
+  const [t] = useTranslation();
   const { id } = useAppSelector((state) => state.userAuth);
   const navigate = useNavigate();
 
@@ -19,8 +21,8 @@ function UserPage() {
   if (id === null) {
     return (
       <div>
-        <h2>You need to log in to view this page</h2>
-        <Button onClick={() => navigate('/')}>Back to main page</Button>
+        <h2>{t('error.user-page')}</h2>
+        <Button onClick={() => navigate('/')}>{t('button.back')}</Button>
       </div>
     );
   }

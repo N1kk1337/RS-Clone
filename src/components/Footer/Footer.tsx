@@ -1,15 +1,17 @@
 import React from 'react';
 import './style.scss';
 import rsslogo from '../../assets/rs_school_js.svg';
+import { useTranslation } from 'react-i18next';
 
 function Footer(): JSX.Element {
+  const [t] = useTranslation();
   return (
     <div className="footer" data-testid="footer">
       <div className="github">
-        Site by:
-        <a href="https://github.com/n1kk1337">Nikita</a>
-        <a href="https://github.com/baxromxoja16">Baxrom</a>
-        <a href="https://github.com/KarinaBertosh">Karina</a>
+        {t('info.site-by')}
+        <a href="https://github.com/n1kk1337">{t('info.nikita')}</a>
+        <a href="https://github.com/baxromxoja16">{t('info.baxrom')}</a>
+        <a href="https://github.com/KarinaBertosh">{t('info.karina')}</a>
       </div>
 
       <div className="footer__logo-container">

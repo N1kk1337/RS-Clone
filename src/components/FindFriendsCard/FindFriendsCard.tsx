@@ -34,7 +34,6 @@ export default function FindFriendsCard({ user }: Props) {
     refetch();
   };
 
-  // todo переход в личный чат
   const onStartChatClick = () => { };
 
   return (

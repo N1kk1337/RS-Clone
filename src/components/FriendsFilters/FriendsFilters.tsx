@@ -36,7 +36,7 @@ export default function FriendsFilter() {
         <Form.Group className="mb-3" controlId="formFirstName">
           <Form.Control
             type="text"
-            placeholder="Name"
+            placeholder={`${t('validation.first-name')}`}
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
@@ -44,7 +44,7 @@ export default function FriendsFilter() {
         <Form.Group className="mb-3" controlId="formLastName">
           <Form.Control
             type="text"
-            placeholder="Surname"
+            placeholder={`${t('validation.last-name')}`}
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
@@ -53,7 +53,7 @@ export default function FriendsFilter() {
         <Form.Group className="mb-3" controlId="formCity">
           <Form.Control
             type="text"
-            placeholder="City"
+            placeholder={`${t('validation.city')}`}
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
@@ -62,7 +62,7 @@ export default function FriendsFilter() {
         <Form.Group className="mb-3" controlId="formCats">
           <Form.Check
             type="checkbox"
-            label="Like cats?"
+            label={`${t('validation.cat')}?`}
             checked={likeCats}
             onChange={(e) => setLikeCats(e.target.checked)}
           />
@@ -70,7 +70,7 @@ export default function FriendsFilter() {
         <Form.Group className="mb-3" controlId="formDogs">
           <Form.Check
             type="checkbox"
-            label="Like dogs?"
+            label={`${t('validation.dog')}?`}
             checked={likeDogs}
             onChange={(e) => setLikeDogs(e.target.checked)}
           />
@@ -79,7 +79,7 @@ export default function FriendsFilter() {
         <Form.Group className="mb-3" controlId="formFilms">
           <Form.Control
             type="text"
-            placeholder="Films"
+            placeholder={`${t('validation.film')}`}
             value={favoriteFilm}
             onChange={(e) => setFavoriteFilm(e.target.value)}
           />

@@ -56,26 +56,26 @@ function LoginModal() {
 
   return (
     <div id="login" className="login login-active">
-      <h2 className="text-center">Sign in</h2>
+      <h2 className="text-center">{t('button.sign_in')}</h2>
       <Form onSubmit={(e) => handleLogin(e, email, password)}>
         <Form.Group className="mb-3">
-          <Form.Label className="fs-4">Email address</Form.Label>
+          <Form.Label className="fs-4">{t('validation.email')}</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder={`${t('validation.email')}`}
             onChange={(e) => inputChangeHandler(e)}
             id="email"
             value={email}
             required
           />
-          {isEmail ? <p className="error">Email is not valid</p> : ''}
+          {isEmail ? <p className="error">{t('validation.email-error')}</p> : ''}
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label className="fs-4">Password</Form.Label>
+          <Form.Label className="fs-4">{t('validation.password')}</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder={`${t('validation.password')}`}
             onChange={(e) => inputChangeHandler(e)}
             id="password"
             value={password}

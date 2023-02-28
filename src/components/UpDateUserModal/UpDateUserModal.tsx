@@ -68,7 +68,7 @@ function UpDateUserModal({ active, setActive }: any) {
       <div id="update-modal" className="register register-active">
         <Form>
           <InputGroup className="mb-3">
-            <Form.Label className="fs-4">First name</Form.Label>
+            <Form.Label className="fs-4">{t('validation.first-name')}</Form.Label>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -78,7 +78,7 @@ function UpDateUserModal({ active, setActive }: any) {
             />
           </InputGroup>
           <InputGroup className="mb-3">
-            <Form.Label className="fs-4">Last name</Form.Label>
+            <Form.Label className="fs-4">{t('validation.last-name')}</Form.Label>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -88,7 +88,7 @@ function UpDateUserModal({ active, setActive }: any) {
             />
           </InputGroup>
           <InputGroup className="mb-3">
-            <Form.Label className="fs-4">Location</Form.Label>
+            <Form.Label className="fs-4">{t('validation.location')}</Form.Label>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -98,7 +98,7 @@ function UpDateUserModal({ active, setActive }: any) {
             />
           </InputGroup>
           <InputGroup className="mb-3">
-            <Form.Label className="fs-4">Country</Form.Label>
+            <Form.Label className="fs-4">{t('validation.country')}</Form.Label>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -108,7 +108,7 @@ function UpDateUserModal({ active, setActive }: any) {
             />
           </InputGroup>
           <InputGroup className="mb-3">
-            <Form.Label className="fs-4">City</Form.Label>
+            <Form.Label className="fs-4">{t('validation.city')}</Form.Label>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -121,7 +121,7 @@ function UpDateUserModal({ active, setActive }: any) {
             <Form.Check
               reverse
               inline
-              label="Like cats"
+              label={`${t('validation.cat')}`}
               name="group1"
               type="checkbox"
               id="checkbox1"
@@ -134,7 +134,7 @@ function UpDateUserModal({ active, setActive }: any) {
             <Form.Check
               reverse
               inline
-              label="Like dogs"
+              label={`${t('validation.dog')}`}
               name="group1"
               type="checkbox"
               id="checkbox2"
@@ -142,7 +142,7 @@ function UpDateUserModal({ active, setActive }: any) {
             />
           </InputGroup>
           <InputGroup className="mb-3">
-            <Form.Label className="fs-4">Favorite film</Form.Label>
+            <Form.Label className="fs-4">{t('validation.film')}</Form.Label>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"

@@ -90,26 +90,26 @@ function RegisterModal() {
 
   return (
     <div id="register" className="register register-active">
-      <h2 className="text-center">Sign up</h2>
+      <h2 className="text-center">{t('button.sign_up')}</h2>
       <Form onSubmit={(e) => handleRegister(e, email, password)}>
         <Form.Group className="mb-3">
-          <Form.Label className="fs-4">Email address</Form.Label>
+          <Form.Label className="fs-4">{t('validation.email')}</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder={`${t('validation.email')}`}
             onChange={(e) => handleInputChange(e)}
             id="email"
             value={email}
             required
           />
-          {isEmail ? <p className="error">Email is not valid</p> : ''}
+          {isEmail ? <p className="error">{t('validation.email-error')}</p> : ''}
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label className="fs-4">Password</Form.Label>
+          <Form.Label className="fs-4">{t('validation.password')}</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder={`${t('validation.password')}`}
             onChange={(e) => handleInputChange(e)}
             id="password"
             value={password}
@@ -119,55 +119,54 @@ function RegisterModal() {
             ''
           ) : (
             <p className="error">
-              Please use min 7 letter password, symbol, lower case letters and a
-              number
+              {t('validation.password-error')}
             </p>
           )}
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label className="fs-4">Repeat your password</Form.Label>
+          <Form.Label className="fs-4">{t('validation.password-repeat')}</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder={`${t('validation.password-repeat')}`}
             onChange={(e) => handleInputChange(e)}
             id="confirmPassword"
             value={confirmPassword}
             required
           />
           {confirmPasswordValid ? (
-            <p className="error">Please add correct password</p>
+            <p className="error">{t('validation.password-error')}</p>
           ) : (
             ''
           )}
         </Form.Group>
         <InputGroup className="mb-3">
-          <Form.Label className="fs-4">First name</Form.Label>
+          <Form.Label className="fs-4">{t('validation.first-name')}</Form.Label>
           <Form.Control
             aria-label="Default"
             aria-describedby="inputGroup-sizing-default"
-            placeholder="First name"
+            placeholder={`${t('validation.first-name')}`}
             value={firstName}
             onChange={(e) => handleInputChange(e)}
             id="firstName"
           />
         </InputGroup>
         <InputGroup className="mb-3">
-          <Form.Label className="fs-4">Last name</Form.Label>
+          <Form.Label className="fs-4">{t('validation.last-name')}</Form.Label>
           <Form.Control
             aria-label="Default"
             aria-describedby="inputGroup-sizing-default"
-            placeholder="Last name"
+            placeholder={`${t('validation.last-name')}`}
             value={lastName}
             onChange={(e) => handleInputChange(e)}
             id="lastName"
           />
         </InputGroup>
         <InputGroup className="mb-3">
-          <Form.Label className="fs-4">Nick name</Form.Label>
+          <Form.Label className="fs-4">{t('validation.nick-name')}</Form.Label>
           <Form.Control
             aria-label="Default"
             aria-describedby="inputGroup-sizing-default"
-            placeholder="Nick name"
+            placeholder={`${t('validation.nick-name')}`}
             value={nickName}
             onChange={(e) => handleInputChange(e)}
             id="nickName"

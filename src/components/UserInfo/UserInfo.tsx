@@ -37,49 +37,49 @@ function UserInfo(): JSX.Element {
       {modalActive
         && <UpDateUserModal active={modalActive} setActive={setModalActive} />}
       {
-      !(currentUser && status === 'success')
-        ? <Loading />
-        : (
-          <ListGroup>
-            <img className="avatar" src={currentUser.avatarImg === '' ? placeholderAvatar : currentUser.avatarImg} alt="avatar" />
-            <ListGroup.Item variant="secondary">
-              First name and Last name:&nbsp;
-              {currentUser.firstName}
-              &nbsp;
-              {currentUser.lastName}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Location:&nbsp;
-              {currentUser.location}
-            </ListGroup.Item>
-            <ListGroup.Item variant="secondary">
-              Country:&nbsp;
-              {currentUser.country}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              City:&nbsp;
-              {currentUser.city}
-            </ListGroup.Item>
-            <ListGroup.Item variant="secondary">
+        !(currentUser && status === 'success')
+          ? <Loading />
+          : (
+            <ListGroup>
+              <img className="avatar" src={currentUser.avatarImg === '' ? placeholderAvatar : currentUser.avatarImg} alt="avatar" />
+              <ListGroup.Item variant="secondary">
+                {t('validation.full-name')}&nbsp;
+                {currentUser.firstName}
+                &nbsp;
+                {currentUser.lastName}
+              </ListGroup.Item>
+              <ListGroup.Item>
+              {t('validation.location')}:&nbsp;
+                {currentUser.location}
+              </ListGroup.Item>
+              <ListGroup.Item variant="secondary">
+              {t('validation.country')}:&nbsp;
+                {currentUser.country}
+              </ListGroup.Item>
+              <ListGroup.Item>
+              {t('validation.city')}:&nbsp;
+                {currentUser.city}
+              </ListGroup.Item>
+              <ListGroup.Item variant="secondary">
 
-              Like cats:
+              {t('validation.cat')}:
 
-              {currentUser.likeCats === true ? 'yes' : 'no'}
-            </ListGroup.Item>
-            <ListGroup.Item>
+                {currentUser.likeCats === true ? `${t('yes')}` : `${t('no')}`}
+              </ListGroup.Item>
+              <ListGroup.Item>
 
-              Like dogs:
+              {t('validation.dog')}:
 
-              {currentUser.likeDogs === true ? 'yes' : 'no'}
+                {currentUser.likeDogs === true ? `${t('yes')}` : `${t('no')}`}
 
-            </ListGroup.Item>
-            <ListGroup.Item variant="secondary">
-              Favorite film:&nbsp;
-              {currentUser.favoriteFilm}
-            </ListGroup.Item>
-          </ListGroup>
+              </ListGroup.Item>
+              <ListGroup.Item variant="secondary">
+              {t('validation.film')}:&nbsp;
+                {currentUser.favoriteFilm}
+              </ListGroup.Item>
+            </ListGroup>
 
-        )
+          )
       }
     </div>
   );
