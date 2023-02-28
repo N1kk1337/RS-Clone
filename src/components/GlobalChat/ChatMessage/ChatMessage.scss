@@ -1,26 +1,58 @@
 p {
   margin: 0;
 }
-.user-send,
-.user-recieved {
+.flex {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
   gap: 10px;
+}
+.user-send,
+.user-recieved {
+  border-radius: 5px;
+  padding: 0 5px;
+
+  .user-message{
+    border-radius: 7px;
+    padding: 2px 6px;
+    background: #d7d7d7;
+  }
+
+  .user-name{
+    font-size: 20px;
+    color: rgb(51,144,236);
+  }
+
+  .text-message {
+    font-size: 20px;
+  }
 }
 .user-recieved {
   flex-direction: row-reverse;
   justify-content: flex-end;
-  margin-bottom: 30px;
 }
 .user-send {
   justify-content: flex-end;
-  .user-info {
+  .user-message {
     text-align: right;
   }
 }
 .avatar-user {
   width: 40px;
   border-radius: 50%;
+}
+
+.light-bg {
+  background: #d7d7d7;
+}
+.light-color{
+  color: #1f1f1f;
+}
+.dark-bg {
+  background: #353535 !important;
+}
+.dark-color{
+  color: #fff;
 }
 
 @media only screen and (min-width: 485px) and (max-width: 770px) {

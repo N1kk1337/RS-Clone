@@ -2,11 +2,23 @@
   display: flex;
   flex-direction: column-reverse;
 }
+.chat-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .h1 {
+    color: #0069d9;
+    margin: 0;
+  }
+}
 .chat {
   width: 100%;
 
   .chat-texts {
-    background-color: #b0c4de;
+    background: url("../../assets/wallpaper.jpg");
+    background-size: cover;
     padding: 10px;
     height: 500px;
     overflow: auto;
