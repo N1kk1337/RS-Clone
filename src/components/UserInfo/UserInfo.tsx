@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import { Button, ListGroup } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -40,43 +40,45 @@ function UserInfo(): JSX.Element {
       !(currentUser && status === 'success')
         ? <Loading />
         : (
-          <div className="user">
+          <ListGroup>
             <img className="avatar" src={currentUser.avatarImg === '' ? placeholderAvatar : currentUser.avatarImg} alt="avatar" />
-            <div>
+            <ListGroup.Item variant="secondary">
               First name and Last name:&nbsp;
               {currentUser.firstName}
               &nbsp;
               {currentUser.lastName}
-            </div>
-            <div>
+            </ListGroup.Item>
+            <ListGroup.Item>
               Location:&nbsp;
               {currentUser.location}
-            </div>
-            <div>
+            </ListGroup.Item>
+            <ListGroup.Item variant="secondary">
               Country:&nbsp;
               {currentUser.country}
-            </div>
-            <div>
+            </ListGroup.Item>
+            <ListGroup.Item>
               City:&nbsp;
               {currentUser.city}
-            </div>
-            <div>
-              <mark>
-                Like cats:
-              </mark>
+            </ListGroup.Item>
+            <ListGroup.Item variant="secondary">
+
+              Like cats:
+
               {currentUser.likeCats === true ? 'yes' : 'no'}
-            </div>
-            <div>
-              <mark>
-                Like dogs:
-              </mark>
+            </ListGroup.Item>
+            <ListGroup.Item>
+
+              Like dogs:
+
               {currentUser.likeDogs === true ? 'yes' : 'no'}
-            </div>
-            <div>
+
+            </ListGroup.Item>
+            <ListGroup.Item variant="secondary">
               Favorite film:&nbsp;
               {currentUser.favoriteFilm}
-            </div>
-          </div>
+            </ListGroup.Item>
+          </ListGroup>
+
         )
       }
     </div>
