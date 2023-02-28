@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Button, ListGroup } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -35,7 +36,16 @@ function UserInfo(): JSX.Element {
         <Button variant="danger" onClick={() => handleExit()}>{t('button.exit')}</Button>
       </div>
       {modalActive
-        && <UpDateUserModal active={modalActive} setActive={setModalActive} />}
+        && (
+        <div>
+          <div
+            className="overlay"
+            onKeyDown={() => setModalActive(!modalActive)}
+            onClick={() => setModalActive(!modalActive)}
+          />
+          <UpDateUserModal setActive={setModalActive} />
+        </div>
+        )}
       {
       !(currentUser && status === 'success')
         ? <Loading />

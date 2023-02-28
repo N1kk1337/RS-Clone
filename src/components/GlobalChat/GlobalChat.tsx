@@ -5,17 +5,24 @@ import React, {
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import {
-  collection, orderBy, limit, query, serverTimestamp, addDoc,
+  collection,
+  orderBy,
+  query,
+  serverTimestamp,
+  addDoc,
 } from 'firebase/firestore';
 import { db, auth } from '../../firebase';
 import ChatMessage from './ChatMessage/ChatMessage';
 import './GlobalChat.scss';
 import { AuthContext } from '../../hooks/AuthContextProvider';
+import dark from '../../assets/dark.jpg';
+import light from '../../assets/wallpaper.jpg';
 
 function GlobalChat() {
+  const [nightMode, setNightMode] = useState(false);
   const [user] = useAuthState(auth);
   const messageRef = collection(db, 'messages');
-  const queryRef = query(messageRef, orderBy('createdAt', 'desc'), limit(20));
+  const queryRef = query(messageRef, orderBy('createdAt', 'desc'));
   const [messages] = useCollection(queryRef);
 
   const [formValue, setFormValue] = useState('');
@@ -45,21 +52,32 @@ function GlobalChat() {
 
   return (
     <div className="message-place">
-      <h1 style={{ color: '#0069d9' }}>Global Chat</h1>
+      <div className="chat-title">
+        <h1 className="h1">Global Chat</h1>
+        <button
+          type="button"
+          onClick={() => setNightMode(!nightMode)}
+          className={`btn btn-${nightMode ? 'light' : 'secondary'}`}
+        >
+          {nightMode ? 'Light' : 'Dark'}
+        </button>
+      </div>
       <div className="chat d-block">
-        <div className="chat-texts">
+        <div
+          className="chat-texts"
+          style={{ background: `url(${nightMode ? dark : light})` }}
+        >
           <div className="messages">
             <div ref={scrollTo} />
-            {
-              messages && messages.docs.map((msg: { id: string; data: () => void; }) => (
+            {messages
+              && messages.docs.map((msg: { id: string; data: () => void }) => (
                 <ChatMessage
                   key={msg.id}
                   message={msg.data() as any}
+                  mode={nightMode}
                 />
-              ))
-            }
+              ))}
           </div>
-
         </div>
         <form className="form">
           <input
