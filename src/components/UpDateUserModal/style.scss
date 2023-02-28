@@ -1,18 +1,10 @@
-.modal {
-  display: none;
-}
-
-.modal.active {
-  display: flex;
-}
-
 .register {
   width: 400px;
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -60%) scale(0);
-  background: wheat;
+  transform: translate(-50%, -50%) scale(0);
+  background: #d5d6d2;
   padding: 20px;
   border-radius: 20px;
   opacity: 0;
@@ -21,7 +13,7 @@
 
 .register-active {
   opacity: 1;
-  transform: translate(-50%, -60%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 .error {
   color: red;
