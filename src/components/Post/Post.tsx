@@ -1,7 +1,5 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-// import { AiOutlineLike } from 'react-icons/ai';
-import avatar from '../../assets/camera_50.png';
 import Loading from '../Loading/Loading';
 import { IFeedPost } from '../types';
 import './Post.scss';
@@ -14,7 +12,6 @@ type Props = {
 
 function Post(props: Props) {
   const { post, handleDelete } = props;
-  // src={avatarImg===''? placeholderAvatar : avatarImg}
 
   return (
     !post
@@ -24,7 +21,7 @@ function Post(props: Props) {
           <div className="post-header">
             <div className="user-info">
               <div className="avatar">
-                <img src={!post.avatarImg ? avatar : post.avatarImg} alt="png" />
+                <img src={post.avatarImg === '' ? placeholderAvatar : post.avatarImg} alt="png" />
               </div>
               <div className="post-info">
                 <h4 className="post-author">

@@ -1,0 +1,16 @@
+@import '../../general.scss';
+
+.no-friends{
+
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    justify-content: center;
+    align-items: center;
+    height:100%
+}
+
+.no-friends__card{
+    background-color: $light-gray;
+
+}

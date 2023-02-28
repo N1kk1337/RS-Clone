@@ -20,8 +20,7 @@ function UpDateUserModal({ active, setActive }: any) {
 
   const { id } = useAppSelector((state) => state.userAuth);
   const {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    status, error, data: user, refetch,
+    status, data: user, refetch,
   } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
 
   useEffect(() => {
@@ -60,21 +59,6 @@ function UpDateUserModal({ active, setActive }: any) {
       refetch();
     }
   };
-
-  // const upDateUser = async () => {
-  //   await dispatch(fetchUpDateUser(newUser));
-
-  //   setActive(false);
-
-  //   try {
-  //     const response = await fetch(`${baseUrl}/1`, {
-  //       method: 'GET',
-  //     }).then((data) => data.json());
-  //     dispatch(updateFirstUser(response));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   return (
     <div

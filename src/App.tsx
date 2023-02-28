@@ -13,12 +13,12 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import GlobalFeedPage from './pages/GlobalFeedPage/GlobalFeedPage';
 import FindFriendsPage from './pages/FindFriendsPage/FindFriendsPage';
 import GlobalChat from './components/GlobalChat/GlobalChat';
-
-export const emptyPath = '/';
-export const userPage = '/user-page';
-export const findFriendsPage = '/search';
-export const globalFeedPage = '/feed';
-export const globalChat = '/globalchat';
+import FriendsListPage from './pages/FriendsListPage/FriendsListPage';
+import {
+  emptyPathLink,
+  findFriendsPageLink,
+  friendsPageLink, globalChatLink, globalFeedPageLink, userPageLink,
+} from './utils/routes';
 
 function App() {
   return (
@@ -27,11 +27,12 @@ function App() {
       <Container className="content">
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
-          <Route path={emptyPath} element={<LandingPage />} />
-          <Route path={findFriendsPage} element={<FindFriendsPage />} />
-          <Route path={globalFeedPage} element={<GlobalFeedPage />} />
-          <Route path={globalChat} element={<GlobalChat />} />
-          <Route path={userPage} element={<UserPage />} />
+          <Route path={emptyPathLink} element={<LandingPage />} />
+          <Route path={friendsPageLink} element={<FriendsListPage />} />
+          <Route path={findFriendsPageLink} element={<FindFriendsPage />} />
+          <Route path={globalFeedPageLink} element={<GlobalFeedPage />} />
+          <Route path={globalChatLink} element={<GlobalChat />} />
+          <Route path={userPageLink} element={<UserPage />} />
         </Routes>
       </Container>
       <Footer />

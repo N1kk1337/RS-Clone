@@ -1,0 +1,19 @@
+{
+    "button":{
+        "delete_friend":"Delete Friend",
+        "add_friend":"Add Friend",
+        "start_chat":"Start Chat",
+        "find":"Find",
+        "myPage":"My Profile",
+        "friendsList":"Friends List",
+        "findFriends":"Find Friends",
+        "news":"News",
+        "globalChat":"Global Chat",
+        "signIn":"Sign In",
+        "post":"Post",
+        "delete":"Delete",
+        "signUp":"Sign Up",
+        "editProfile":"Edit profile",
+        "update":"Update"
+    }
+}

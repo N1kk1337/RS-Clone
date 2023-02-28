@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../../hooks/redux';
 import { addFriend, deleteFriend, getUserData } from '../../utils/utils';
 import Loading from '../Loading/Loading';
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function FindFriendsCard({ user }: Props) {
+  const [t] = useTranslation();
   const {
     firstName, lastName, nickName, city, country, avatarImg,
   } = user;
@@ -40,7 +42,7 @@ export default function FindFriendsCard({ user }: Props) {
       ? <Loading />
       : (
         <Card className="mt-3 mb-3 mx-auto user-search-card">
-          <Card.Img variant="top" src={avatarImg} />
+          <Card.Img className="search-card-img" variant="top" src={avatarImg === '' ? placeholderAvatar : avatarImg} />
           <Card.Body>
             <Card.Title>
               {firstName}
@@ -55,10 +57,10 @@ export default function FindFriendsCard({ user }: Props) {
               {city}
             </Card.Text>
             <Card.Footer className="user-search-card__footer">
-              {currentUser?.friends?.find(() => user.userId)
-                ? <Button variant="warning" onClick={() => onDeleteClick()}>Delete Friend</Button>
-                : <Button variant="success" onClick={() => onAddClick()}>Add Friend</Button>}
-              <Button variant="primary" onClick={() => onStartChatClick()}>Start Chat</Button>
+              {currentUser?.friends?.includes(user.userId)
+                ? <Button variant="warning" onClick={() => onDeleteClick()}>{t('button.delete_friend')}</Button>
+                : <Button variant="success" onClick={() => onAddClick()}>{t('button.add_friend')}</Button>}
+              <Button variant="primary" onClick={() => onStartChatClick()}>{t('button.start_chat')}</Button>
             </Card.Footer>
           </Card.Body>
         </Card>
