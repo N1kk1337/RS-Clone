@@ -18,11 +18,15 @@ function UserInfo(): JSX.Element {
   const {
     status, data: currentUser,
   } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
-  const [modalActive, setModalActive] = useState<boolean>(false);
+  const [modalActive, setModalActive] = useState(false);
 
   const [t] = useTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const toggleModal = () => {
+    setModalActive(!modalActive);
+  };
 
   const handleExit = () => {
     dispatch(removeUser());
@@ -37,14 +41,10 @@ function UserInfo(): JSX.Element {
       </div>
       {modalActive
         && (
-        <div>
-          <div
-            className="overlay"
-            onKeyDown={() => setModalActive(!modalActive)}
-            onClick={() => setModalActive(!modalActive)}
+          <UpDateUserModal
+            onHide={toggleModal}
+            show={modalActive}
           />
-          <UpDateUserModal setActive={setModalActive} />
-        </div>
         )}
       {
         !(currentUser && status === 'success')
@@ -53,38 +53,45 @@ function UserInfo(): JSX.Element {
             <ListGroup>
               <img className="avatar" src={currentUser.avatarImg === '' ? placeholderAvatar : currentUser.avatarImg} alt="avatar" />
               <ListGroup.Item variant="secondary">
-                {t('validation.full-name')}&nbsp;
+                {t('validation.full-name')}
+&nbsp;
                 {currentUser.firstName}
                 &nbsp;
                 {currentUser.lastName}
               </ListGroup.Item>
               <ListGroup.Item>
-              {t('validation.location')}:&nbsp;
+                {t('validation.location')}
+                :&nbsp;
                 {currentUser.location}
               </ListGroup.Item>
               <ListGroup.Item variant="secondary">
-              {t('validation.country')}:&nbsp;
+                {t('validation.country')}
+                :&nbsp;
                 {currentUser.country}
               </ListGroup.Item>
               <ListGroup.Item>
-              {t('validation.city')}:&nbsp;
+                {t('validation.city')}
+                :&nbsp;
                 {currentUser.city}
               </ListGroup.Item>
               <ListGroup.Item variant="secondary">
 
-              {t('validation.cat')}:
+                {t('validation.cat')}
+                :
 
                 {currentUser.likeCats === true ? `${t('yes')}` : `${t('no')}`}
               </ListGroup.Item>
               <ListGroup.Item>
 
-              {t('validation.dog')}:
+                {t('validation.dog')}
+                :
 
                 {currentUser.likeDogs === true ? `${t('yes')}` : `${t('no')}`}
 
               </ListGroup.Item>
               <ListGroup.Item variant="secondary">
-              {t('validation.film')}:&nbsp;
+                {t('validation.film')}
+                :&nbsp;
                 {currentUser.favoriteFilm}
               </ListGroup.Item>
             </ListGroup>

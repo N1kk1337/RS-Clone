@@ -7,7 +7,6 @@ import {
 } from '@tanstack/react-query';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import { store, persistor } from './components/store/store';
@@ -26,7 +25,6 @@ root.render(
         <PersistGate loading={null} persistor={persistor}>
           <HashRouter>
             <App />
-            <ReactQueryDevtools />
           </HashRouter>
         </PersistGate>
       </Provider>

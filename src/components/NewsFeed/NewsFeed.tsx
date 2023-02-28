@@ -79,7 +79,7 @@ function NewsFeed(props: { users: Array<IUser>, isMyPage: boolean, isGlobal: boo
               </Button>
             </Form>
           )}
-      {allPosts[0].status === 'success' ? allPosts.map((postPerUser) => (
+      {allPosts[0].status === 'success' && allPosts ? allPosts.map((postPerUser) => (
         postPerUser.data!.map(
           (post) => <Post isMine key={post.id} handleDelete={handleDelete} post={post} />,
         )

@@ -1,7 +1,8 @@
 import React from 'react';
 import './style.scss';
-import rsslogo from '../../assets/rs_school_js.svg';
 import { useTranslation } from 'react-i18next';
+
+import rsslogo from '../../assets/rs_school_js.svg';
 
 function Footer(): JSX.Element {
   const [t] = useTranslation();

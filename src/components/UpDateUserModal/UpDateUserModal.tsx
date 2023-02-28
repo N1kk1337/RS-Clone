@@ -1,13 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import {
+  Button, Form, InputGroup, Modal,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../../hooks/redux';
 import { getUserData, writeUserData } from '../../utils/utils';
 import { IUser } from '../types';
 import './style.scss';
 
-function UpDateUserModal({ setActive }: any) {
+type Props = {
+  show:boolean;
+  onHide:()=>void;
+};
+
+// eslint-disable-next-line react/prop-types
+function UpDateUserModal({ show, onHide }:Props) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [nickName, setNickName] = useState('');
@@ -42,7 +50,6 @@ function UpDateUserModal({ setActive }: any) {
   }, [user]);
 
   const updateUser = async () => {
-    setActive(false);
     if (user) {
       writeUserData({
         ...user,
@@ -57,19 +64,33 @@ function UpDateUserModal({ setActive }: any) {
         likeDogs,
         favoriteFilm,
       });
+      onHide();
       refetch();
     }
   };
 
   return (
-    <div>
-      <div id="update-modal" className="register register-active">
+    <Modal
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      show={show}
+      id="update-modal"
+      onHide={onHide}
+
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          {t('button.edit_profile')}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
         <Form>
-          <Form.Group>
-            <Form.Label className="fs-5">
+          <InputGroup className="mb-3">
+            <InputGroup.Text className="fs-5">
               {t('validation.first-name')}
 
-            </Form.Label>
+            </InputGroup.Text>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -77,10 +98,10 @@ function UpDateUserModal({ setActive }: any) {
               onChange={(event) => setFirstName(event.target.value)}
               id="firstName"
             />
-          </Form.Group>
+          </InputGroup>
 
-          <Form.Group>
-            <Form.Label className="fs-5">{t('validation.last-name')}</Form.Label>
+          <InputGroup className="mb-3">
+            <InputGroup.Text className="fs-5">{t('validation.last-name')}</InputGroup.Text>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -88,9 +109,9 @@ function UpDateUserModal({ setActive }: any) {
               onChange={(event) => setLastName(event.target.value)}
               id="lastName"
             />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label className="fs-5">{t('validation.location')}</Form.Label>
+          </InputGroup>
+          <InputGroup className="mb-3">
+            <InputGroup.Text className="fs-5">{t('validation.location')}</InputGroup.Text>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -98,9 +119,9 @@ function UpDateUserModal({ setActive }: any) {
               onChange={(event) => setLocation(event.target.value)}
               id="location"
             />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label className="fs-5">{t('validation.country')}</Form.Label>
+          </InputGroup>
+          <InputGroup className="mb-3">
+            <InputGroup.Text className="fs-5">{t('validation.country')}</InputGroup.Text>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -108,9 +129,9 @@ function UpDateUserModal({ setActive }: any) {
               onChange={(event) => setCountry(event.target.value)}
               id="country"
             />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label className="fs-5">{t('validation.city')}</Form.Label>
+          </InputGroup>
+          <InputGroup className="mb-3">
+            <InputGroup.Text className="fs-5">{t('validation.city')}</InputGroup.Text>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -118,32 +139,25 @@ function UpDateUserModal({ setActive }: any) {
               onChange={(event) => setCity(event.target.value)}
               id="city"
             />
-          </Form.Group>
-          <InputGroup>
-            <Form.Check
-              reverse
-              inline
-              label={`${t('validation.cat')}`}
-              name="group1"
-              type="checkbox"
-              id="checkbox1"
+          </InputGroup>
+
+          <InputGroup className="mb-3">
+            <InputGroup.Checkbox
+              aria-label="Default"
               onChange={() => setLikeCats(!likeCats)}
             />
+            <InputGroup.Text>{t('validation.cat')}</InputGroup.Text>
           </InputGroup>
-          <Form.Group>
-            <Form.Check
-              reverse
-              inline
-              label={`${t('validation.dog')}`}
-              name="group1"
-              type="checkbox"
-              id="checkbox2"
+          <InputGroup className="mb-3">
+            <InputGroup.Checkbox
+              aria-label="Default"
               onChange={() => setLikeDogs(!likeDogs)}
             />
-          </Form.Group>
-          {' '}
-          <Form.Group>
-            <Form.Label className="fs-4">{t('validation.film')}</Form.Label>
+            <InputGroup.Text>{t('validation.dog')}</InputGroup.Text>
+
+          </InputGroup>
+          <InputGroup className="mb-3">
+            <InputGroup.Text className="fs-4">{t('validation.film')}</InputGroup.Text>
             <Form.Control
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
@@ -151,13 +165,15 @@ function UpDateUserModal({ setActive }: any) {
               onChange={(event) => setFavoriteFilm(event.target.value)}
               id="favoriteFilm"
             />
-          </Form.Group>
-          <Button variant="primary" type="button" onClick={updateUser}>
-            {t('button.update')}
-          </Button>
+          </InputGroup>
         </Form>
-      </div>
-    </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="primary" type="button" onClick={updateUser}>
+          {t('button.update')}
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 }
 

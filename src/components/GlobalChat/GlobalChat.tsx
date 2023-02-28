@@ -11,12 +11,12 @@ import {
   serverTimestamp,
   addDoc,
 } from 'firebase/firestore';
+import { useTranslation } from 'react-i18next';
+
 import { db, auth } from '../../firebase';
 import ChatMessage from './ChatMessage/ChatMessage';
 import './GlobalChat.scss';
 import { AuthContext } from '../../hooks/AuthContextProvider';
-import { useTranslation } from 'react-i18next';
-
 
 import dark from '../../assets/dark.jpg';
 import light from '../../assets/wallpaper.jpg';
@@ -58,7 +58,7 @@ function GlobalChat() {
   return (
     <div className="message-place">
       <div className="chat-title">
-      <h1 style={{ color: '#0069d9' }}>{t('button.global_chat')}</h1>
+        <h1 style={{ color: '#0069d9' }}>{t('button.global_chat')}</h1>
         <button
           type="button"
           onClick={() => setNightMode(!nightMode)}

@@ -11,7 +11,13 @@ function Toolbar(): JSX.Element {
     <div className="toolbar" data-testid="toolbar">
       <Button type="button" className="btn btn-outline-primary" onClick={() => setModalActive(!modalActive)}>{t('button.update-info')}</Button>
       {modalActive
-        && <UpDateUserModal active={modalActive} setActive={setModalActive} />}
+               && (
+               <UpDateUserModal
+                 onHide={() => setModalActive(false)}
+                 show={modalActive}
+               />
+               )}
+
     </div>
   );
 }

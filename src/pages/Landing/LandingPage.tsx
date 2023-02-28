@@ -28,17 +28,14 @@ function LandingPage() {
     <main>
       {showRegister ? (
         <div>
-          <div className="overlay" onClick={() => setShowRegister(false)} />
-          <RegisterModal />
+          <div className="overlay" />
+          <RegisterModal show={showRegister} onHide={() => setShowRegister(false)} />
         </div>
       ) : (
         ''
       )}
       {showLogin ? (
-        <div>
-          <div className="overlay" onClick={() => setShowLogin(false)} />
-          <LoginModal />
-        </div>
+        <LoginModal show={showLogin} onHide={() => setShowLogin(!showLogin)} />
       ) : (
         ''
       )}

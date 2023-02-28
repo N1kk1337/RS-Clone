@@ -1,7 +1,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import {
+  Button, Form, Modal,
+} from 'react-bootstrap';
 import './register.scss';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
@@ -12,7 +14,12 @@ import { useAppDispatch } from '../../hooks/redux';
 import { auth } from '../../firebase';
 import { writeUserData } from '../../utils/utils';
 
-function RegisterModal() {
+type Props = {
+  show:boolean;
+  onHide:()=>void;
+};
+
+function RegisterModal({ show, onHide }:Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -89,98 +96,116 @@ function RegisterModal() {
   }
 
   return (
-    <div id="register" className="register register-active">
-      <h2 className="text-center">{t('button.sign_up')}</h2>
-      <Form onSubmit={(e) => handleRegister(e, email, password)}>
-        <Form.Group className="mb-3">
-          <Form.Label className="fs-4">{t('validation.email')}</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder={`${t('validation.email')}`}
-            onChange={(e) => handleInputChange(e)}
-            id="email"
-            value={email}
-            required
-          />
-          {isEmail ? <p className="error">{t('validation.email-error')}</p> : ''}
-        </Form.Group>
+    <Modal
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      show={show}
+      id="update-modal"
+      onHide={onHide}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          {t('button.sign_up')}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group className="mb-3">
+            <Form.Label className="fs-4">{t('validation.email')}</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder={`${t('validation.email')}`}
+              onChange={(e) => handleInputChange(e)}
+              id="email"
+              value={email}
+              required
+            />
+            {isEmail ? <p className="error">{t('validation.email-error')}</p> : ''}
+          </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label className="fs-4">{t('validation.password')}</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder={`${t('validation.password')}`}
-            onChange={(e) => handleInputChange(e)}
-            id="password"
-            value={password}
-            required
-          />
-          {!isPasswordValid ? (
-            ''
-          ) : (
-            <p className="error">
-              {t('validation.password-error')}
-            </p>
-          )}
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label className="fs-4">{t('validation.password-repeat')}</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder={`${t('validation.password-repeat')}`}
-            onChange={(e) => handleInputChange(e)}
-            id="confirmPassword"
-            value={confirmPassword}
-            required
-          />
-          {confirmPasswordValid ? (
-            <p className="error">{t('validation.password-error')}</p>
-          ) : (
-            ''
-          )}
-        </Form.Group>
-        <InputGroup className="mb-3">
-          <Form.Label className="fs-4">{t('validation.first-name')}</Form.Label>
-          <Form.Control
-            aria-label="Default"
-            aria-describedby="inputGroup-sizing-default"
-            placeholder={`${t('validation.first-name')}`}
-            value={firstName}
-            onChange={(e) => handleInputChange(e)}
-            id="firstName"
-          />
-        </InputGroup>
-        <InputGroup className="mb-3">
-          <Form.Label className="fs-4">{t('validation.last-name')}</Form.Label>
-          <Form.Control
-            aria-label="Default"
-            aria-describedby="inputGroup-sizing-default"
-            placeholder={`${t('validation.last-name')}`}
-            value={lastName}
-            onChange={(e) => handleInputChange(e)}
-            id="lastName"
-          />
-        </InputGroup>
-        <InputGroup className="mb-3">
-          <Form.Label className="fs-4">{t('validation.nick-name')}</Form.Label>
-          <Form.Control
-            aria-label="Default"
-            aria-describedby="inputGroup-sizing-default"
-            placeholder={`${t('validation.nick-name')}`}
-            value={nickName}
-            onChange={(e) => handleInputChange(e)}
-            id="nickName"
-          />
-        </InputGroup>
+          <Form.Group className="mb-3">
+            <Form.Label className="fs-4">{t('validation.password')}</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder={`${t('validation.password')}`}
+              onChange={(e) => handleInputChange(e)}
+              id="password"
+              value={password}
+              required
+            />
+            {!isPasswordValid ? (
+              ''
+            ) : (
+              <p className="error">
+                {t('validation.password-error')}
+              </p>
+            )}
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label className="fs-4">{t('validation.password-repeat')}</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder={`${t('validation.password-repeat')}`}
+              onChange={(e) => handleInputChange(e)}
+              id="confirmPassword"
+              value={confirmPassword}
+              required
+            />
+            {confirmPasswordValid ? (
+              <p className="error">{t('validation.password-error')}</p>
+            ) : (
+              ''
+            )}
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label className="fs-4">{t('validation.first-name')}</Form.Label>
+            <Form.Control
+              aria-label="Default"
+              aria-describedby="inputGroup-sizing-default"
+              placeholder={`${t('validation.first-name')}`}
+              value={firstName}
+              onChange={(e) => handleInputChange(e)}
+              id="firstName"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label className="fs-4">{t('validation.last-name')}</Form.Label>
+            <Form.Control
+              aria-label="Default"
+              aria-describedby="inputGroup-sizing-default"
+              placeholder={`${t('validation.last-name')}`}
+              value={lastName}
+              onChange={(e) => handleInputChange(e)}
+              id="lastName"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label className="fs-4">{t('validation.nick-name')}</Form.Label>
+            <Form.Control
+              aria-label="Default"
+              aria-describedby="inputGroup-sizing-default"
+              placeholder={`${t('validation.nick-name')}`}
+              value={nickName}
+              onChange={(e) => handleInputChange(e)}
+              id="nickName"
+            />
+          </Form.Group>
+
+        </Form>
+      </Modal.Body>
+
+      <Modal.Footer>
         <Button
+          onClick={(e) => handleRegister(e, email, password)}
           variant="primary"
           type="submit"
           disabled={isEmail || isPasswordValid || confirmPasswordValid}
         >
           {t('button.sign_up')}
         </Button>
-      </Form>
-    </div>
+      </Modal.Footer>
+    </Modal>
   );
 }
 
