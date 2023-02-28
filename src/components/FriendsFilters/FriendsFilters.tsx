@@ -20,17 +20,9 @@ export default function FriendsFilter() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(
-      likeCats,
-      likeDogs,
-      firstName,
-      lastName,
-      favoriteFilm,
-      city,
-    );
     dispatch(setFilterParams({
-      likeCats,
-      likeDogs,
+      cats: likeCats,
+      dogs: likeDogs,
       firstName,
       lastName,
       favoriteFilm,

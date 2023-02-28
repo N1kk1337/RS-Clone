@@ -18,7 +18,7 @@ const paramsSlice = createSlice({
       state.dogs = action.payload.dogs;
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
-      state.favoriteFilm = action.payload.film;
+      state.favoriteFilm = action.payload.favoriteFilm;
       state.city = action.payload.city;
     },
     removeFilterParams(state) {

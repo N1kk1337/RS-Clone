@@ -6,6 +6,7 @@ import FindFriendsCard from '../FindFriendsCard/FindFriendsCard';
 import Loading from '../Loading/Loading';
 import { IUser } from '../types';
 import cryingCat from '../../assets/crying_cat.png';
+import './FindFriendsList.scss';
 
 interface Props {
   users: IUser[]
