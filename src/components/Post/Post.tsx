@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import Loading from '../Loading/Loading';
 import { IFeedPost } from '../types';
 import './Post.scss';
@@ -8,10 +9,12 @@ import placeholderAvatar from '../../assets/user.png';
 type Props = {
   post: IFeedPost;
   handleDelete: (userId: string, postId: string) => Promise<void>;
+  isMine:boolean;
 };
 
 function Post(props: Props) {
-  const { post, handleDelete } = props;
+  const { post, handleDelete, isMine } = props;
+  const [t] = useTranslation();
 
   return (
     !post
@@ -35,7 +38,8 @@ function Post(props: Props) {
           <div className="post-text_place">
             <span>{post.text}</span>
           </div>
-          <Button onClick={() => handleDelete(post.userId, post.id?.toString())}>DELETE</Button>
+          { isMine
+          && <Button onClick={() => handleDelete(post.userId, post.id?.toString())}>{t('button.delete')}</Button>}
         </div>
       )
   );
