@@ -7,7 +7,7 @@ import { getUserData, writeUserData } from '../../utils/utils';
 import { IUser } from '../types';
 import './style.scss';
 
-function UpDateUserModal({ active, setActive }: any) {
+function UpDateUserModal({ setActive }: any) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [nickName, setNickName] = useState('');
@@ -62,9 +62,7 @@ function UpDateUserModal({ active, setActive }: any) {
   };
 
   return (
-    <div
-      className={active ? 'modal active' : 'modal'}
-    >
+    <div>
       <div id="update-modal" className="register register-active">
         <Form>
           <InputGroup className="mb-3">
@@ -116,8 +114,8 @@ function UpDateUserModal({ active, setActive }: any) {
               onChange={(event) => setCity(event.target.value)}
               id="city"
             />
-          </InputGroup>
-          <InputGroup className="mb-3">
+          </Form.Group>
+          <InputGroup>
             <Form.Check
               reverse
               inline
@@ -130,7 +128,7 @@ function UpDateUserModal({ active, setActive }: any) {
             />
 
           </InputGroup>
-          <InputGroup className="mb-3">
+          <Form.Group>
             <Form.Check
               reverse
               inline
@@ -150,7 +148,7 @@ function UpDateUserModal({ active, setActive }: any) {
               onChange={(event) => setFavoriteFilm(event.target.value)}
               id="favoriteFilm"
             />
-          </InputGroup>
+          </Form.Group>
           <Button variant="primary" type="button" onClick={updateUser}>
             {t('button.update')}
           </Button>
