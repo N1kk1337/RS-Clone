@@ -11,7 +11,6 @@ import Loading from '../Loading/Loading';
 import Post from '../Post/Post';
 import { IFeedPost, IUser } from '../types';
 
-// eslint-disable-next-line react/no-unused-prop-types
 function NewsFeed(props: { users: Array<IUser>, isMyPage: boolean, isGlobal: boolean }) {
   const { users, isMyPage } = props;
   const { id } = useAppSelector((state) => state.userAuth);
@@ -65,7 +64,6 @@ function NewsFeed(props: { users: Array<IUser>, isMyPage: boolean, isGlobal: boo
             <Form onSubmit={postSubmitHandler} className="post-form col-12">
               <Form.Group className="mb-3 form-group" controlId="ControlTextarea1">
                 <span className="post-avatar">
-                  {/* here it will be avatar image instead of svg */}
                   <svg
                     height="20"
                     viewBox="0 0 20 20"

@@ -87,7 +87,7 @@ function RegisterModal() {
   }
 
   return (
-    <div className="register register-active">
+    <div id="register" className="register register-active">
       <h2 className="text-center">Sign up</h2>
       <Form onSubmit={(e) => handleRegister(e, email, password)}>
         <Form.Group className="mb-3">

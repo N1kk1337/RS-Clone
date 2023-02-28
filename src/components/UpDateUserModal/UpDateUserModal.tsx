@@ -38,8 +38,6 @@ function UpDateUserModal({ active, setActive }: any) {
     }
   }, [user]);
 
-  // const dispatch = useAppDispatch();
-
   const updateUser = async () => {
     setActive(false);
     if (user) {
@@ -64,7 +62,7 @@ function UpDateUserModal({ active, setActive }: any) {
     <div
       className={active ? 'modal active' : 'modal'}
     >
-      <div className="register register-active">
+      <div id="update-modal" className="register register-active">
         <Form>
           <InputGroup className="mb-3">
             <Form.Label className="fs-4">First name</Form.Label>

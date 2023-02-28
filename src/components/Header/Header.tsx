@@ -11,13 +11,13 @@ function Header(): JSX.Element {
 
   return (
     <div className="header" data-testid="header">
-      <Button type="button" className="btn btn-outline-primary" onClick={() => router('')}>
+      <button type="button" onClick={() => router('')}>
 
         <img
-          src={logo}
+          src={lending}
           alt="logo"
         />
-      </Button>
+      </button>
       <div className="navbar">
         { id !== null && <Button onClick={() => router('/user-page')}>Мой профиль</Button>}
         { id !== null && <Button onClick={() => router('/friends')}>Список друзей</Button>}

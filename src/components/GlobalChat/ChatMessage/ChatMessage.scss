@@ -10,6 +10,7 @@ p {
 .user-recieved {
   flex-direction: row-reverse;
   justify-content: flex-end;
+  margin-bottom: 30px;
 }
 .user-send {
   justify-content: flex-end;
@@ -20,4 +21,18 @@ p {
 .avatar-user {
   width: 40px;
   border-radius: 50%;
+}
+
+@media only screen and (min-width: 485px) and (max-width: 770px) {
+  .avatar-user {
+    width: 30px;
+    border-radius: 50%;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 485px) {
+  .avatar-user {
+    width: 20px;
+    border-radius: 50%;
+  }
 }
