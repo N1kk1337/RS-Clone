@@ -17,9 +17,6 @@ export default function FindFriendsPage() {
 
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
   useEffect(() => {
-    // console.log(status);
-    // console.log(users);
-
     if (users) {
       setFilteredUsers(
         users?.filter((user) => user.likeCats === cats

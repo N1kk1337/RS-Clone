@@ -44,10 +44,10 @@ function LandingPage() {
       )}
 
       <div className="landing-page">
-        <h2 className="main-title">TAILS & PAWS</h2>
+        <h2 className="main-title">{t('project-name')}</h2>
 
         <p className="main-info">
-          This is a social network for those who have pets.
+          {t('description-project')}
         </p>
 
         <div className="landing-btn-container">

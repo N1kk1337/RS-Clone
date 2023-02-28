@@ -69,7 +69,7 @@ function NewsFeed(props: { users: Array<IUser>, isMyPage: boolean, isGlobal: boo
                 <Form.Control
                   value={formValues}
                   as="textarea"
-                  placeholder="Got some news?"
+                  placeholder={`${t('validation.news')}`}
                   style={{ height: '100px' }}
                   onChange={handleNewPostChange}
                 />

@@ -7,16 +7,18 @@ import Loading from '../Loading/Loading';
 import { IUser } from '../types';
 import cryingCat from '../../assets/crying_cat.png';
 import './FindFriendsList.scss';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   users: IUser[]
 }
 
 export default function FindFriendsList({ users }: Props) {
+  const [t] = useTranslation();
   if (users.length === 0) {
     return (
       <Container className="find-friends_no-friends" fluid>
-        <p>No matches 😿</p>
+        <p>{t('error.no-match')}</p>
         <img src={cryingCat} alt="" />
       </Container>
     );

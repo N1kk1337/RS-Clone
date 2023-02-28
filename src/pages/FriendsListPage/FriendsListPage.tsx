@@ -25,7 +25,7 @@ function FriendsListPage() {
     return (
       <Container className="no-friends">
         <Card className="p-5 mx-auto no-friends__card">
-          <h2 className="">You are lonely...</h2>
+          <h2 className="">{t('friend')}</h2>
           <Button onClick={() => navigate(findFriendsPageLink)}>{t('button.go_find')}</Button>
         </Card>
       </Container>

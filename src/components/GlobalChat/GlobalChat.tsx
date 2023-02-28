@@ -15,11 +15,16 @@ import { db, auth } from '../../firebase';
 import ChatMessage from './ChatMessage/ChatMessage';
 import './GlobalChat.scss';
 import { AuthContext } from '../../hooks/AuthContextProvider';
+import { useTranslation } from 'react-i18next';
+
+
 import dark from '../../assets/dark.jpg';
 import light from '../../assets/wallpaper.jpg';
 
 function GlobalChat() {
   const [nightMode, setNightMode] = useState(false);
+  const [t] = useTranslation();
+
   const [user] = useAuthState(auth);
   const messageRef = collection(db, 'messages');
   const queryRef = query(messageRef, orderBy('createdAt', 'desc'));
@@ -53,7 +58,7 @@ function GlobalChat() {
   return (
     <div className="message-place">
       <div className="chat-title">
-        <h1 className="h1">Global Chat</h1>
+      <h1 style={{ color: '#0069d9' }}>{t('button.global_chat')}</h1>
         <button
           type="button"
           onClick={() => setNightMode(!nightMode)}
@@ -62,6 +67,7 @@ function GlobalChat() {
           {nightMode ? 'Light' : 'Dark'}
         </button>
       </div>
+
       <div className="chat d-block">
         <div
           className="chat-texts"
@@ -91,7 +97,7 @@ function GlobalChat() {
             className="btn btn-info"
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => sendMessage(e)}
           >
-            Send
+            {t('button.send')}
           </button>
         </form>
       </div>
