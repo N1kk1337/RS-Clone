@@ -11,6 +11,11 @@ $dark-grey: #2f2e33; // Сине-черный (цвет бордера)
     align-items: center;
 }
 
+.user-page__button-container{
+    display: flex;
+    gap: 15px;
+}
+
 .avatar {
     width: 110px;
     height: 110px;

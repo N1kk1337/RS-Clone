@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Button, Card, Container } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import FindFriendsList from '../../components/FindFriendsList/FindFriendsList';
 import Loading from '../../components/Loading/Loading';
@@ -18,13 +19,14 @@ function FriendsListPage() {
   } = useQuery<IUser | null>(['user', id], () => getUserData(id!));
 
   const navigate = useNavigate();
+  const [t] = useTranslation();
 
   if (currentUser?.friends?.length === 0) {
     return (
       <Container className="no-friends">
         <Card className="p-5 mx-auto no-friends__card">
           <h2 className="">You are lonely...</h2>
-          <Button onClick={() => navigate(findFriendsPageLink)}>Go find some friends!</Button>
+          <Button onClick={() => navigate(findFriendsPageLink)}>{t('button.go_find')}</Button>
         </Card>
       </Container>
     );

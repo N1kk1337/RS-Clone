@@ -1,6 +1,7 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { useAppDispatch } from '../../hooks/redux';
@@ -8,6 +9,8 @@ import { setUser } from '../store/slices/userAuth';
 import './LoginModal.scss';
 
 function LoginModal() {
+  const [t] = useTranslation();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmail, setIsEmail] = useState(false);
@@ -81,7 +84,7 @@ function LoginModal() {
 
         </Form.Group>
         <Button variant="primary" type="submit" disabled={isEmail}>
-          Submit
+          {t('button.sign_in')}
         </Button>
       </Form>
     </div>

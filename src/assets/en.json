@@ -4,16 +4,19 @@
         "add_friend":"Add Friend",
         "start_chat":"Start Chat",
         "find":"Find",
-        "myPage":"My Profile",
-        "friendsList":"Friends List",
-        "findFriends":"Find Friends",
+        "my_page":"My Profile",
+        "friends_list":"Friends List",
+        "find_friends":"Find Friends",
         "news":"News",
-        "globalChat":"Global Chat",
-        "signIn":"Sign In",
+        "global_chat":"Global Chat",
+        "sign_in":"Sign In",
         "post":"Post",
         "delete":"Delete",
-        "signUp":"Sign Up",
-        "editProfile":"Edit profile",
-        "update":"Update"
+        "sign_up":"Sign Up",
+        "edit_profile":"Edit profile",
+        "update":"Update",
+        "go_find":"Lets find some friends!",
+        "exit": "Exit"
+
     }
 }
