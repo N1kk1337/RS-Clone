@@ -2,8 +2,8 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import './NotFoundPage.scss';
 
-import catPic from '../../assets/cat.png';
 import { useTranslation } from 'react-i18next';
+import catPic from '../../assets/cat.png';
 
 function NotFoundPage() {
   const [t] = useTranslation();
