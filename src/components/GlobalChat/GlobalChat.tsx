@@ -56,7 +56,7 @@ function GlobalChat() {
   }, [messages]);
 
   return (
-    <div className="message-place">
+    <div className="message-place"  data-testid="chat">
       <div className="chat-title">
         <h1 style={{ color: '#0069d9' }}>{t('button.global_chat')}</h1>
         <button
