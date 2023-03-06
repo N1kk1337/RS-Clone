@@ -1,0 +1,22 @@
+.find-friends-page {
+  display: grid;
+  grid-template-columns: 250px auto;
+}
+
+@media only screen and (min-width: 485px) and (max-width: 770px) {
+  .find-friends-page {
+    grid-template-columns: 200px auto;
+  }
+  .content {
+    padding: 20px 2px 20px;
+}
+}
+
+@media only screen and (min-width: 320px) and (max-width: 485px) {
+  .find-friends-page {
+    grid-template-columns: 150px auto;
+  }
+  .content {
+    padding: 20px -2px 20px;
+}
+}

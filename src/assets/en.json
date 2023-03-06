@@ -1,0 +1,59 @@
+{
+    "button":{
+        "delete_friend":"Delete Friend",
+        "add_friend":"Add Friend",
+        "start_chat":"Start Chat",
+        "find":"Find",
+        "my_page":"My Profile",
+        "friends_list":"Friends List",
+        "find_friends":"Find Friends",
+        "news":"News",
+        "global_chat":"Global Chat",
+        "sign_in":"Sign In",
+        "post":"Post",
+        "delete":"DELETE",
+        "sign_up":"Sign Up",
+        "edit_profile":"Edit profile",
+        "update":"Update",
+        "go_find":"Lets find some friends!",
+        "exit": "Exit",
+        "send": "Send",
+        "update-info": "Change information about yourself",
+        "back": "Back to main page"
+    },
+    "error":{
+        "no-match": "No matches 😿",
+        "error-page-text": "It's empty! Could it be cats...",
+        "user-page": "You need to log in to view this page"
+    },
+    "info":{
+        "site-by": "Site by:",
+        "nikita": "Nikita",
+        "baxrom": "Baxrom",
+        "karina": "Karina"
+    },
+    "loading": "Loading ...",
+    "validation": {
+        "email": "Email address",
+        "email-error": "Email is not valid",
+        "password": "Password",
+        "password-error": "Please use min 7 letter password, symbol, lower case letters and a number",
+        "password-repeat": "Repeat your password",
+        "first-name": "First name",
+        "last-name": "Last name",
+        "nick-name": "Nick name",
+        "location": "Location",
+        "country": "Country",
+        "city": "City",
+        "cat": "Like cats",
+        "dog": "Like dogs",
+        "film": "Favorite film",
+        "full-name": "First name and Last name: ",
+        "news": "Got some news?"
+    },
+    "yes": "yes",
+    "no": "no",
+    "friend": "No friends on the list",
+    "project-name": "TAILS & PAWS",
+    "description-project": "This is a social network for those who have pets."
+}
